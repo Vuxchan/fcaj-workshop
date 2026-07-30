@@ -28,8 +28,8 @@
 body {
   color: var(--MAIN-TEXT-color) !important;
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-  font-size: 15px;
-  line-height: 1.8;
+  font-size: 16.5px !important;
+  line-height: 1.85 !important;
   background-color: #FFFFFF;
 }
 
@@ -42,17 +42,22 @@ i, .fas, .far, .fab, .fa {
 }
 
 /* ==========================================================================
-   SPACING & TYPOGRAPHY IMPROVEMENTS
+   EXPANDED CONTENT WIDTH & ENHANCED READABILITY FONT SIZES
    ========================================================================== */
+#body .padding {
+  padding: 2.5rem 4rem !important;
+}
+
 #body-inner {
-  padding: 2.2rem 3.5rem 4rem 3.5rem !important;
-  max-width: 1080px !important;
+  padding: 1rem 1.5rem 4rem 1.5rem !important;
+  max-width: 1350px !important; /* WIDER CONTENT CONTAINER */
   margin: 0 auto !important;
 }
 
 p {
-  margin-bottom: 1.4em !important;
-  line-height: 1.8 !important;
+  margin-bottom: 1.5em !important;
+  font-size: 16.5px !important;
+  line-height: 1.85 !important;
   color: #334155 !important;
 }
 
@@ -67,7 +72,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 2.2rem;
+  font-size: 2.4rem !important;
   padding-bottom: 0.6rem;
   border-bottom: 2px solid #E2E8F0;
   color: #0F172A !important;
@@ -75,23 +80,24 @@ h1 {
 }
 
 h2 {
-  font-size: 1.6rem;
+  font-size: 1.75rem !important;
   border-bottom: 1px solid #F1F5F9;
   padding-bottom: 0.4rem;
 }
 
 h3 {
-  font-size: 1.25rem;
+  font-size: 1.35rem !important;
 }
 
 ol, ul {
-  margin-bottom: 1.5em !important;
-  padding-left: 1.6rem !important;
+  margin-bottom: 1.6em !important;
+  padding-left: 1.8rem !important;
 }
 
 li {
-  margin-bottom: 0.5em !important;
-  line-height: 1.7 !important;
+  margin-bottom: 0.6em !important;
+  font-size: 16px !important;
+  line-height: 1.8 !important;
 }
 
 hr {
@@ -178,7 +184,7 @@ a:hover {
 #sidebar .searchbox input {
   color: #F8FAFC !important;
   font-family: 'Plus Jakarta Sans', sans-serif !important;
-  font-size: 13px !important;
+  font-size: 13.5px !important;
   padding: 6px 8px !important;
 }
 
@@ -201,7 +207,7 @@ a:hover {
 #sidebar ul.topics li a {
   color: #94A3B8 !important;
   font-weight: 500 !important;
-  font-size: 13.5px !important;
+  font-size: 14px !important;
   padding: 9px 12px !important;
   border-radius: 8px !important;
   display: flex !important;
@@ -254,7 +260,7 @@ a:hover {
 }
 
 #sidebar ul.topics ul li a {
-  font-size: 13px !important;
+  font-size: 13.5px !important;
   padding: 7px 10px !important;
 }
 
@@ -275,7 +281,7 @@ a:hover {
 }
 
 #shortcuts li a {
-  font-size: 12.5px !important;
+  font-size: 13px !important;
   color: #94A3B8 !important;
   display: flex !important;
   align-items: center !important;
@@ -307,11 +313,11 @@ a:hover {
   background-repeat: no-repeat !important;
   background-position: right 12px center !important;
   background-size: 16px 16px !important;
-  padding: 8px 36px 8px 14px !important;
+  padding: 9px 36px 9px 14px !important;
   color: #F8FAFC !important;
   border: 1px solid #334155 !important;
   border-radius: 8px !important;
-  font-size: 13px !important;
+  font-size: 13.5px !important;
   font-family: 'Plus Jakarta Sans', sans-serif !important;
   font-weight: 600 !important;
   cursor: pointer !important;
@@ -358,10 +364,10 @@ a:hover {
   background: #F8FAFC !important;
   color: #0F172A !important;
   border: 1px solid #CBD5E1 !important;
-  padding: 10px 20px !important;
+  padding: 11px 22px !important;
   border-radius: 8px !important;
   font-weight: 600 !important;
-  font-size: 14px !important;
+  font-size: 15px !important;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
   width: auto !important;
@@ -397,7 +403,7 @@ th {
   background-color: #F8FAFC !important;
   color: #0F172A !important;
   font-weight: 700 !important;
-  font-size: 13.5px !important;
+  font-size: 14.5px !important;
   text-transform: uppercase !important;
   letter-spacing: 0.04em !important;
   padding: 14px 18px !important;
@@ -406,7 +412,7 @@ th {
 
 td {
   padding: 14px 18px !important;
-  font-size: 14px !important;
+  font-size: 15px !important;
   border-bottom: 1px solid #F1F5F9 !important;
   color: #334155 !important;
 }
@@ -428,9 +434,9 @@ code {
   font-family: 'JetBrains Mono', Consolas, Monaco, monospace !important;
   background-color: #F1F5F9 !important;
   color: #0F172A !important;
-  padding: 3px 7px !important;
+  padding: 3px 8px !important;
   border-radius: 5px !important;
-  font-size: 0.88em !important;
+  font-size: 0.9em !important;
   border: 1px solid #E2E8F0 !important;
 }
 
@@ -448,7 +454,7 @@ pre code {
   color: #E2E8F0 !important;
   padding: 0 !important;
   border: none !important;
-  font-size: 0.9em !important;
+  font-size: 0.92em !important;
 }
 
 /* Images & Captions */
@@ -471,7 +477,7 @@ pre code {
 
 figcaption, figurecaption, p > i {
   color: #64748B !important;
-  font-size: 0.92rem !important;
+  font-size: 0.95rem !important;
   font-weight: 600 !important;
   margin-top: 8px !important;
 }
@@ -532,11 +538,11 @@ div.notices.tip p {
   }
 
   h1 {
-    font-size: 1.75rem !important;
+    font-size: 1.85rem !important;
   }
 
   h2 {
-    font-size: 1.35rem !important;
+    font-size: 1.45rem !important;
   }
 
   #sidebar-toggle-span a {

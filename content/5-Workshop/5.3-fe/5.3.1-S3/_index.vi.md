@@ -19,7 +19,7 @@ Trong phần này, chúng ta sẽ thực hiện khởi tạo **Amazon S3 Bucket*
 
 <div align="center">
 
-<img src="/images/5-Workshop/5.3-S3/bucket-fe1.jpg" alt="Khởi tạo S3 Bucket" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.3-fe/bucket-fe1.jpg" alt="Khởi tạo S3 Bucket" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
 <i>Hình 5.3.1: Nhập tên và chọn vùng khởi tạo S3 Bucket cho Frontend</i>
@@ -31,7 +31,7 @@ Trong phần này, chúng ta sẽ thực hiện khởi tạo **Amazon S3 Bucket*
 
 <div align="center">
 
-<img src="/images/5-Workshop/5.3-S3/bucket-fe2.jpg" alt="Cấu hình khởi tạo Bucket" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.3-fe/bucket-fe2.jpg" alt="Cấu hình khởi tạo Bucket" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
 <i>Hình 5.3.2: Xác nhận các thông số khởi tạo S3 Bucket</i>
@@ -41,7 +41,7 @@ Trong phần này, chúng ta sẽ thực hiện khởi tạo **Amazon S3 Bucket*
 
 <div align="center">
 
-<img src="/images/5-Workshop/5.3-S3/bucket-fe3.jpg" alt="Tạo S3 Bucket thành công" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.3-fe/bucket-fe3.jpg" alt="Tạo S3 Bucket thành công" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
 <i>Hình 5.3.3: Xác nhận các thông số khởi tạo S3 Bucket</i>
@@ -87,7 +87,7 @@ aws s3 sync dist/ s3://codexecute-frontend --delete
 
 <div align="center">
 
-<img src="/images/5-Workshop/5.3-S3/bucket-fe7.jpg" alt="Bật Bucket Versioning" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.3-fe/bucket-fe7.jpg" alt="Bật Bucket Versioning" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
 <i>Hình 5.3.4: Bật tính năng Bucket Versioning để hỗ trợ khôi phục (rollback) bản build cũ</i>
@@ -99,7 +99,7 @@ aws s3 sync dist/ s3://codexecute-frontend --delete
 
 <div align="center">
 
-<img src="/images/5-Workshop/5.3-S3/bucket-fe8.jpg" alt="Tắt Static Website Hosting" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.3-fe/bucket-fe8.jpg" alt="Tắt Static Website Hosting" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
 <i>Hình 5.3.5: Tắt tính năng Static Website Hosting để bảo mật dữ liệu S3 Bucket</i>
