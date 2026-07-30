@@ -1,19 +1,59 @@
 ---
-title : "Prerequiste"
-date : 2024-01-01 
-weight : 2 
-chapter : false
-pre : " <b> 5.2. </b> "
+title: "Prerequisites"
+date: 2026-07-30
+weight: 2
+chapter: false
+pre: " <b> 5.2. </b> "
 ---
 
-#### IAM permissions
-Add the following IAM permission policy to your user account to deploy and cleanup this workshop.
-```
+To prepare for this workshop, you need to configure your local development environment, set up AWS CLI credentials, and provision infrastructure resources via CloudFormation.
+
+---
+
+### 1. Local Development Environment
+
+Ensure your personal workstation is equipped with the following tools and command-line interfaces:
+
+1. **AWS CLI (Command Line Interface):**
+   - Command-line tool to interact with AWS services.
+   - **Account Authentication:** Authenticate in your local environment using an AWS account with **AdministratorAccess** permissions via an **Access Key ID** and **Secret Access Key**.
+   - Verify and configure using:
+     ```bash
+     aws configure
+     # AWS Access Key ID: <YOUR_ACCESS_KEY>
+     # AWS Secret Access Key: <YOUR_SECRET_KEY>
+     # Default region name: us-east-1
+     # Default output format: json
+     ```
+
+2. **Git CLI:**
+   - Version control tool for cloning project repositories, storing automation scripts, and CloudFormation templates.
+   - Verify with: `git --version`
+
+3. **Python (v3.x):**
+   - Runtime environment for automation scripts, API testing, and running the AWS SDK (`boto3`).
+   - Verify with: `python --version` or `python3 --version`
+
+4. **Node.js & npm + pnpm:**
+   - JavaScript runtime and package managers for executing CLI tools, AWS CDK, or web applications.
+   - Verify with: `node -v`, `npm -v`, `pnpm -v`
+
+5. **Docker Desktop:**
+   - Container virtualization engine on your local machine for packaging applications, testing containerized microservices, or local service emulation before cloud deployment.
+   - Verify with: `docker --version`
+
+---
+
+### 2. IAM Permissions
+
+If you choose not to use full AdministratorAccess and prefer to restrict permissions for your IAM User, attach the following IAM Policy:
+
+```json
 {
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "VisualEditor0",
+            "Sid": "WorkshopPermissions",
             "Effect": "Allow",
             "Action": [
                 "cloudformation:*",
@@ -102,8 +142,6 @@ Add the following IAM permission policy to your user account to deploy and clean
                 "ec2:RunInstances",
                 "ec2:StartInstances",
                 "ec2:StopInstances",
-                "ec2:UpdateSecurityGroupRuleDescriptionsEgress",
-                "ec2:UpdateSecurityGroupRuleDescriptionsIngress",
                 "iam:AddRoleToInstanceProfile",
                 "iam:AttachRolePolicy",
                 "iam:CreateInstanceProfile",
@@ -142,9 +180,6 @@ Add the following IAM permission policy to your user account to deploy and clean
                 "route53:DisassociateVPCFromHostedZone",
                 "route53:GetHostedZone",
                 "route53:ListHostedZones",
-                "route53domains:ListDomains",
-                "route53domains:ListOperations",
-                "route53domains:ListTagsForDomain",
                 "route53resolver:AssociateResolverEndpointIpAddress",
                 "route53resolver:AssociateResolverRule",
                 "route53resolver:CreateResolverEndpoint",
@@ -175,68 +210,43 @@ Add the following IAM permission policy to your user account to deploy and clean
                 "s3:GetObject",
                 "s3:GetObjectVersion",
                 "s3:GetBucketVersioning",
-                "s3:ListAccessPoints",
-                "s3:ListAccessPointsForObjectLambda",
                 "s3:ListAllMyBuckets",
                 "s3:ListBucket",
-                "s3:ListBucketMultipartUploads",
-                "s3:ListBucketVersions",
-                "s3:ListJobs",
-                "s3:ListMultipartUploadParts",
-                "s3:ListMultiRegionAccessPoints",
-                "s3:ListStorageLensConfigurations",
                 "s3:PutAccountPublicAccessBlock",
                 "s3:PutBucketAcl",
                 "s3:PutBucketPolicy",
                 "s3:PutBucketPublicAccessBlock",
                 "s3:PutObject",
-                "secretsmanager:CreateSecret",
-                "secretsmanager:DeleteSecret",
-                "secretsmanager:DescribeSecret",
-                "secretsmanager:GetSecretValue",
-                "secretsmanager:ListSecrets",
-                "secretsmanager:ListSecretVersionIds",
-                "secretsmanager:PutResourcePolicy",
-                "secretsmanager:TagResource",
-                "secretsmanager:UpdateSecret",
-                "sns:ListTopics",
-                "ssm:DescribeInstanceProperties",
-                "ssm:DescribeSessions",
-                "ssm:GetConnectionStatus",
-                "ssm:GetParameters",
-                "ssm:ListAssociations",
-                "ssm:ResumeSession",
-                "ssm:StartSession",
-                "ssm:TerminateSession"
+                "secretsmanager:*",
+                "ssm:*"
             ],
             "Resource": "*"
         }
     ]
 }
-
 ```
 
-#### Provision resources using CloudFormation
+---
 
-In this lab, we will use **N.Virginia region (us-east-1)**.
+### 3. Repository Setup & Infrastructure Preparation for CodExecute
 
-To prepare the workshop environment, deploy this **CloudFormation Template** (click link): [PrivateLinkWorkshop ](https://us-east-1.console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/quickcreate?templateURL=https://s3.us-east-1.amazonaws.com/reinvent-endpoints-builders-session/Nested.yaml&stackName=PLCloudSetup). Accept all of the defaults when deploying the template. 
+Before proceeding with the technical deployment steps of the workshop, prepare the Infrastructure as Code (AWS SAM / CloudFormation) codebase:
 
-![create stack](/images/5-Workshop/5.2-Prerequisite/create-stack1.png)
+1. **Clone the CodExecute repository to your local workstation:**
+   ```bash
+   git clone https://github.com/phuvi301/CodExecute
+   cd CodExecute
+   ```
+   For frontend: `cd fe && pnpm install` then use command `pnpm run dev` to run frontend at `http://localhost:3000`
+   For backend: `cd be && python3 -m venv venv && source venv/bin/activate` for Linux and `cd be && python3 -m venv venv && venv\Scripts\activate` for Windows
+   Then `pip install -r requirements.txt` inside the `be` folder and run `fastapi dev`.
 
-+ Tick 2 acknowledgement boxes
-+ Choose **Create stack**
+2. **Overview of AWS Serverless Resources Provisioned in this Workshop:**
+   - **3 Amazon S3 Buckets:** `codeexecute-frontend`, `codeexecute-testcases`, `codeexecuter-user-media`.
+   - **7 Amazon DynamoDB Tables:** `Users`, `Problems`, `Submissions`, `TestCases`, `Posts`, `Notifications`, `UserFollows`.
+   - **Amazon SQS Queues:** `codeexecute-submission-queue`.
+   - **AWS Lambda Functions:** `codeexecute-api` (FastAPI) and `codeexecute-worker` (Isolated sandbox execution engine).
+   - **Amazon API Gateway & CloudFront Distribution:** REST API gateway entrypoint and global CDN web distribution.
 
-![create stack](/images/5-Workshop/5.2-Prerequisite/create-stack2.png)
-
-The **ClouddFormation** deployment requires about 15 minutes to complete.
-
-![complete](/images/5-Workshop/5.2-Prerequisite/complete.png)
-
-+ **2 VPCs** have been created
-
-![vpcs](/images/5-Workshop/5.2-Prerequisite/vpcs.png)
-
-+ **3 EC2s** have been created
-
-![EC2](/images/5-Workshop/5.2-Prerequisite/ec2.png)
+3. **Infrastructure Readiness Check:**
+   Once `aws configure` authentication is established and the project repository is downloaded, you are ready to proceed with the remaining hands-on steps of the **CodExecute** workshop.

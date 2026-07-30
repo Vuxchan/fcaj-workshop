@@ -1,31 +1,24 @@
 ---
 title: "Workshop"
-date: 2024-01-01
+date: 2026-07-30
 weight: 5
 chapter: false
 pre: " <b> 5. </b> "
 includeInReport: false
 ---
-{{% notice warning %}}
-⚠️ **Note:** The information below is for reference purposes only. Please **do not copy verbatim** for your report, including this warning.
-{{% /notice %}}
 
-# Secure Hybrid Access to S3 using VPC Endpoints
+# CODEXECUTE WORKSHOP: ONLINE JUDGE & AUTOMATED ALGORITHM EVALUATION ON AWS SERVERLESS
 
 #### Overview
 
-**AWS PrivateLink** provides private connectivity to AWS services from VPCs and your on-premises networks, without exposing your traffic to the Public Internet.
+The **CodExecute** workshop guides you step-by-step through designing, deploying, and operating an automated Online Judge evaluation platform built entirely on a **Cloud-Native AWS Serverless** architecture.
 
-In this lab, you will learn how to create, configure, and test VPC endpoints that enable your workloads to reach AWS services without traversing the Public Internet.
+This lab integrates core Serverless services including **AWS Lambda** (REST API backend & isolated execution sandbox), **Amazon API Gateway** (REST API entrypoint), **Amazon SQS** (Asynchronous submission buffer queue), **Amazon DynamoDB** (High-speed metadata & problemset storage), **Amazon S3** (Testcase repository & frontend static hosting), and **Amazon CloudFront** (Global CDN content delivery).
 
-You will create two types of endpoints to access Amazon S3: a Gateway VPC endpoint, and an Interface VPC endpoint. These two types of VPC endpoints offer different benefits depending on if you are accessing Amazon S3 from the cloud or your on-premises location
-+ **Gateway** - Create a gateway endpoint to send traffic to Amazon S3 or DynamoDB using private IP addresses.You route traffic from your VPC to the gateway endpoint using route tables.
-+ **Interface** - Create an interface endpoint to send traffic to endpoint services that use a Network Load Balancer to distribute traffic. Traffic destined for the endpoint service is resolved using DNS.
+#### Workshop Sections
 
-#### Content
-
-1. [Workshop overview](5.1-Workshop-overview)
-2. [Prerequiste](5.2-Prerequiste/)
+1. [CodExecute Overview & Architecture](5.1-Workshop-overview/)
+2. [Prerequisites & Environment Setup](5.2-Prerequiste/)
 3. [Access S3 from VPC](5.3-S3-vpc/)
 4. [Access S3 from On-premises](5.4-S3-onprem/)
 5. [VPC Endpoint Policies (Bonus)](5.5-Policy/)

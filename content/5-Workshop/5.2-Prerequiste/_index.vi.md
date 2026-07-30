@@ -1,19 +1,59 @@
 ---
-title : "Các bước chuẩn bị"
-date : 2024-01-01 
-weight : 2
-chapter : false
-pre : " <b> 5.2. </b> "
+title: "Các bước chuẩn bị"
+date: 2026-07-30
+weight: 2
+chapter: false
+pre: " <b> 5.2. </b> "
 ---
 
-#### IAM permissions
-Gắn IAM permission policy sau vào tài khoản aws user của bạn để triển khai và dọn dẹp tài nguyên trong workshop này.
-```
+Để sẵn sàng thực hành bài workshop này, bạn cần thiết lập môi trường phát triển tại máy local (Local Development Environment), cấu hình tài khoản AWS CLI và khởi tạo cụm hạ tầng bằng CloudFormation.
+
+---
+
+### 1. Môi Trường Phát Triển Local (Local Development Environment)
+
+Đảm bảo máy tính cá nhân của bạn đã được cài đặt đầy đủ các công cụ phát triển và công cụ dòng lệnh sau:
+
+1. **AWS CLI (Command Line Interface):**
+   - Công cụ dòng lệnh giao tiếp với AWS API.
+   - **Xác thực tài khoản:** Đăng nhập và cấu hình ở môi trường local bằng tài khoản AWS có quyền Admin (**AdministratorAccess**) thông qua cặp **Access Key ID** và **Secret Access Key**.
+   - Kiểm tra và cấu hình bằng lệnh:
+     ```bash
+     aws configure
+     # AWS Access Key ID: <YOUR_ACCESS_KEY>
+     # AWS Secret Access Key: <YOUR_SECRET_KEY>
+     # Default region name: us-east-1
+     # Default output format: json
+     ```
+
+2. **Git CLI:**
+   - Công cụ quản lý mã nguồn phiên bản dùng để clone các repository dự án, lưu trữ script và CloudFormation templates.
+   - Kiểm tra bằng lệnh: `git --version`
+
+3. **Python (v3.x):**
+   - Môi trường thực thi script tự động hóa, kiểm thử API và chạy AWS SDK (`boto3`).
+   - Kiểm tra bằng lệnh: `python --version` hoặc `python3 --version`
+
+4. **Node.js & npm + pnpm:**
+   - Môi trường JavaScript runtime và các trình quản lý gói (Package Managers) phục vụ việc chạy công cụ CLI, CDK hoặc các ứng dụng web.
+   - Kiểm tra bằng lệnh: `node -v`, `npm -v`, `pnpm -v`
+
+5. **Docker Desktop:**
+   - Môi trường ảo hóa container tại máy local giúp đóng gói ứng dụng, chạy thử nghiệm các dịch vụ hoặc mô phỏng môi trường trước khi deploy lên Cloud.
+   - Kiểm tra bằng lệnh: `docker --version`
+
+---
+
+### 2. Phân Quyền IAM (IAM Permissions)
+
+Trong trường hợp bạn không sử dụng quyền AdministratorAccess tuyệt đối mà muốn thu hẹp chính sách phân quyền cho tài khoản IAM User, hãy gán IAM Policy sau:
+
+```json
 {
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "VisualEditor0",
+            "Sid": "WorkshopPermissions",
             "Effect": "Allow",
             "Action": [
                 "cloudformation:*",
@@ -102,8 +142,6 @@ Gắn IAM permission policy sau vào tài khoản aws user của bạn để tri
                 "ec2:RunInstances",
                 "ec2:StartInstances",
                 "ec2:StopInstances",
-                "ec2:UpdateSecurityGroupRuleDescriptionsEgress",
-                "ec2:UpdateSecurityGroupRuleDescriptionsIngress",
                 "iam:AddRoleToInstanceProfile",
                 "iam:AttachRolePolicy",
                 "iam:CreateInstanceProfile",
@@ -142,9 +180,6 @@ Gắn IAM permission policy sau vào tài khoản aws user của bạn để tri
                 "route53:DisassociateVPCFromHostedZone",
                 "route53:GetHostedZone",
                 "route53:ListHostedZones",
-                "route53domains:ListDomains",
-                "route53domains:ListOperations",
-                "route53domains:ListTagsForDomain",
                 "route53resolver:AssociateResolverEndpointIpAddress",
                 "route53resolver:AssociateResolverRule",
                 "route53resolver:CreateResolverEndpoint",
@@ -175,68 +210,43 @@ Gắn IAM permission policy sau vào tài khoản aws user của bạn để tri
                 "s3:GetObject",
                 "s3:GetObjectVersion",
                 "s3:GetBucketVersioning",
-                "s3:ListAccessPoints",
-                "s3:ListAccessPointsForObjectLambda",
                 "s3:ListAllMyBuckets",
                 "s3:ListBucket",
-                "s3:ListBucketMultipartUploads",
-                "s3:ListBucketVersions",
-                "s3:ListJobs",
-                "s3:ListMultipartUploadParts",
-                "s3:ListMultiRegionAccessPoints",
-                "s3:ListStorageLensConfigurations",
                 "s3:PutAccountPublicAccessBlock",
                 "s3:PutBucketAcl",
                 "s3:PutBucketPolicy",
                 "s3:PutBucketPublicAccessBlock",
                 "s3:PutObject",
-                "secretsmanager:CreateSecret",
-                "secretsmanager:DeleteSecret",
-                "secretsmanager:DescribeSecret",
-                "secretsmanager:GetSecretValue",
-                "secretsmanager:ListSecrets",
-                "secretsmanager:ListSecretVersionIds",
-                "secretsmanager:PutResourcePolicy",
-                "secretsmanager:TagResource",
-                "secretsmanager:UpdateSecret",
-                "sns:ListTopics",
-                "ssm:DescribeInstanceProperties",
-                "ssm:DescribeSessions",
-                "ssm:GetConnectionStatus",
-                "ssm:GetParameters",
-                "ssm:ListAssociations",
-                "ssm:ResumeSession",
-                "ssm:StartSession",
-                "ssm:TerminateSession"
+                "secretsmanager:*",
+                "ssm:*"
             ],
             "Resource": "*"
         }
     ]
 }
-
 ```
 
-#### Khởi tạo tài nguyên bằng CloudFormation
+---
 
-Trong lab này, chúng ta sẽ dùng N.Virginia region (us-east-1).
+### 3. Tải Mã Nguồn Dự Án & Chuẩn Bị Triển Khai Hạ Tầng CodExecute
 
-Để chuẩn bị cho môi trường làm workshop, chúng ta deploy CloudFormation template sau (click link): [PrivateLinkWorkshop ](https://us-east-1.console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/quickcreate?templateURL=https://s3.us-east-1.amazonaws.com/reinvent-endpoints-builders-session/Nested.yaml&stackName=PLCloudSetup). Để nguyên các lựa chọn mặc định.
+Trước khi thực hiện các bước triển khai kỹ thuật của bài workshop, bạn cần chuẩn bị bộ kịch bản triển khai hạ tầng Infrastructure as Code (AWS SAM / CloudFormation):
 
-![create stack](/images/5-Workshop/5.2-Prerequisite/create-stack1.png)
+1. **Clone repository mã nguồn CodExecute về máy local:**
+   ```bash
+   git clone https://github.com/phuvi301/CodExecute
+   cd CodExecute
+   ```
+   Đối với frontend: `cd fe && pnpm install` và `pnpm run dev` để chạy môi trường dev tại link `http://localhost:3000`
+   Đối với backend: `cd be && python3 -m venv venv && source venv/bin/activate` cho Linux và `cd be && python3 -m venv venv && venv\Scripts\activate` cho Windows
+   Sau đó `pip install -r requirements.txt` bên trong thư mục `be` và chạy bằng lệnh `fastapi dev`.
 
-+ Lựa chọn 2 mục acknowledgement 
-+ Chọn Create stack
+2. **Cấu trúc tài nguyên dự án sẽ được khởi tạo trong bài workshop:**
+   - **3 Amazon S3 Buckets:** `codeexecute-frontend`, `codeexecute-testcases`, `codeexecute-user-media`.
+   - **7 Bảng Amazon DynamoDB:** `Users`, `Problems`, `Submissions`, `TestCases`, `Posts`, `Notifications`, `UserFollows`.
+   - **Amazon SQS Queue:** `codexecute-submissions-queue`.
+   - **AWS Lambda Functions:** `codeexecute-api` (FastAPI) và `codeexecute-worker` (Môi trường thực thi mã nguồn).
+   - **Amazon API Gateway & CloudFront Distribution:** Cổng kết nối API và phân phối CDN cho ứng dụng web.
 
-![create stack](/images/5-Workshop/5.2-Prerequisite/create-stack2.png)
-
-Quá trình triển khai CloudFormation cần khoảng 15 phút để hoàn thành.
-
-![complete](/images/5-Workshop/5.2-Prerequisite/complete.png)
-
-+ 2 VPCs đã được tạo
-
-![vpcs](/images/5-Workshop/5.2-Prerequisite/vpcs.png)
-
-+ 3 EC2s đã được tạo
-
-![EC2](/images/5-Workshop/5.2-Prerequisite/ec2.png)
+3. **Kiểm tra trạng thái sẵn sàng của hạ tầng:**
+   Sau khi hoàn tất cấu hình `aws configure` và tải bộ mã nguồn, bạn đã sẵn sàng bước vào các nội dung thực hành tiếp theo của dự án **CodExecute**.
