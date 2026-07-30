@@ -85,11 +85,26 @@ def tex_safe(name):
     return re.sub(r"[^a-zA-Z0-9]", "_", name).strip("_")
 
 
+def strip_emojis(text):
+    if not text:
+        return ""
+    emoji_pattern = re.compile(
+        "["
+        "\U0001F000-\U0001FAFF"
+        "\U00002600-\U000027BF"
+        "\u200d"
+        "\ufe0f"
+        "]+",
+        flags=re.UNICODE
+    )
+    return emoji_pattern.sub("", text)
+
+
 def sanitize_latex_text(text):
     if text is None:
         return ""
 
-    text = str(text)
+    text = strip_emojis(str(text))
     return re.sub(
         r"[\\&%$#_{}~^]",
         lambda m: LATEX_SPECIALS[m.group(0)],
@@ -586,6 +601,7 @@ def preprocess_markdown(content, meta=None):
     content = re.sub(r"⚠\ufe0f?", "!", content)
     content = content.replace("\u26a0", "!")
     content = content.replace("\u2192", r"$\rightarrow$")
+    content = strip_emojis(content)
 
     return content
 # ---------------------------------------------------------------------------
