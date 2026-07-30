@@ -21,12 +21,3 @@ Trong quá trình thực tập, em đã tham gia các sự kiện công nghệ v
 &emsp;**Mô tả tóm tắt:** Chuyến study tour phối hợp cùng cộng đồng AWS First Cloud AI Journey giúp sinh viên tìm hiểu về xu hướng điện toán đám mây, kiến trúc dữ liệu enterprise (DNA framework), định hướng tư duy ứng dụng AI và phát triển kỹ năng mềm/nghề nghiệp trong kỷ nguyên số.
 
 ---
-
-### [Event 2](4.2-Event2/)
-&emsp;**Tên sự kiện:** ...
-
-&emsp;**Thời gian:** 09:00 ngày 13/08/2025
-
-&emsp;**Địa điểm:** Tầng 26, tòa nhà Bitexco, số 02 đường Hải Triều, phường Sài Gòn, thành phố Hồ Chí Minh
-
-&emsp;**Vai trò trong sự kiện:** Người tham dự

@@ -21,12 +21,3 @@ During my internship, I participated in technology events and specialized worksh
 &emsp;**Summary:** A study tour organized in collaboration with the AWS First Cloud AI Journey community, helping students explore cloud computing trends, enterprise data architecture (DNA framework), AI-driven mindsets, and essential career & soft skills in the AI era.
 
 ---
-
-### [Event 2](4.2-Event2/)  
-&emsp;**Event Name:** ...  
-
-&emsp;**Date & Time:** 09:00, August 13, 2025  
-
-&emsp;**Location:** 26th Floor, Bitexco Tower, 02 Hai Trieu Street, Saigon Ward, Ho Chi Minh City  
-
-&emsp;**Role:** Attendee
