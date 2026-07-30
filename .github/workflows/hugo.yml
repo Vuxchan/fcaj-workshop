@@ -53,6 +53,8 @@ jobs:
             texlive-latex-recommended \
             texlive-latex-extra \
             texlive-fonts-recommended \
+            texlive-fonts-extra \
+            cm-super \
             texlive-lang-other \
             latexmk \
             pandoc
@@ -60,7 +62,7 @@ jobs:
       - name: Verify LaTeX packages
         run: |
           echo "=== Checking key packages ==="
-          for pkg in vntex mathptmx fancyhdr mdframed pdfpages float listings; do
+          for pkg in vntex mathptmx fancyhdr mdframed pdfpages float listings bookmark; do
             if kpsewhich ${pkg}.sty > /dev/null 2>&1; then
               echo "  $pkg: found"
             else
@@ -77,17 +79,15 @@ jobs:
       - name: Compile Vietnamese PDF
         working-directory: report
         run: |
-          latexmk -pdf -interaction=nonstopmode main.tex
-          latexmk -pdf -interaction=nonstopmode main.tex
-          latexmk -pdf -interaction=nonstopmode main.tex
+          latexmk -pdf -f -interaction=nonstopmode main.tex || true
+          latexmk -pdf -f -interaction=nonstopmode main.tex
           cp main.pdf ../report_vn.pdf
 
       - name: Compile English PDF
         working-directory: report
         run: |
-          latexmk -pdf -interaction=nonstopmode main_en.tex
-          latexmk -pdf -interaction=nonstopmode main_en.tex
-          latexmk -pdf -interaction=nonstopmode main_en.tex
+          latexmk -pdf -f -interaction=nonstopmode main_en.tex || true
+          latexmk -pdf -f -interaction=nonstopmode main_en.tex
           cp main_en.pdf ../report_en.pdf
       
       - name: Package LaTeX source
