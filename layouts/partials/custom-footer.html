@@ -25,27 +25,77 @@
 
 <script>
 (function() {
-  var sidebarEl = document.querySelector('#sidebar .highlightable');
-  if (!sidebarEl) return;
+  function getSidebar() {
+    return document.querySelector('#sidebar .highlightable');
+  }
 
-  var savedScroll = sessionStorage.getItem('sidebar_scroll');
-  if (savedScroll !== null) {
-    sidebarEl.scrollTop = parseInt(savedScroll, 10);
-  } else {
-    var activeItem = document.querySelector('#sidebar ul.topics li.active > a');
-    if (activeItem) {
-      activeItem.scrollIntoView({ block: 'center', behavior: 'instant' });
+  function saveScrollPosition() {
+    var sidebarEl = getSidebar();
+    if (sidebarEl) {
+      sessionStorage.setItem('sidebar_scroll', sidebarEl.scrollTop);
     }
   }
 
-  sidebarEl.addEventListener('scroll', function() {
-    sessionStorage.setItem('sidebar_scroll', sidebarEl.scrollTop);
-  }, { passive: true });
+  function restoreScrollPosition() {
+    var sidebarEl = getSidebar();
+    if (!sidebarEl) return;
 
-  document.querySelectorAll('#sidebar a').forEach(function(link) {
-    link.addEventListener('click', function() {
-      sessionStorage.setItem('sidebar_scroll', sidebarEl.scrollTop);
+    var savedScroll = sessionStorage.getItem('sidebar_scroll');
+    if (savedScroll !== null && savedScroll !== '') {
+      var pos = parseInt(savedScroll, 10);
+      sidebarEl.scrollTop = pos;
+      if (window.jQuery && jQuery(sidebarEl).data('perfect-scrollbar')) {
+        jQuery(sidebarEl).scrollTop(pos);
+        jQuery(sidebarEl).perfectScrollbar('update');
+      }
+    } else {
+      var activeItem = document.querySelector('#sidebar ul.topics li.active > a');
+      if (activeItem) {
+        activeItem.scrollIntoView({ block: 'center', inline: 'nearest' });
+      }
+    }
+  }
+
+  // Restore immediately
+  restoreScrollPosition();
+
+  // Restore again after jQuery/perfectScrollbar finishes document.ready
+  if (window.jQuery) {
+    jQuery(document).ready(function() {
+      restoreScrollPosition();
+      setTimeout(restoreScrollPosition, 50);
+      setTimeout(restoreScrollPosition, 150);
     });
+  } else {
+    document.addEventListener('DOMContentLoaded', function() {
+      restoreScrollPosition();
+      setTimeout(restoreScrollPosition, 50);
+      setTimeout(restoreScrollPosition, 150);
+    });
+  }
+
+  window.addEventListener('load', function() {
+    restoreScrollPosition();
+    setTimeout(restoreScrollPosition, 100);
   });
+
+  // Attach scroll listeners
+  function initListeners() {
+    var sidebarEl = getSidebar();
+    if (sidebarEl) {
+      sidebarEl.addEventListener('scroll', saveScrollPosition, { passive: true });
+    }
+    document.querySelectorAll('#sidebar a').forEach(function(link) {
+      link.addEventListener('click', saveScrollPosition);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initListeners);
+  } else {
+    initListeners();
+  }
+
+  window.addEventListener('beforeunload', saveScrollPosition);
 })();
 </script>
