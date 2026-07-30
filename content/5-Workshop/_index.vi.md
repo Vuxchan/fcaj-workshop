@@ -19,7 +19,7 @@ Bài lab kết hợp các dịch vụ Serverless cốt lõi bao gồm **AWS Lamb
 
 1. [Giới thiệu & Tổng quan dự án CodExecute](5.1-Workshop-overview/)
 2. [Các bước chuẩn bị & Thiết lập môi trường](5.2-Prerequiste/)
-3. [Truy cập đến S3 từ VPC](5.3-S3-vpc/)
+3. [Triển khai Frontend trên Amazon S3](5.3-S3-vpc/)
 4. [Truy cập đến S3 từ TTDL On-premises](5.4-S3-onprem/)
 5. [VPC Endpoint Policies (làm thêm)](5.5-Policy/)
 6. [Dọn dẹp tài nguyên](5.6-Cleanup/)
