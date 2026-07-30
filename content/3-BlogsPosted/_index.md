@@ -7,17 +7,11 @@ pre: " <b> 3. </b> "
 includeInReport: false
 ---
 
-{{% notice warning %}}
-⚠️ **Note:** The information below is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
+### [Blog 1 - AMAZON BEDROCK & NOVA PRO: MULTIMODAL AI OPERATIONAL INCIDENT ANALYSIS](3.1-Blog1/)
+This blog introduces how to combine Amazon Bedrock and Amazon Nova Pro to build an automated incident analysis system that processes both textual data (logs, metrics, configs) and visual data (architecture diagrams), significantly reducing Mean Time to Resolution (MTTR).
 
-This section will list and introduce the blogs you have posted to [AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj). For example:
+### [Blog 2 - BUILDING AN END-TO-END AGENTIC SRE WITH AWS DEVOPS AGENT](3.2-Blog2/)
+This blog guides the implementation of a end-to-end automated SRE solution using AWS DevOps Agent, integrating multi-source data (CloudWatch, Splunk, GitHub, Slack), supporting multi-cloud/hybrid environments, and generating agent-ready specs for coding agents to resolve issues.
 
-###  [Blog 1 - SESSION POLICIES IN AMAZON EKS POD IDENTITY](3.1-Blog1/)
-This blog introduces the newly added session policies feature in Amazon EKS Pod Identity, which allows you to narrow IAM permissions flexibly and precisely for each pod without needing to create multiple separate IAM roles. This is an important step forward that helps apply the principle of least privilege more effectively in large-scale Kubernetes environments.
-
-###  [Blog 2 - ...](3.2-Blog2/)
-This blog introduces the newly added session policies feature in Amazon EKS Pod Identity, which allows you to narrow IAM permissions flexibly and precisely for each pod without needing to create multiple separate IAM roles. This is an important step forward that helps apply the principle of least privilege more effectively in large-scale Kubernetes environments.
-
-###  [Blog 3 - ...](3.3-Blog3/)
-This blog introduces the newly added session policies feature in Amazon EKS Pod Identity, which allows you to narrow IAM permissions flexibly and precisely for each pod without needing to create multiple separate IAM roles. This is an important step forward that helps apply the principle of least privilege more effectively in large-scale Kubernetes environments.
+### [Blog 3 - OPTIMIZING EC2 COSTS WITH AWS COMPUTE OPTIMIZER RIGHT SIZING](3.3-Blog3/)
+This blog analyzes methods for optimizing EC2 infrastructure costs through AWS Compute Optimizer, detailing 5 best practices including enabling Cost Optimization Hub, adding Memory Metrics, customizing preferences, evaluating Graviton, and establishing a structured rightsizing workflow.

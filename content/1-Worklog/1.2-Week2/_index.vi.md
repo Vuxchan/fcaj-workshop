@@ -23,7 +23,7 @@ reportType: worklog
 | 3 | - Tìm hiểu IAM Role & Trust Relationship (EC2 Service Role, truy cập cross-account) | 23/06/2026 | 23/06/2026 | <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html> |
 | 4 | - **Thực hành:** <br>&emsp; + Tạo IAM User, Group <br>&emsp; + Gán Policy tùy chỉnh bằng JSON <br>&emsp; + Cấu hình chính sách bắt buộc bật MFA | 24/06/2026 | 24/06/2026 | <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html> |
 | 5 | - **Thực hành:** <br>&emsp; + Tạo IAM Role cho EC2 truy cập S3 <br>&emsp; + Gắn IAM Role vào EC2 instance <br>&emsp; + Kiểm tra truy cập S3 từ EC2 không cần Hardcoded Access Key | 25/06/2026 | 25/06/2026 | <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html> |
-| 6 | - Tìm hiểu AWS Security Token Service (STS) và IAM Access Analyzer | 26/06/2026 | 26/06/2026 | <https://docs.aws.amazon.com/STS/latest/UsingSTS/welcome.html> |
+| 6 | - Tìm hiểu AWS Security Token Service (STS) và IAM Access Analyzer | 26/06/2026 | 26/06/2026 | <https://docs.aws.amazon.com/STS/latest/APIReference/Welcome.html> <br> <https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html> |
 
 
 ### Kết quả đạt được tuần 2:

@@ -1,32 +1,50 @@
 ---
 title: "Blog 1"
-date: 2024-01-01
+date: 2026-29-07
 weight: 1
 chapter: false
 pre: " <b> 3.1. </b> "
 includeInReport: false
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
 
-# SESSION POLICIES TRONG AMAZON EKS POD IDENTITY
+# AMAZON BEDROCK & NOVA PRO: PHÂN TÍCH SỰ CỐ VẬN HÀNH BẰNG AI ĐA PHƯƠNG THỨC
 
-Amazon EKS Pod Identity vừa bổ sung tính năng session policies, cho phép bạn thu hẹp quyền IAM một cách linh hoạt và chính xác cho từng pod mà không cần tạo thêm nhiều IAM roles riêng biệt. Đây là bước tiến quan trọng giúp áp dụng nguyên tắc least privilege hiệu quả hơn trong môi trường Kubernetes quy mô lớn.
+*Khi một ứng dụng cloud-native gặp sự cố, đội ngũ vận hành thường phải rà soát hàng loạt nguồn dữ liệu quan sát (observability) khác nhau trong áp lực khôi phục dịch vụ càng nhanh càng tốt. Bài viết giới thiệu cách kết hợp Amazon Bedrock và Amazon Nova Pro để xây dựng hệ thống phân tích sự cố tự động, có khả năng xử lý đồng thời cả dữ liệu văn bản lẫn hình ảnh.*
 
-Các điểm chính cần nắm:
+### 1. Bài toán vận hành
+Các công cụ giám sát truyền thống chỉ dừng lại ở việc cảnh báo khi sự cố xảy ra, còn việc phân tích và tương quan dữ liệu phức tạp vẫn phải dựa vào con người. Quá trình này vốn tốn nhiều thời gian và dễ sai sót, khiến thời gian downtime kéo dài và ảnh hưởng đến trải nghiệm khách hàng. Bài toán đặt ra là làm sao tự động hóa được bước phân tích này mà không đòi hỏi đội ngũ vận hành phải có chuyên môn sâu về machine learning hay data science.
 
-* Session policy là một IAM policy inline được chỉ định khi tạo hoặc cập nhật Pod Identity association.
-* Quyền hiệu quả = intersection (giao) giữa permissions của IAM role và session policy → session policy chỉ có thể thu hẹp, không thể mở rộng quyền.
-* Giúp tránh tình trạng over-permissioning khi reuse chung một IAM role cho nhiều workloads có nhu cầu khác nhau.
-* Hỗ trợ cả same-account và cross-account (qua IAM role chaining).
-* Giảm đáng kể số lượng IAM roles cần quản lý, tránh chạm giới hạn quota IAM trong cluster lớn.
-* Cấu hình dễ dàng qua AWS Management Console, AWS CLI hoặc AWS SDK khi tạo association giữa Kubernetes ServiceAccount và IAM role.
+### 2. Cơ chế hoạt động
+**Luồng xử lý:**  
+`Nguồn dữ liệu quan sát (CloudWatch, Config, X-Ray, sơ đồ kiến trúc) → Thu thập & lưu trữ (Amazon S3) → Phân tích đa phương thức (Amazon Bedrock + Nova Pro) → Insight & đề xuất khắc phục`
 
-Tính năng này đặc biệt hữu ích khi bạn có nhiều ứng dụng chạy trên cùng một IAM role nhưng cần giới hạn quyền khác nhau (ví dụ: một pod chỉ đọc S3 bucket cụ thể, pod khác chỉ gọi một số API nhất định).
+Hệ thống vận hành theo bốn giai đoạn chính:
+* **Thu thập dữ liệu:** Dữ liệu được thu thập và tương quan từ nhiều nguồn hạ tầng khác nhau: chỉ số từ Amazon CloudWatch, lịch sử thay đổi cấu hình từ AWS Config, và các dấu vết request (traces) từ AWS X-Ray. Khi sự cố xảy ra, script thu thập dữ liệu sẽ chụp lại toàn bộ thông tin liên quan trong khoảng thời gian xảy ra outage và lưu vào Amazon S3.
+* **Phân tích đa phương thức:** Script gọi đến Amazon Bedrock với model Amazon Nova Pro — mô hình có khả năng xử lý đa phương thức (multimodal), tức đọc hiểu được cả dữ liệu văn bản (log, metric) lẫn dữ liệu hình ảnh (sơ đồ kiến trúc hệ thống) trong cùng một lần suy luận. Nhờ vậy, mô hình không chỉ phân tích số liệu thô mà còn "nhìn" được cấu trúc hệ thống để hiểu bối cảnh sự cố sâu hơn.
+* **Đề xuất khắc phục:** Kết quả đầu ra là một bộ insight toàn diện: danh sách các nguyên nhân khả nghi được xếp hạng theo xác suất, các bước xử lý sự cố cụ thể, và nội dung thông báo gợi ý để gửi đến khách hàng — giúp đội vận hành nhanh chóng áp dụng bản sửa lỗi và rút ngắn đáng kể Mean Time to Resolution (MTTR).
 
-...Hình ảnh...
+### 3. Quy trình triển khai thực nghiệm
+Để minh họa cụ thể, bài viết sử dụng PetShop làm ví dụ:
+1. Thiết lập Amazon S3 bucket để lưu dữ liệu quan sát và sơ đồ kiến trúc ứng dụng.
+2. Giả lập sự cố bằng cách thay đổi rule của security group trên load balancer để chặn traffic HTTP.
+3. Chạy script thu thập dữ liệu để lấy chỉ số CloudWatch, thay đổi cấu hình từ AWS Config và trace từ X-Ray, tải toàn bộ lên S3.
+4. Chạy script phân tích gọi Amazon Bedrock với Nova Pro để xử lý dữ liệu đa phương thức và xuất ra khuyến nghị khắc phục.
 
-...Link...
+### 4. Kết luận
+Việc kết hợp các dịch vụ observability của AWS với generative AI mở ra một hướng tiếp cận mới cho công tác phản ứng sự cố: tự động hóa bước phân tích dữ liệu đa chiều vốn tốn nhiều thời gian nhất, đồng thời nâng cao chất lượng giao tiếp với khách hàng trong quá trình xử lý sự cố. Đây không chỉ là giải pháp cho các thách thức vận hành hiện tại, mà còn có khả năng mở rộng để đáp ứng độ phức tạp ngày càng tăng của hạ tầng cloud hiện đại.
 
-...Hướng dẫn...
+---
+
+### Hình ảnh & Minh họa
+<div align="center">
+
+![Sơ đồ kiến trúc xử lý sự cố đa phương thức bằng Amazon Bedrock](/images/3-BlogsPosted/3.1-Blog1/solution_architecture.jpg)
+
+<p style="font-size: 1.15rem; font-weight: 600; margin-top: 8px;">
+<i>Hình 1: Sơ đồ mô tả quy trình xử lý sự cố đa phương thức bằng Amazon Bedrock</i>
+</p>
+
+</div>
+
+### Link bài viết & Tham khảo
+* **Link bài viết gốc (AWS Blog):** [https://aws.amazon.com/blogs/mt/using-amazon-bedrock-and-amazon-nova-for-ai-powered-incident-response/](https://aws.amazon.com/blogs/mt/using-amazon-bedrock-and-amazon-nova-for-ai-powered-incident-response/)

@@ -27,8 +27,8 @@ reportType: worklog
 | 2 | - Design 3-Tier Web Architecture diagram (ALB + EC2 ASG in Private Subnets + RDS Multi-AZ + S3) | 07/27/2026 | 07/27/2026 | <https://aws.amazon.com/architecture/well-architected/> |
 | 3 | - **Practice:** <br>&emsp; + Provision end-to-end 3-Tier infrastructure automatically using CloudFormation/Terraform IaC scripts <br>&emsp; + Deploy sample web app connecting Web Tier to DB Tier | 07/28/2026 | 07/28/2026 | <https://github.com/aws-samples/aws-refarch-wordpress> |
 | 4 | - **Practice:** <br>&emsp; + Perform security audit (Security Groups, IAM roles, public bucket blocks) <br>&emsp; + Conduct load testing and verify multi-AZ failover resilience | 07/29/2026 | 07/29/2026 | <https://docs.aws.amazon.com/security/> |
-| 5 | - Compile complete internship report documentation, architectural diagrams, and weekly worklogs | 07/30/2026 | 07/30/2026 | <https://cloudjourney.awsstudygroup.com/> |
-| 6 | - Present final capstone project to FCAJ mentors, finalize self-evaluation, and complete the 7-week internship program | 07/31/2026 | 07/31/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 5 | - Compile complete internship report documentation, architectural diagrams, and weekly worklogs | 07/30/2026 | 07/30/2026 |  |
+| 6 | - Present final capstone project to FCAJ mentors, finalize self-evaluation, and complete the 7-week internship program | 07/31/2026 | 07/31/2026 |  |
 
 
 ### Week 7 Achievements:
