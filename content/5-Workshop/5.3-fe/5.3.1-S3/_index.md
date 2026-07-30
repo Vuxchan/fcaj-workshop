@@ -19,7 +19,7 @@ In this section, we will create an **Amazon S3 Bucket**, build the **CodExecute 
 
 <div align="center">
 
-<img src="/images/5-Workshop/5.3-S3/bucket-fe1.jpg" alt="Create S3 Bucket" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.3-fe/bucket-fe1.jpg" alt="Create S3 Bucket" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
 <i>Figure 5.3.1: Entering S3 Bucket name and region selection for Frontend</i>
@@ -31,7 +31,7 @@ In this section, we will create an **Amazon S3 Bucket**, build the **CodExecute 
 
 <div align="center">
 
-<img src="/images/5-Workshop/5.3-S3/bucket-fe2.jpg" alt="Configure S3 Bucket creation" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.3-fe/bucket-fe2.jpg" alt="Configure S3 Bucket creation" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
 <i>Figure 5.3.2: Confirming S3 Bucket configuration settings</i>
@@ -41,7 +41,7 @@ In this section, we will create an **Amazon S3 Bucket**, build the **CodExecute 
 
 <div align="center">
 
-<img src="/images/5-Workshop/5.3-S3/bucket-fe3.jpg" alt="S3 Bucket created successfully" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.3-fe/bucket-fe3.jpg" alt="S3 Bucket created successfully" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
 <i>Figure 5.3.3: Confirming S3 Bucket configuration settings</i>
@@ -87,7 +87,7 @@ aws s3 sync dist/ s3://codexecute-frontend --delete
 
 <div align="center">
 
-<img src="/images/5-Workshop/5.3-S3/bucket-fe7.jpg" alt="Enable Bucket Versioning" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.3-fe/bucket-fe7.jpg" alt="Enable Bucket Versioning" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
 <i>Figure 5.3.4: Enabling Bucket Versioning to support rolling back to previous build versions</i>
@@ -99,7 +99,7 @@ aws s3 sync dist/ s3://codexecute-frontend --delete
 
 <div align="center">
 
-<img src="/images/5-Workshop/5.3-S3/bucket-fe8.jpg" alt="Disable Static Website Hosting" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.3-fe/bucket-fe8.jpg" alt="Disable Static Website Hosting" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
 <i>Figure 5.3.5: Disabling Static Website Hosting to secure S3 Bucket data</i>

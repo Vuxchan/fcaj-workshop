@@ -20,6 +20,7 @@ Bài lab kết hợp các dịch vụ Serverless cốt lõi bao gồm **AWS Lamb
 1. [Giới thiệu & Tổng quan dự án CodExecute](5.1-Workshop-overview/)
 2. [Các bước chuẩn bị & Thiết lập môi trường](5.2-Prerequiste/)
 3. [Triển khai Frontend & CloudFront CDN](5.3-fe/)
-4. [Truy cập đến S3 từ TTDL On-premises](5.4-S3-onprem/)
+4. [Triển khai Lambda qua Docker & ECR](5.4-be/)
 5. [VPC Endpoint Policies (làm thêm)](5.5-Policy/)
 6. [Cấu hình API Gateway cho Lambda API](5.6-APIGateway/)
+7. [Dọn dẹp tài nguyên](5.9-Cleanup/)

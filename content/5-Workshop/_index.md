@@ -20,6 +20,7 @@ This lab integrates core Serverless services including **AWS Lambda** (REST API 
 1. [CodExecute Overview & Architecture](5.1-Workshop-overview/)
 2. [Prerequisites & Environment Setup](5.2-Prerequiste/)
 3. [Deploy Frontend & CloudFront CDN](5.3-fe/)
-4. [Access S3 from On-premises](5.4-S3-onprem/)
+4. [Deploy Lambda via Docker & ECR](5.4-be/)
 5. [VPC Endpoint Policies (Bonus)](5.5-Policy/)
 6. [Configure API Gateway for Lambda API](5.6-APIGateway/)
+7. [Clean Up Resources](5.9-Cleanup/)
