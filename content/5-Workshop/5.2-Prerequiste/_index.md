@@ -243,7 +243,7 @@ Before proceeding with the technical deployment steps of the workshop, prepare t
 
 2. **Overview of AWS Serverless Resources Provisioned in this Workshop:**
    - **3 Amazon S3 Buckets:** `codexecute-prod-frontend`, `codeexecute-testcases`, `codeexecuter-user-media`.
-   - **7 Amazon DynamoDB Tables:** `Users`, `Problems`, `Submissions`, `TestCases`, `Posts`, `Notifications`, `UserFollows`.
+   - **8 Amazon DynamoDB Tables:** `Users`, `Problems`, `Submissions`, `TestCases`, `Posts`, `Notifications`, `UserFollows`, `Solutions`.
    - **Amazon SQS Queues:** `codeexecute-submission-queue`.
    - **AWS Lambda Functions:** `codeexecute-api` (FastAPI) and `codeexecute-worker` (Isolated sandbox execution engine).
    - **Amazon API Gateway & CloudFront Distribution:** REST API gateway entrypoint and global CDN web distribution.

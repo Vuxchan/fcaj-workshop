@@ -243,7 +243,7 @@ Trước khi thực hiện các bước triển khai kỹ thuật của bài wor
 
 2. **Cấu trúc tài nguyên dự án sẽ được khởi tạo trong bài workshop:**
    - **3 Amazon S3 Buckets:** `codexecute-prod-frontend`, `codeexecute-testcases`, `codeexecute-user-media`.
-   - **7 Bảng Amazon DynamoDB:** `Users`, `Problems`, `Submissions`, `TestCases`, `Posts`, `Notifications`, `UserFollows`.
+   - **8 Bảng Amazon DynamoDB:** `Users`, `Problems`, `Submissions`, `TestCases`, `Posts`, `Notifications`, `UserFollows`, `Solutions`.
    - **Amazon SQS Queue:** `codexecute-submissions-queue`.
    - **AWS Lambda Functions:** `codeexecute-api` (FastAPI) và `codeexecute-worker` (Môi trường thực thi mã nguồn).
    - **Amazon API Gateway & CloudFront Distribution:** Cổng kết nối API và phân phối CDN cho ứng dụng web.

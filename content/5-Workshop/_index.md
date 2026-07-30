@@ -22,4 +22,4 @@ This lab integrates core Serverless services including **AWS Lambda** (REST API 
 3. [Deploy Frontend & CloudFront CDN](5.3-fe/)
 4. [Access S3 from On-premises](5.4-S3-onprem/)
 5. [VPC Endpoint Policies (Bonus)](5.5-Policy/)
-6. [Clean up](5.6-Cleanup/)
+6. [Configure API Gateway for Lambda API](5.6-APIGateway/)
