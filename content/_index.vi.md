@@ -27,7 +27,7 @@ chapter: false
 
 <div align="center">
   <img src="/images/avatar.jpg" alt="Ảnh đại diện" style="width: 280px; border-radius: 8px; margin: 10px 0;">
-  <figurecaption>Ảnh đại diện</figurecaption>
+  <figcaption>Ảnh đại diện</figcaption>
 </div>
 
 ### Nội dung báo cáo

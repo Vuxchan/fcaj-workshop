@@ -1,7 +1,7 @@
 ---
 title: "Clean Up Resources"
 date: 2026-07-30
-weight: 9
+weight: 10
 chapter: false
 pre: " <b> 5.10. </b> "
 ---
@@ -10,7 +10,7 @@ pre: " <b> 5.10. </b> "
 
 Upon completing all practical deployment labs for the **CodExecute** platform, deleting all provisioned AWS resources is critical to prevent unexpected ongoing account charges.
 
-In this section, we will systematically delete all infrastructure components adhering to systemic dependencies: **CloudFront**, **API Gateway**, **AWS Lambda**, **Amazon ECR**, **Amazon SQS**, **Amazon DynamoDB**, **Amazon S3**, and **Amazon CloudWatch Log Groups**.
+In this section, we will systematically delete all infrastructure components adhering to systemic dependencies: **CloudFront**, **API Gateway**, **AWS Lambda**, **Amazon ECR**, **Amazon SQS**, **Amazon DynamoDB**, **Amazon S3**, **Amazon CloudWatch Log Groups**, **Amazon CloudWatch Alarms**, and **Amazon SNS Topics**.
 
 ---
 
@@ -192,6 +192,46 @@ In this section, we will systematically delete all infrastructure components adh
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
 <i>Figure 5.10.8: Deleting CloudWatch Log Groups generated during execution</i>
+</p>
+
+</div>
+
+---
+
+### Step 9: Delete Amazon CloudWatch Alarms
+
+1. Open the **Amazon CloudWatch Console** → **Alarms** → **All alarms**.
+2. Select the alarms provisioned for the CodExecute platform (e.g., Lambda error alert `codeexecute-api-errors`, SQS high queue depth alert `sqs-high-message-count-alarm`).
+3. Click **Actions** → Select **Delete**.
+4. Confirm CloudWatch Alarms deletion.
+
+<div align="center">
+
+<!-- PLACEHOLDER FOR IMAGE: cleanup-cloudwatch-alarms.jpg -->
+<img src="/images/5-Workshop/5.10-Cleanup/cleanup-cloudwatch-alarms.jpg" alt="Delete CloudWatch Alarms" style="width: 80%; max-width: 900px; border-radius: 6px;">
+
+<p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
+<i>Figure 5.10.9: Deleting CloudWatch Alarms</i>
+</p>
+
+</div>
+
+---
+
+### Step 10: Delete Amazon SNS Topics & Subscriptions
+
+1. Open the **Amazon SNS Console** → **Topics**.
+2. Select the system notification topic (e.g., `codexecute-system-alerts-topic`).
+3. Click **Delete** → Type `delete me` to confirm deletion.
+4. Navigate to **Subscriptions** → Select any associated email/SMS subscriptions and click **Delete**.
+
+<div align="center">
+
+<!-- PLACEHOLDER FOR IMAGE: cleanup-sns.jpg -->
+<img src="/images/5-Workshop/5.10-Cleanup/cleanup-sns.jpg" alt="Delete Amazon SNS Topics" style="width: 80%; max-width: 900px; border-radius: 6px;">
+
+<p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
+<i>Figure 5.10.10: Deleting Amazon SNS Topics and Subscriptions</i>
 </p>
 
 </div>

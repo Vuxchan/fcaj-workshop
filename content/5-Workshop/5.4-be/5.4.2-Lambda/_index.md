@@ -85,7 +85,7 @@ In this section, we will create two **AWS Lambda Functions** (`codeexecute-worke
 <div align="center">
 
 <!-- PLACEHOLDER FOR IMAGE: lambda-api-create.jpg -->
-<img src="/images/5-Workshop/5.4-be/lambda-api-creae.jpg" alt="Create Lambda API from Container Image" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.4-be/lambda-api-create.jpg" alt="Create Lambda API from Container Image" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
 <i>Figure 5.4.2.4: Creating Lambda codeexecute-api from ECR Container Image</i>
@@ -122,17 +122,6 @@ In this section, we will create two **AWS Lambda Functions** (`codeexecute-worke
 | `USER_MEDIA_BUCKET` | `codeexecute-user-media` | S3 Media and user avatar bucket |
 
    - Click **Save**.
-
-<div align="center">
-
-<!-- PLACEHOLDER FOR IMAGE: lambda-api-env.jpg -->
-<img src="/images/5-Workshop/5.4-be/lambda-api-env.jpg" alt="Configure Environment Variables for Lambda API" style="width: 80%; max-width: 900px; border-radius: 6px;">
-
-<p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
-<i>Figure 5.4.2.6: Configuring Environment Variables for Lambda API</i>
-</p>
-
-</div>
 
 ---
 

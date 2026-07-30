@@ -1,16 +1,16 @@
 ---
 title: "Dọn dẹp tài nguyên"
 date: 2026-07-30
-weight: 9
+weight: 10
 chapter: false
 pre: " <b> 5.10. </b> "
 ---
 
-<!-- # DỌN DẸP TÀI NGUYÊN HỆ THỐNG CODEXECUTE -->
+<!-- # DỌN DEP TÀI NGUYÊN HỆ THỐNG CODEXECUTE -->
 
 Sau khi hoàn thành các bài lab thực hành triển khai nền tảng **CodExecute**, việc dọn dẹp các tài nguyên AWS đã khởi tạo là rất quan trọng để tránh phát sinh chi phí duy trì ngoài ý muốn.
 
-Trong phần này, chúng ta sẽ lần lượt xóa sạch toàn bộ tài nguyên theo thứ tự phụ thuộc hệ thống: **CloudFront**, **API Gateway**, **AWS Lambda**, **Amazon ECR**, **Amazon SQS**, **Amazon DynamoDB**, **Amazon S3** và **Amazon CloudWatch Log Groups**.
+Trong phần này, chúng ta sẽ lần lượt xóa sạch toàn bộ tài nguyên theo thứ tự phụ thuộc hệ thống: **CloudFront**, **API Gateway**, **AWS Lambda**, **Amazon ECR**, **Amazon SQS**, **Amazon DynamoDB**, **Amazon S3**, **Amazon CloudWatch Log Groups**, **Amazon CloudWatch Alarms** và **Amazon SNS Topics**.
 
 ---
 
@@ -192,6 +192,46 @@ Trong phần này, chúng ta sẽ lần lượt xóa sạch toàn bộ tài nguy
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
 <i>Hình 5.10.8: Xóa các CloudWatch Log Groups phát sinh trong quá trình chạy hệ thống</i>
+</p>
+
+</div>
+
+---
+
+### Bước 9: Xóa Amazon CloudWatch Alarms
+
+1. Truy cập **Amazon CloudWatch Console** → **Alarms** → **All alarms**.
+2. Chọn các cảnh báo đã khởi tạo cho dự án CodExecute (ví dụ: Cảnh báo lỗi Lambda `codeexecute-api-errors`, Cảnh báo số lượng bài nộp đệm trong SQS Queue `sqs-high-message-count-alarm`).
+3. Nhấn **Actions** → Chọn **Delete**.
+4. Xác nhận xóa CloudWatch Alarms.
+
+<div align="center">
+
+<!-- PLACEHOLDER FOR IMAGE: cleanup-cloudwatch-alarms.jpg -->
+<img src="/images/5-Workshop/5.10-Cleanup/cleanup-cloudwatch-alarms.jpg" alt="Xóa CloudWatch Alarms" style="width: 80%; max-width: 900px; border-radius: 6px;">
+
+<p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
+<i>Hình 5.10.9: Xóa các cảnh báo CloudWatch Alarms hệ thống</i>
+</p>
+
+</div>
+
+---
+
+### Bước 10: Xóa Amazon SNS Topics & Subscriptions
+
+1. Truy cập **Amazon SNS Console** → **Topics**.
+2. Chọn SNS Topic thông báo hệ thống (ví dụ: `codexecute-system-alerts-topic`).
+3. Nhấn **Delete** → Nhập `delete me` để xác nhận xóa.
+4. Truy cập **Subscriptions** → Chọn các đăng ký email/SMS thuộc topic và chọn **Delete**.
+
+<div align="center">
+
+<!-- PLACEHOLDER FOR IMAGE: cleanup-sns.jpg -->
+<img src="/images/5-Workshop/5.10-Cleanup/cleanup-sns.jpg" alt="Xóa Amazon SNS Topics" style="width: 80%; max-width: 900px; border-radius: 6px;">
+
+<p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
+<i>Hình 5.10.10: Xóa Amazon SNS Topics và Subscriptions thông báo</i>
 </p>
 
 </div>

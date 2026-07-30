@@ -85,7 +85,7 @@ Trong phần này, chúng ta sẽ thực hiện khởi tạo hai hàm **AWS Lamb
 <div align="center">
 
 <!-- PLACEHOLDER FOR IMAGE: lambda-api-create.jpg -->
-<img src="/images/5-Workshop/5.4-be/lambda-api-creae.jpg" alt="Khởi tạo Lambda API từ Container Image" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.4-be/lambda-api-create.jpg" alt="Khởi tạo Lambda API từ Container Image" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
 <i>Hình 5.4.2.4: Khởi tạo Lambda codeexecute-api từ ECR Container Image</i>
