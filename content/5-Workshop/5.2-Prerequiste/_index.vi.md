@@ -242,7 +242,7 @@ Trước khi thực hiện các bước triển khai kỹ thuật của bài wor
    Sau đó `pip install -r requirements.txt` bên trong thư mục `be` và chạy bằng lệnh `fastapi dev`.
 
 2. **Cấu trúc tài nguyên dự án sẽ được khởi tạo trong bài workshop:**
-   - **3 Amazon S3 Buckets:** `codeexecute-frontend`, `codeexecute-testcases`, `codeexecute-user-media`.
+   - **3 Amazon S3 Buckets:** `codexecute-prod-frontend`, `codeexecute-testcases`, `codeexecute-user-media`.
    - **7 Bảng Amazon DynamoDB:** `Users`, `Problems`, `Submissions`, `TestCases`, `Posts`, `Notifications`, `UserFollows`.
    - **Amazon SQS Queue:** `codexecute-submissions-queue`.
    - **AWS Lambda Functions:** `codeexecute-api` (FastAPI) và `codeexecute-worker` (Môi trường thực thi mã nguồn).

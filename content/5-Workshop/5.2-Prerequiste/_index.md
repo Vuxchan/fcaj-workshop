@@ -242,7 +242,7 @@ Before proceeding with the technical deployment steps of the workshop, prepare t
    Then `pip install -r requirements.txt` inside the `be` folder and run `fastapi dev`.
 
 2. **Overview of AWS Serverless Resources Provisioned in this Workshop:**
-   - **3 Amazon S3 Buckets:** `codeexecute-frontend`, `codeexecute-testcases`, `codeexecuter-user-media`.
+   - **3 Amazon S3 Buckets:** `codexecute-prod-frontend`, `codeexecute-testcases`, `codeexecuter-user-media`.
    - **7 Amazon DynamoDB Tables:** `Users`, `Problems`, `Submissions`, `TestCases`, `Posts`, `Notifications`, `UserFollows`.
    - **Amazon SQS Queues:** `codeexecute-submission-queue`.
    - **AWS Lambda Functions:** `codeexecute-api` (FastAPI) and `codeexecute-worker` (Isolated sandbox execution engine).

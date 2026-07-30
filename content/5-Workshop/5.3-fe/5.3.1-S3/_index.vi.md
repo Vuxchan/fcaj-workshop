@@ -1,12 +1,12 @@
 ---
 title: "Triển khai Frontend trên Amazon S3"
 date: 2026-07-30
-weight: 3
+weight: 1
 chapter: false
-pre: " <b> 5.3. </b> "
+pre: " <b> 5.3.1. </b> "
 ---
 
-# TRIỂN KHAI ỨNG DỤNG REACT FRONTEND TRÊN AMAZON S3
+<!-- # TRIỂN KHAI ỨNG DỤNG REACT FRONTEND TRÊN AMAZON S3 -->
 
 Trong phần này, chúng ta sẽ thực hiện khởi tạo **Amazon S3 Bucket**, biên dịch ứng dụng **React (Vite) Frontend CodExecute** với biến môi trường `VITE_API_URL`, tải toàn bộ tệp sản phẩm (`dist`) lên S3, bật tính năng quản lý phiên bản (Bucket Versioning), tắt Static Website Hosting để đảm bảo an toàn bảo mật, và cấu hình **Bucket Policy** cấp quyền duy nhất cho **Amazon CloudFront** truy cập thông qua Origin Access Control (OAC).
 
@@ -15,7 +15,7 @@ Trong phần này, chúng ta sẽ thực hiện khởi tạo **Amazon S3 Bucket*
 ### Bước 1: Tạo S3 Bucket & Tải (Upload) Các Tệp Trong Thư Mục `dist` Lên S3
 
 1. Truy cập vào bảng điều khiển **Amazon S3 Console**.
-2. Nhấn nút **Create bucket**, đặt tên cho Bucket (ví dụ: `codeexecute-frontend`) và chọn AWS Region tương ứng.
+2. Nhấn nút **Create bucket**, đặt tên cho Bucket (ví dụ: `codexecute-frontend`) và chọn AWS Region tương ứng.
 
 <div align="center">
 
@@ -62,7 +62,7 @@ export VITE_API_URL=https://d1hsp5bm4hkjmb.cloudfront.net
 pnpm build
 
 # Tải các tệp trong thư mục dist lên S3 Bucket
-aws s3 sync dist/ s3://codeexecute-frontend --delete
+aws s3 sync dist/ s3://codexecute-frontend --delete
 ```
 
 #### PowerShell (Windows):
@@ -76,7 +76,7 @@ $env:VITE_API_URL="https://d1hsp5bm4hkjmb.cloudfront.net"
 pnpm build
 
 # Tải các tệp trong thư mục dist lên S3 Bucket
-aws s3 sync dist/ s3://codeexecute-frontend --delete
+aws s3 sync dist/ s3://codexecute-frontend --delete
 ```
 
 ---
@@ -90,7 +90,7 @@ aws s3 sync dist/ s3://codeexecute-frontend --delete
 <img src="/images/5-Workshop/5.3-S3/bucket-fe7.jpg" alt="Bật Bucket Versioning" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
-<i>Hình 5.3.6: Bật tính năng Bucket Versioning để hỗ trợ khôi phục (rollback) bản build cũ</i>
+<i>Hình 5.3.4: Bật tính năng Bucket Versioning để hỗ trợ khôi phục (rollback) bản build cũ</i>
 </p>
 
 </div>
@@ -102,7 +102,7 @@ aws s3 sync dist/ s3://codeexecute-frontend --delete
 <img src="/images/5-Workshop/5.3-S3/bucket-fe8.jpg" alt="Tắt Static Website Hosting" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
-<i>Hình 5.3.7: Tắt tính năng Static Website Hosting để bảo mật dữ liệu S3 Bucket</i>
+<i>Hình 5.3.5: Tắt tính năng Static Website Hosting để bảo mật dữ liệu S3 Bucket</i>
 </p>
 
 </div>
@@ -114,7 +114,7 @@ aws s3 sync dist/ s3://codeexecute-frontend --delete
 Để Amazon CloudFront có thể đọc dữ liệu tĩnh từ S3 Bucket riêng tư mà không cần mở công khai cho toàn Internet, chúng ta gán chính sách **Bucket Policy** sau:
 
 1. Chuyển sang tab **Permissions** của S3 Bucket, cuộn xuống mục **Bucket policy** và nhấn **Edit**.
-2. Dán đoạn mã JSON Bucket Policy phân quyền riêng cho CloudFront Distribution (`E2O7SA7QXFHIBT`):
+2. Dán đoạn mã JSON Bucket Policy phân quyền riêng cho CloudFront Distribution (`E14SU7QS7NEEO8`):
 
 ```json
 {
@@ -128,10 +128,10 @@ aws s3 sync dist/ s3://codeexecute-frontend --delete
                 "Service": "cloudfront.amazonaws.com"
             },
             "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::codeexecute-frontend/*",
+            "Resource": "arn:aws:s3:::codexecute-frontend/*",
             "Condition": {
-                "StringEquals": {
-                    "AWS:SourceArn": "arn:aws:cloudfront::014936669466:distribution/E2O7SA7QXFHIBT"
+                "ArnLike": {
+                    "AWS:SourceArn": "arn:aws:cloudfront::014936669466:distribution/E14SU7QS7NEEO8"
                 }
             }
         }
@@ -145,4 +145,4 @@ aws s3 sync dist/ s3://codeexecute-frontend --delete
 
 ### Kết Quả
 
-Đến bước này, S3 Bucket `codeexecute-frontend` đã được bảo vệ an toàn, tắt truy cập công khai trực tiếp và chỉ cho phép duy nhất dịch vụ **Amazon CloudFront** đọc dữ liệu để phân phối tới người dùng tại địa chỉ website: [https://d1hsp5bm4hkjmb.cloudfront.net](https://d1hsp5bm4hkjmb.cloudfront.net).
+Đến bước này, S3 Bucket `codexecute-frontend` đã được bảo vệ an toàn, tắt truy cập công khai trực tiếp và chỉ cho phép duy nhất dịch vụ **Amazon CloudFront** đọc dữ liệu để phân phối tới người dùng tại địa chỉ website: [https://d1hsp5bm4hkjmb.cloudfront.net](https://d1hsp5bm4hkjmb.cloudfront.net).
