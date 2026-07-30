@@ -160,42 +160,6 @@ SQS also emits built-in CloudWatch metrics for the `codeexecute-submission-queue
 
 ---
 
-### Step 6: Create a CloudWatch Alarm for Lambda Errors
-
-To receive automatic alerts when the Worker Lambda fails, create a **CloudWatch Alarm** on the `Errors` metric:
-
-1. In **CloudWatch** → **Alarms** → **Create alarm** → **Select metric** → **Lambda** → `codeexecute-worker` → **Errors**.
-2. Configure the alarm:
-   - **Statistic**: Sum
-   - **Period**: 1 minute
-   - **Threshold**: ≥ 1 (alert on any error)
-   - **Datapoints to alarm**: 1 out of 1
-3. Under **Notification**, configure an **SNS topic** to send email alerts (or leave as no notification for console-only monitoring).
-4. Name the alarm: `codeexecute-worker-errors`.
-5. Click **Create alarm**.
-
-<div align="center">
-
-<img src="/images/5-Workshop/5.8-CloudWatch/alarm-config.jpg" alt="CloudWatch alarm configuration for Lambda errors" style="width: 80%; max-width: 900px; border-radius: 6px;">
-
-<p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
-<i>Figure 5.8.6: Creating a CloudWatch alarm on Lambda Worker error count</i>
-</p>
-
-</div>
-
-<div align="center">
-
-<img src="/images/5-Workshop/5.8-CloudWatch/alarm-active.jpg" alt="Active CloudWatch alarm" style="width: 80%; max-width: 900px; border-radius: 6px;">
-
-<p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
-<i>Figure 5.8.7: codeexecute-worker-errors alarm in OK state — monitoring active</i>
-</p>
-
-</div>
-
----
-
 ### Verification
 
 CloudWatch monitoring is now fully configured for the CodExecute system:

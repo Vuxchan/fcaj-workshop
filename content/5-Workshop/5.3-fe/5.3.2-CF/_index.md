@@ -25,7 +25,7 @@ CloudFront provides intelligent URL path-based routing, seamlessly directing inc
 
 <div align="center">
 
-<img src="/images/5-Workshop/5.3-S3/cf2.jpg" alt="Configure OAC and Cache Behavior" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.3-fe/cf2.jpg" alt="Configure OAC and Cache Behavior" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
 <i>Figure 5.3.2.1: Configuring Origin Access Control (OAC) and Viewer Protocol Policy</i>
@@ -37,7 +37,7 @@ CloudFront provides intelligent URL path-based routing, seamlessly directing inc
 
 <div align="center">
 
-<img src="/images/5-Workshop/5.3-S3/cf3.jpg" alt="CloudFront Distribution Created Successfully" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.3-fe/cf3.jpg" alt="CloudFront Distribution Created Successfully" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
 <i>Figure 5.3.2.2: CloudFront Distribution successfully provisioned</i>
@@ -56,7 +56,7 @@ To allow the React Frontend application to make API requests to `/api/*` over th
 
 <div align="center">
 
-<img src="/images/5-Workshop/5.3-S3/cf4.jpg" alt="Add API Gateway Origin" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.3-fe/cf4.jpg" alt="Add API Gateway Origin" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
 <i>Figure 5.3.2.3: Adding second Origin pointing to Amazon API Gateway Endpoint</i>
@@ -70,7 +70,7 @@ To allow the React Frontend application to make API requests to `/api/*` over th
 
 <div align="center">
 
-<img src="/images/5-Workshop/5.3-S3/cf5.jpg" alt="Configure Origin Path /prod" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.3-fe/cf5.jpg" alt="Configure Origin Path /prod" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
 <i>Figure 5.3.2.4: Setting Origin Path /prod and HTTPS Only protocol</i>
@@ -94,7 +94,7 @@ Switch to the **Behaviors** tab to set up path-based routing rules separating Fr
 
 <div align="center">
 
-<img src="/images/5-Workshop/5.3-S3/cf6.jpg" alt="Create Behavior for /api/*" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.3-fe/cf6.jpg" alt="Create Behavior for /api/*" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
 <i>Figure 5.3.2.5: Configuring Cache Behavior for /api/* path targeting API Gateway</i>
@@ -107,7 +107,7 @@ Switch to the **Behaviors** tab to set up path-based routing rules separating Fr
 
 <div align="center">
 
-<img src="/images/5-Workshop/5.3-S3/cf7.jpg" alt="Behavior Priority Order List" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.3-fe/cf7.jpg" alt="Behavior Priority Order List" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
 <i>Figure 5.3.2.6: Behavior priority list (Priority 0 for /api/* and Priority 1 for Default)</i>

@@ -25,7 +25,7 @@ Hạ tầng CloudFront sẽ định tuyến linh hoạt giữa **S3 Bucket** (ch
 
 <div align="center">
 
-<img src="/images/5-Workshop/5.3-S3/cf2.jpg" alt="Cấu hình OAC và Cache Behavior" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.3-fe/cf2.jpg" alt="Cấu hình OAC và Cache Behavior" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
 <i>Hình 5.3.2.1: Cấu hình Origin Access Control (OAC) và Viewer Protocol Policy</i>
@@ -37,7 +37,7 @@ Hạ tầng CloudFront sẽ định tuyến linh hoạt giữa **S3 Bucket** (ch
 
 <div align="center">
 
-<img src="/images/5-Workshop/5.3-S3/cf3.jpg" alt="Khởi tạo Distribution thành công" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.3-fe/cf3.jpg" alt="Khởi tạo Distribution thành công" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
 <i>Hình 5.3.2.2: Phân phối CloudFront Distribution được khởi tạo thành công</i>
@@ -56,7 +56,7 @@ Hạ tầng CloudFront sẽ định tuyến linh hoạt giữa **S3 Bucket** (ch
 
 <div align="center">
 
-<img src="/images/5-Workshop/5.3-S3/cf4.jpg" alt="Thêm API Gateway Origin" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.3-fe/cf4.jpg" alt="Thêm API Gateway Origin" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
 <i>Hình 5.3.2.3: Thêm Origin thứ 2 trỏ tới Amazon API Gateway Endpoint</i>
@@ -70,7 +70,7 @@ Hạ tầng CloudFront sẽ định tuyến linh hoạt giữa **S3 Bucket** (ch
 
 <div align="center">
 
-<img src="/images/5-Workshop/5.3-S3/cf5.jpg" alt="Cấu hình Origin Path /prod" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.3-fe/cf5.jpg" alt="Cấu hình Origin Path /prod" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
 <i>Hình 5.3.2.4: Điền Origin Path /prod và giao thức kết nối HTTPS Only</i>
@@ -94,7 +94,7 @@ Chuyển sang tab **Behaviors** để phân luồng truy cập giữa trang tĩn
 
 <div align="center">
 
-<img src="/images/5-Workshop/5.3-S3/cf6.jpg" alt="Tạo Behavior /api/*" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.3-fe/cf6.jpg" alt="Tạo Behavior /api/*" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
 <i>Hình 5.3.2.5: Cấu hình Behavior cho đường dẫn /api/* trỏ về API Gateway</i>
@@ -107,7 +107,7 @@ Chuyển sang tab **Behaviors** để phân luồng truy cập giữa trang tĩn
 
 <div align="center">
 
-<img src="/images/5-Workshop/5.3-S3/cf7.jpg" alt="Danh sách thứ tự ưu tiên Behavior" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.3-fe/cf7.jpg" alt="Danh sách thứ tự ưu tiên Behavior" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
 <i>Hình 5.3.2.6: Bảng sắp xếp thứ tự ưu tiên (Priority 0 cho /api/* và Priority 1 cho Default)</i>

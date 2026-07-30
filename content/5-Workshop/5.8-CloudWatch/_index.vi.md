@@ -160,42 +160,6 @@ SQS cũng phát ra CloudWatch metrics sẵn có cho `codeexecute-submission-queu
 
 ---
 
-### Bước 6: Tạo CloudWatch Alarm Cho Lambda Errors
-
-Để nhận cảnh báo tự động khi Lambda Worker gặp lỗi, tạo **CloudWatch Alarm** trên metric `Errors`:
-
-1. Trong **CloudWatch** → **Alarms** → **Create alarm** → **Select metric** → **Lambda** → `codeexecute-worker` → **Errors**.
-2. Cấu hình alarm:
-   - **Statistic**: Sum
-   - **Period**: 1 phút
-   - **Threshold**: ≥ 1 (cảnh báo ngay khi có bất kỳ lỗi nào)
-   - **Datapoints to alarm**: 1 out of 1
-3. Tại mục **Notification**, cấu hình **SNS topic** để gửi email cảnh báo (hoặc bỏ qua nếu chỉ theo dõi qua Console).
-4. Đặt tên alarm: `codeexecute-worker-errors`.
-5. Nhấn **Create alarm**.
-
-<div align="center">
-
-<img src="/images/5-Workshop/5.8-CloudWatch/alarm-config.jpg" alt="Cấu hình CloudWatch alarm cho Lambda errors" style="width: 80%; max-width: 900px; border-radius: 6px;">
-
-<p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
-<i>Hình 5.8.6: Tạo CloudWatch alarm trên số lượng error của Lambda Worker</i>
-</p>
-
-</div>
-
-<div align="center">
-
-<img src="/images/5-Workshop/5.8-CloudWatch/alarm-active.jpg" alt="CloudWatch alarm đang Active" style="width: 80%; max-width: 900px; border-radius: 6px;">
-
-<p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
-<i>Hình 5.8.7: Alarm codeexecute-worker-errors ở trạng thái OK — đang giám sát</i>
-</p>
-
-</div>
-
----
-
 ### Kết Quả
 
 CloudWatch monitoring đã được cấu hình đầy đủ cho hệ thống CodExecute:
