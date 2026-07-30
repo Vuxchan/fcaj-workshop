@@ -93,6 +93,40 @@ To allow API Gateway to transparently proxy incoming HTTP requests (URL path, HT
 
 ---
 
+### Step 5: Test API Gateway Availability (cURL Verification)
+
+To verify that the API Gateway endpoint is active, reachable, and correctly invoking the backend Lambda function (`codeexecute-api`), execute availability tests using `curl`:
+
+1. **Retrieve the API Gateway Invoke URL:**
+   - Open the API Gateway Console → Select `codeexecute-api-gateway` → Navigate to **Stages** → Select stage `prod`.
+   - Copy the **Invoke URL** (e.g., `https://3y6w9810cb.execute-api.ap-southeast-1.amazonaws.com/prod`).
+
+2. **Execute `curl` to test the API Documentation / Health Endpoint:**
+
+```bash
+# Inspect OpenAPI Swagger UI documentation endpoint served by FastAPI
+curl -i https://3y6w9810cb.execute-api.ap-southeast-1.amazonaws.com/prod/docs
+```
+
+3. **Expected Verification Output:**
+   - The `curl` command returns an HTTP `200 OK` status code.
+   - Response headers confirm proxy execution from the FastAPI backend:
+
+<div align="center">
+
+<!-- PLACEHOLDER FOR IMAGE: curl-test-apigateway.jpg -->
+<img src="/images/5-Workshop/5.6-APIGateway/curl-test-apigateway.jpg" alt="Successful cURL test output in Terminal" style="width: 80%; max-width: 900px; border-radius: 6px;">
+
+<p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
+<i>Figure 5.6.5: Successful cURL verification command execution output in Terminal</i>
+</p>
+
+</div>
+
+An HTTP `200 OK` response returning structured JSON data confirms that the API Gateway is online, healthy, and ready for integration with the Frontend application.
+
+---
+
 ### Verification
 
-At this stage, **Amazon API Gateway** is configured as the active Trigger for the `codeexecute-api` Lambda function. All incoming HTTP requests to `/prod/api/*` are packaged as proxy payloads and forwarded to Lambda to execute FastAPI application logic.
+At this stage, **Amazon API Gateway** has been configured and successfully verified as the active Trigger for the `codeexecute-api` Lambda function. All incoming HTTP requests to `/prod/api/*` are packaged as proxy payloads and forwarded to Lambda to execute FastAPI application logic.

@@ -23,4 +23,4 @@ This lab integrates core Serverless services including **AWS Lambda** (REST API 
 4. [Deploy Lambda via Docker & ECR](5.4-be/)
 5. [VPC Endpoint Policies (Bonus)](5.5-Policy/)
 6. [Configure API Gateway for Lambda API](5.6-APIGateway/)
-7. [Clean Up Resources](5.9-Cleanup/)
+7. [Clean Up Resources](5.10-Cleanup/)

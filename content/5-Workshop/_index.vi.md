@@ -23,4 +23,4 @@ Bài lab kết hợp các dịch vụ Serverless cốt lõi bao gồm **AWS Lamb
 4. [Triển khai Lambda qua Docker & ECR](5.4-be/)
 5. [VPC Endpoint Policies (làm thêm)](5.5-Policy/)
 6. [Cấu hình API Gateway cho Lambda API](5.6-APIGateway/)
-7. [Dọn dẹp tài nguyên](5.9-Cleanup/)
+7. [Dọn dẹp tài nguyên](5.10-Cleanup/)

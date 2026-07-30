@@ -3,7 +3,7 @@ title: "Dọn dẹp tài nguyên"
 date: 2026-07-30
 weight: 9
 chapter: false
-pre: " <b> 5.9. </b> "
+pre: " <b> 5.10. </b> "
 ---
 
 <!-- # DỌN DẸP TÀI NGUYÊN HỆ THỐNG CODEXECUTE -->
@@ -24,17 +24,17 @@ Trong phần này, chúng ta sẽ lần lượt xóa sạch toàn bộ tài nguy
 <div align="center">
 
 <!-- PLACEHOLDER FOR IMAGE: disable-cloudfront.jpg -->
-<img src="/images/5-Workshop/5.9-Cleanup/disable-cloudfront.jpg" alt="Vô hiệu hóa CloudFront Distribution" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.10-Cleanup/disable-cloudfront.jpg" alt="Vô hiệu hóa CloudFront Distribution" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
-<i>Hình 5.9.1.1: Vô hiệu hóa CloudFront Distribution E14SU7QS7NEEO8</i>
+<i>Hình 5.10.1.1: Vô hiệu hóa CloudFront Distribution E14SU7QS7NEEO8</i>
 </p>
 
 <!-- PLACEHOLDER FOR IMAGE: cleanup-cloudfront.jpg -->
-<img src="/images/5-Workshop/5.9-Cleanup/cleanup-cloudfront.jpg" alt="Xóa CloudFront Distribution" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.10-Cleanup/cleanup-cloudfront.jpg" alt="Xóa CloudFront Distribution" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
-<i>Hình 5.9.1.2: Xóa CloudFront Distribution E14SU7QS7NEEO8</i>
+<i>Hình 5.10.1.2: Xóa CloudFront Distribution E14SU7QS7NEEO8</i>
 </p>
 
 </div>
@@ -51,10 +51,10 @@ Trong phần này, chúng ta sẽ lần lượt xóa sạch toàn bộ tài nguy
 <div align="center">
 
 <!-- PLACEHOLDER FOR IMAGE: cleanup-apigateway.jpg -->
-<img src="/images/5-Workshop/5.9-Cleanup/cleanup-apigateway.jpg" alt="Xóa API Gateway" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.10-Cleanup/cleanup-apigateway.jpg" alt="Xóa API Gateway" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
-<i>Hình 5.9.2: Xóa HTTP API Gateway codeexecute-api-gateway</i>
+<i>Hình 5.10.2: Xóa HTTP API Gateway codeexecute-api-gateway</i>
 </p>
 
 </div>
@@ -73,10 +73,10 @@ Trong phần này, chúng ta sẽ lần lượt xóa sạch toàn bộ tài nguy
 <div align="center">
 
 <!-- PLACEHOLDER FOR IMAGE: cleanup-lambda.jpg -->
-<img src="/images/5-Workshop/5.9-Cleanup/cleanup-lambda.jpg" alt="Xóa AWS Lambda Functions" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.10-Cleanup/cleanup-lambda.jpg" alt="Xóa AWS Lambda Functions" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
-<i>Hình 5.9.3: Xóa hai hàm Lambda codeexecute-worker và codeexecute-api</i>
+<i>Hình 5.10.3: Xóa hai hàm Lambda codeexecute-worker và codeexecute-api</i>
 </p>
 
 </div>
@@ -95,10 +95,10 @@ Trong phần này, chúng ta sẽ lần lượt xóa sạch toàn bộ tài nguy
 <div align="center">
 
 <!-- PLACEHOLDER FOR IMAGE: cleanup-ecr.jpg -->
-<img src="/images/5-Workshop/5.9-Cleanup/cleanup-ecr.jpg" alt="Xóa ECR Repositories" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.10-Cleanup/cleanup-ecr.jpg" alt="Xóa ECR Repositories" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
-<i>Hình 5.9.4: Xóa hai ECR Repositories codexecute-lambda-worker và codexecute-lambda-api</i>
+<i>Hình 5.10.4: Xóa hai ECR Repositories codexecute-lambda-worker và codexecute-lambda-api</i>
 </p>
 
 </div>
@@ -115,10 +115,10 @@ Trong phần này, chúng ta sẽ lần lượt xóa sạch toàn bộ tài nguy
 <div align="center">
 
 <!-- PLACEHOLDER FOR IMAGE: cleanup-sqs.jpg -->
-<img src="/images/5-Workshop/5.9-Cleanup/cleanup-sqs.jpg" alt="Xóa SQS Queue" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.10-Cleanup/cleanup-sqs.jpg" alt="Xóa SQS Queue" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
-<i>Hình 5.9.5: Xóa SQS Queue codexecute-submissions-queue</i>
+<i>Hình 5.10.5: Xóa SQS Queue codexecute-submissions-queue</i>
 </p>
 
 </div>
@@ -136,10 +136,10 @@ Trong phần này, chúng ta sẽ lần lượt xóa sạch toàn bộ tài nguy
 <div align="center">
 
 <!-- PLACEHOLDER FOR IMAGE: cleanup-dynamodb.jpg -->
-<img src="/images/5-Workshop/5.9-Cleanup/cleanup-dynamodb.jpg" alt="Xóa các bảng DynamoDB" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.10-Cleanup/cleanup-dynamodb.jpg" alt="Xóa các bảng DynamoDB" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
-<i>Hình 5.9.6: Xóa 8 bảng cơ sở dữ liệu DynamoDB</i>
+<i>Hình 5.10.6: Xóa 8 bảng cơ sở dữ liệu DynamoDB</i>
 </p>
 
 </div>
@@ -159,17 +159,17 @@ Trong phần này, chúng ta sẽ lần lượt xóa sạch toàn bộ tài nguy
 <div align="center">
 
 <!-- PLACEHOLDER FOR IMAGE: empty-s3.jpg -->
-<img src="/images/5-Workshop/5.9-Cleanup/empty-s3.jpg" alt="Làm rỗng S3 Buckets" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.10-Cleanup/empty-s3.jpg" alt="Làm rỗng S3 Buckets" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
-<i>Hình 5.9.7.1: Làm rỗng các Amazon S3 Buckets dự án</i>
+<i>Hình 5.10.7.1: Làm rỗng các Amazon S3 Buckets dự án</i>
 </p>
 
 <!-- PLACEHOLDER FOR IMAGE: cleanup-s3.jpg -->
-<img src="/images/5-Workshop/5.9-Cleanup/cleanup-s3.jpg" alt="Xóa S3 Buckets" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.10-Cleanup/cleanup-s3.jpg" alt="Xóa S3 Buckets" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
-<i>Hình 5.9.7.2: Xóa các Amazon S3 Buckets dự án</i>
+<i>Hình 5.10.7.2: Xóa các Amazon S3 Buckets dự án</i>
 </p>
 
 </div>
@@ -188,10 +188,10 @@ Trong phần này, chúng ta sẽ lần lượt xóa sạch toàn bộ tài nguy
 <div align="center">
 
 <!-- PLACEHOLDER FOR IMAGE: cleanup-cloudwatch.jpg -->
-<img src="/images/5-Workshop/5.9-Cleanup/cleanup-cloudwatch.jpg" alt="Xóa CloudWatch Log Groups" style="width: 80%; max-width: 900px; border-radius: 6px;">
+<img src="/images/5-Workshop/5.10-Cleanup/cleanup-cloudwatch.jpg" alt="Xóa CloudWatch Log Groups" style="width: 80%; max-width: 900px; border-radius: 6px;">
 
 <p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
-<i>Hình 5.9.8: Xóa các CloudWatch Log Groups phát sinh trong quá trình chạy hệ thống</i>
+<i>Hình 5.10.8: Xóa các CloudWatch Log Groups phát sinh trong quá trình chạy hệ thống</i>
 </p>
 
 </div>

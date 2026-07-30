@@ -93,6 +93,40 @@ Trong hạ tầng Serverless của **CodExecute**, khung ứng dụng **FastAPI*
 
 ---
 
+### Bước 5: Kiểm Tra Trạng Thái Sẵn Sàng Của API Gateway (Availability Test)
+
+Để kiểm tra cổng API Gateway đã kết nối thành công và truyền nhận dữ liệu thông suốt tới hàm Lambda API Backend (`codeexecute-api`), ta thực hiện kiểm thử endpoint bằng công cụ `curl`:
+
+1. **Lấy Invoke URL của API Gateway:**
+   - Trong giao diện API Gateway Console → chọn API `codeexecute-api-gateway` → vào mục **Stages** → chọn stage `prod`.
+   - Sao chép đường dẫn **Invoke URL** (ví dụ: `https://3y6w9810cb.execute-api.ap-southeast-1.amazonaws.com/prod`).
+
+2. **Chạy lệnh `curl` để kiểm tra Endpoint Health Check / API Docs:**
+
+```bash
+# Kiểm tra endpoint OpenAPI docs hoặc health endpoint của FastAPI
+curl -i https://3y6w9810cb.execute-api.ap-southeast-1.amazonaws.com/prod/docs
+```
+
+3. **Kết quả kỳ vọng (Expected Output):**
+   - Lệnh `curl` trả về mã phản hồi HTTP `200 OK`.
+   - Header cho thấy phản hồi từ FastAPI Serverless backend:
+
+<div align="center">
+
+<!-- PLACEHOLDER FOR IMAGE: curl-test-apigateway.jpg -->
+<img src="/images/5-Workshop/5.6-APIGateway/curl-test-apigateway.jpg" alt="Kiểm tra kết quả cURL thành công trên Terminal" style="width: 80%; max-width: 900px; border-radius: 6px;">
+
+<p style="font-size: 1rem; font-weight: 600; margin-top: 8px;">
+<i>Hình 5.6.5: Kết quả thực thi lệnh cURL kiểm tra API Gateway thành công trong Terminal</i>
+</p>
+
+</div>
+
+Mã phản hồi HTTP `200 OK` kèm theo dữ liệu JSON khẳng định API Gateway đã hoạt động ổn định và sẵn sàng tiếp nhận request từ hệ thống Frontend.
+
+---
+
 ### Kết Quả
 
-Đến bước này, cổng kết nối **Amazon API Gateway** đã được thiết lập thành công làm Trigger đại diện cho hàm Lambda `codeexecute-api`. Mọi yêu cầu HTTP gửi đến đường dẫn `/prod/api/*` sẽ được API Gateway tự động đóng gói theo chuẩn Proxy Payload và chuyển tiếp tới hàm Lambda để thực thi logic ứng dụng FastAPI.
+Đến bước này, cổng kết nối **Amazon API Gateway** đã được thiết lập và kiểm thử thành công làm Trigger đại diện cho hàm Lambda `codeexecute-api`. Mọi yêu cầu HTTP gửi đến đường dẫn `/prod/api/*` sẽ được API Gateway tự động đóng gói theo chuẩn Proxy Payload và chuyển tiếp tới hàm Lambda để thực thi logic ứng dụng FastAPI.
