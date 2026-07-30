@@ -26,7 +26,7 @@ chapter: false
 &emsp; **Thời gian thực tập:** Từ ngày 08/06/2026 đến ngày 15/08/2026
 
 <div align="center">
-  <img src="/images/avatar.jpg" alt="Ảnh đại diện" style="width: 280px; border-radius: 8px; margin: 10px 0;">
+  <img src="images/avatar.jpg" alt="Ảnh đại diện" style="width: 280px; border-radius: 8px; margin: 10px 0;">
   <figcaption>Ảnh đại diện</figcaption>
 </div>
 
