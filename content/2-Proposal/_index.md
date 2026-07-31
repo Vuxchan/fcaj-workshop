@@ -86,7 +86,7 @@ CodExecute's architecture adheres strictly to the 5 pillars of the **AWS Well-Ar
 5. **Cost Optimization:** Strict Event-Driven Pure Serverless architecture (Lambda Pay-As-You-Go).
 
 ### Project Architecture Diagram
-![CodExecute Architecture Diagram](/images/architect-codexecute.drawio.png)
+![CodExecute Architecture Diagram](/images/2-Proposal/architect-codexecute.drawio.png)
 
 ### Functional Architecture Layer Analysis
 Based on the AWS Serverless Architecture Diagram, CodExecute is structured into 6 dedicated functional layers deployed in the `ap-southeast-1` Region:
