@@ -1,0 +1,53 @@
+<div class="table-responsive-wrapper">
+    {{ .Inner | markdownify }}
+</div>
+
+<style>
+.table-responsive-wrapper {
+    overflow-x: auto !important;
+    width: 100% !important;
+    margin: 1.5em 0 !important;
+}
+
+/* Nhắm thẳng vào bảng do Hugo tự sinh ra bên trong */
+.table-responsive-wrapper table {
+    border-collapse: collapse !important;
+    width: 100% !important;
+    table-layout: fixed !important; /* Bắt buộc bảng chia tỷ lệ cứng */
+    font-size: 13.5px !important;
+}
+
+.table-responsive-wrapper th,
+.table-responsive-wrapper td {
+    border: 1px solid #e2e8f0 !important;
+    padding: 10px 8px !important;
+    vertical-align: middle !important;
+    text-align: left !important;
+    
+    /* Ép chuỗi số quá dài phải tự ngắt dòng, không cho tràn ô */
+    word-break: break-all !important;
+    overflow-wrap: anywhere !important;
+    white-space: normal !important;
+}
+
+.table-responsive-wrapper th {
+    background-color: #f8fafc !important;
+    font-weight: 600 !important;
+}
+
+/* Chia lại % độ rộng chuẩn xác cho từng cột */
+.table-responsive-wrapper table tr > th:nth-child(1),
+.table-responsive-wrapper table tr > td:nth-child(1) { width: 6% !important; text-align: center !important; }
+
+.table-responsive-wrapper table tr > th:nth-child(2),
+.table-responsive-wrapper table tr > td:nth-child(2) { width: 15% !important; }
+
+.table-responsive-wrapper table tr > th:nth-child(3),
+.table-responsive-wrapper table tr > td:nth-child(3) { width: 34% !important; }
+
+.table-responsive-wrapper table tr > th:nth-child(4),
+.table-responsive-wrapper table tr > td:nth-child(4) { width: 30% !important; }
+
+.table-responsive-wrapper table tr > th:nth-child(5),
+.table-responsive-wrapper table tr > td:nth-child(5) { width: 15% !important; text-align: right !important; }
+</style>

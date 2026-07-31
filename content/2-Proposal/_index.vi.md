@@ -5,9 +5,6 @@ weight: 2
 chapter: false
 pre: " <b> 2. </b> "
 ---
-<!-- {{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}} -->
 
 # CODEXECUTE - HỆ THỐNG CHẤM BÀI TRỰC TUYẾN & NỀN TẢNG THUẬT TOÁN TỰ ĐỘNG
 
@@ -20,7 +17,7 @@ Dự án được xây dựng 100% theo mô hình **Pure Serverless Cloud-Native
 
 <div align="center" style="margin: 24px 0;">
 
-<img src="/images/5-Workshop/5.1-Workshop-overview/project_overview.png" alt="Giao diện nền tảng CodExecute Online Judge" style="width: 95%; max-width: 1100px; border-radius: 8px; box-shadow: 0 6px 20px rgba(0,0,0,0.15);">
+<img src="/images/2-Proposal/demo.png" alt="Giao diện nền tảng CodExecute Online Judge" style="width: 95%; max-width: 1100px; border-radius: 8px; box-shadow: 0 6px 20px rgba(0,0,0,0.15);">
 
 <p style="font-size: 1.05rem; font-weight: 600; margin-top: 10px; color: #475569;">
 <i>Giao diện tổng quan nền tảng chấm bài tự động &amp; mạng xã hội CodExecute</i>
@@ -89,7 +86,7 @@ Kiến trúc của **CodExecute** tuân thủ 5 trụ cột của **AWS Well-Arc
 5. **Cost Optimization (Tối ưu chi phí):** Áp dụng triệt để kiến trúc Pure Serverless Event-Driven (Lambda Pay-As-You-Go).
 
 ### Sơ đồ kiến trúc của dự án
-![Sơ đồ kiến trúc CodExecute](/images/2-Proposal/architect-codexecute.drawio.png)
+![CodExecute Architecture Diagram](/images/2-Proposal/architect-codexecute.drawio.png)
 
 ### Phân Tích Phân Lớp Kiến Trúc (Architecture Layers)
 Dựa trên sơ đồ kiến trúc tổng quan chuẩn AWS, hệ thống CodExecute được thiết kế phân thành 6 lớp chức năng hoạt động tại AWS Region `ap-southeast-1`:
@@ -196,21 +193,126 @@ Dự án được triển khai trong vòng **7 tuần** (từ ngày **15/06/2026
 
 ### 1. Ước Tính Ngân Sách Hàng Tháng 
 
-Dự toán ngân sách được tính dựa trên quy mô vận hành trung bình: **100,000 bài nộp/tháng** và **500,000 API requests/tháng**.
+Dự toán ngân sách được tính dựa trên quy mô vận hành trung bình: **100,000 bài nộp/tháng** và **500,000 API requests/tháng** cho toàn bộ **11 dịch vụ AWS cốt lõi**:
 
-| Dịch Vụ AWS | Mức Độ Sử Dụng Dự Kiến / Tháng | Đơn Giá Tham Chiếu (ap-southeast-1) | Chi Phí Hàng Tháng (USD) |
-| :--- | :--- | :--- | :---: |
-| **AWS Lambda** | 500,000 API Requests + 100,000 Worker Sandbox executions (Memory: 512MB, Avg duration: 800ms) | $0.20 / 1M Requests + Compute time | **$3.80** |
-| **Amazon API Gateway** | 500,000 HTTP API calls | $1.00 / 1M Requests | **$0.50** |
-| **Amazon SQS** | 200,000 SQS Requests (SendMessage + ReceiveMessage) | $0.40 / 1M Requests | **$0.08** |
-| **Amazon DynamoDB** | 1,000,000 Read/Write Units (On-Demand Mode) + 5GB Data Storage | $0.25 / 1M WCU, $0.05 / 1M RCU | **$3.20** |
-| **Amazon S3** | 15GB Storage (Testcases + User Media + Web Assets) + 100k GET/PUT | $0.023 / GB | **$0.65** |
-| **Amazon CloudFront** | 50GB Data Transfer Out + 500k HTTPS Requests | $0.09 / GB | **$4.50** |
-| **Amazon CloudWatch** | 3GB Ingestion Logs + 5 Custom Metrics + 3 Alarms | $0.57 / GB Logs | **$2.70** |
-| **AWS IAM** | Toàn bộ IAM Users, Roles, Policies | Miễn phí | **$0.00** |
-| **TỔNG CỘNG CHI PHÍ DỰ KIẾN / THÁNG:** | | | **~$15.43 USD / tháng** |
+<div style="width: 100%; border: 1px solid #e2e8f0; border-radius: 6px; overflow: hidden; margin: 20px 0; font-size: 13.5px; line-height: 1.4;">
+  <!-- HEADER -->
+  <div style="display: flex; background-color: #f8fafc; font-weight: 600; border-bottom: 2px solid #e2e8f0; color: #0f172a;">
+    <div style="flex: 0 0 5%; padding: 10px 4px; text-align: center; border-right: 1px solid #e2e8f0;">STT</div>
+    <div style="flex: 0 0 16%; padding: 10px 8px; border-right: 1px solid #e2e8f0;">DỊCH VỤ AWS</div>
+    <div style="flex: 0 0 34%; padding: 10px 8px; border-right: 1px solid #e2e8f0;">MỨC ĐỘ SỬ DỤNG DỰ KIẾN / THÁNG</div>
+    <div style="flex: 0 0 30%; padding: 10px 8px; border-right: 1px solid #e2e8f0;">ĐƠN GIÁ THAM CHIẾU (AP-SOUTHEAST-1)</div>
+    <div style="flex: 0 0 15%; padding: 10px 8px; text-align: right;">CHI PHÍ (USD)</div>
+  </div>
 
-> 💡 *Lưu ý:* Trong 12 tháng đầu tiên triển khai, phần lớn chi phí trên sẽ nằm trong gói **AWS Free Tier** (1M Lambda requests/tháng, 1M API Gateway requests/tháng, 25GB DynamoDB storage, 5GB S3 storage), giúp chi phí thực tế duy trì ở mức **< $3.00 USD/tháng**.
+  <!-- ROW 1 -->
+  <div style="display: flex; border-bottom: 1px solid #e2e8f0;">
+    <div style="flex: 0 0 5%; padding: 8px 4px; text-align: center; border-right: 1px solid #e2e8f0;"><b>1</b></div>
+    <div style="flex: 0 0 16%; padding: 8px; border-right: 1px solid #e2e8f0;"><b>AWS Lambda</b></div>
+    <div style="flex: 0 0 34%; padding: 8px; border-right: 1px solid #e2e8f0;">500,000 API Requests + 100,000 Worker Sandbox executions (Memory: 512MB, Avg duration: 800ms)</div>
+    <div style="flex: 0 0 30%; padding: 8px; border-right: 1px solid #e2e8f0; word-break: break-word;">$0.20 / 1M Requests + $0.0000000083 / GB-s</div>
+    <div style="flex: 0 0 15%; padding: 8px; text-align: right; font-weight: bold;">$3.80</div>
+  </div>
+
+  <!-- ROW 2 -->
+  <div style="display: flex; border-bottom: 1px solid #e2e8f0;">
+    <div style="flex: 0 0 5%; padding: 8px 4px; text-align: center; border-right: 1px solid #e2e8f0;"><b>2</b></div>
+    <div style="flex: 0 0 16%; padding: 8px; border-right: 1px solid #e2e8f0;"><b>Amazon API Gateway</b></div>
+    <div style="flex: 0 0 34%; padding: 8px; border-right: 1px solid #e2e8f0;">500,000 HTTP API calls</div>
+    <div style="flex: 0 0 30%; padding: 8px; border-right: 1px solid #e2e8f0; word-break: break-word;">$1.00 / 1M Requests</div>
+    <div style="flex: 0 0 15%; padding: 8px; text-align: right; font-weight: bold;">$0.50</div>
+  </div>
+
+  <!-- ROW 3 -->
+  <div style="display: flex; border-bottom: 1px solid #e2e8f0;">
+    <div style="flex: 0 0 5%; padding: 8px 4px; text-align: center; border-right: 1px solid #e2e8f0;"><b>3</b></div>
+    <div style="flex: 0 0 16%; padding: 8px; border-right: 1px solid #e2e8f0;"><b>Amazon SQS</b></div>
+    <div style="flex: 0 0 34%; padding: 8px; border-right: 1px solid #e2e8f0;">200,000 SQS Requests (SendMessage + ReceiveMessage) + Dead-Letter Queue (DLQ)</div>
+    <div style="flex: 0 0 30%; padding: 8px; border-right: 1px solid #e2e8f0; word-break: break-word;">$0.40 / 1M Requests</div>
+    <div style="flex: 0 0 15%; padding: 8px; text-align: right; font-weight: bold;">$0.08</div>
+  </div>
+
+  <!-- ROW 4 -->
+  <div style="display: flex; border-bottom: 1px solid #e2e8f0;">
+    <div style="flex: 0 0 5%; padding: 8px 4px; text-align: center; border-right: 1px solid #e2e8f0;"><b>4</b></div>
+    <div style="flex: 0 0 16%; padding: 8px; border-right: 1px solid #e2e8f0;"><b>Amazon DynamoDB</b></div>
+    <div style="flex: 0 0 34%; padding: 8px; border-right: 1px solid #e2e8f0;">1,000,000 Read/Write Units (On-Demand Mode) + 5GB Data Storage</div>
+    <div style="flex: 0 0 30%; padding: 8px; border-right: 1px solid #e2e8f0; word-break: break-word;">$0.25 / 1M WCU, $0.05 / 1M RCU</div>
+    <div style="flex: 0 0 15%; padding: 8px; text-align: right; font-weight: bold;">$3.20</div>
+  </div>
+
+  <!-- ROW 5 -->
+  <div style="display: flex; border-bottom: 1px solid #e2e8f0;">
+    <div style="flex: 0 0 5%; padding: 8px 4px; text-align: center; border-right: 1px solid #e2e8f0;"><b>5</b></div>
+    <div style="flex: 0 0 16%; padding: 8px; border-right: 1px solid #e2e8f0;"><b>Amazon S3</b></div>
+    <div style="flex: 0 0 34%; padding: 8px; border-right: 1px solid #e2e8f0;">15GB Storage (3 Buckets: Static Web, Testcases, User Avatars) + 100k GET/PUT Requests</div>
+    <div style="flex: 0 0 30%; padding: 8px; border-right: 1px solid #e2e8f0; word-break: break-word;">$0.023 / GB</div>
+    <div style="flex: 0 0 15%; padding: 8px; text-align: right; font-weight: bold;">$0.65</div>
+  </div>
+
+  <!-- ROW 6 -->
+  <div style="display: flex; border-bottom: 1px solid #e2e8f0;">
+    <div style="flex: 0 0 5%; padding: 8px 4px; text-align: center; border-right: 1px solid #e2e8f0;"><b>6</b></div>
+    <div style="flex: 0 0 16%; padding: 8px; border-right: 1px solid #e2e8f0;"><b>Amazon CloudFront</b></div>
+    <div style="flex: 0 0 34%; padding: 8px; border-right: 1px solid #e2e8f0;">50GB Data Transfer Out + 500k HTTPS Requests</div>
+    <div style="flex: 0 0 30%; padding: 8px; border-right: 1px solid #e2e8f0; word-break: break-word;">$0.09 / GB</div>
+    <div style="flex: 0 0 15%; padding: 8px; text-align: right; font-weight: bold;">$4.50</div>
+  </div>
+
+  <!-- ROW 7 -->
+  <div style="display: flex; border-bottom: 1px solid #e2e8f0;">
+    <div style="flex: 0 0 5%; padding: 8px 4px; text-align: center; border-right: 1px solid #e2e8f0;"><b>7</b></div>
+    <div style="flex: 0 0 16%; padding: 8px; border-right: 1px solid #e2e8f0;"><b>AWS WAF</b></div>
+    <div style="flex: 0 0 34%; padding: 8px; border-right: 1px solid #e2e8f0;">1 Web ACL + 2 Managed Rule Groups + 500k Inspected Requests</div>
+    <div style="flex: 0 0 30%; padding: 8px; border-right: 1px solid #e2e8f0; word-break: break-word;">$5.00 / Web ACL + $1.00 / Rule Group + $0.60 / 1M Requests</div>
+    <div style="flex: 0 0 15%; padding: 8px; text-align: right; font-weight: bold;">$7.30</div>
+  </div>
+
+  <!-- ROW 8 -->
+  <div style="display: flex; border-bottom: 1px solid #e2e8f0;">
+    <div style="flex: 0 0 5%; padding: 8px 4px; text-align: center; border-right: 1px solid #e2e8f0;"><b>8</b></div>
+    <div style="flex: 0 0 16%; padding: 8px; border-right: 1px solid #e2e8f0;"><b>AWS ECR</b></div>
+    <div style="flex: 0 0 34%; padding: 8px; border-right: 1px solid #e2e8f0;">2 Container Repositories (Lambda API Handler & Code Executor Images, ~2GB Storage)</div>
+    <div style="flex: 0 0 30%; padding: 8px; border-right: 1px solid #e2e8f0; word-break: break-word;">$0.10 / GB / tháng</div>
+    <div style="flex: 0 0 15%; padding: 8px; text-align: right; font-weight: bold;">$0.20</div>
+  </div>
+
+  <!-- ROW 9 -->
+  <div style="display: flex; border-bottom: 1px solid #e2e8f0;">
+    <div style="flex: 0 0 5%; padding: 8px 4px; text-align: center; border-right: 1px solid #e2e8f0;"><b>9</b></div>
+    <div style="flex: 0 0 16%; padding: 8px; border-right: 1px solid #e2e8f0;"><b>Amazon CloudWatch</b></div>
+    <div style="flex: 0 0 34%; padding: 8px; border-right: 1px solid #e2e8f0;">3GB Ingestion Logs + 5 Custom Metrics + 3 Alarms</div>
+    <div style="flex: 0 0 30%; padding: 8px; border-right: 1px solid #e2e8f0; word-break: break-word;">$0.57 / GB Logs</div>
+    <div style="flex: 0 0 15%; padding: 8px; text-align: right; font-weight: bold;">$2.70</div>
+  </div>
+
+  <!-- ROW 10 -->
+  <div style="display: flex; border-bottom: 1px solid #e2e8f0;">
+    <div style="flex: 0 0 5%; padding: 8px 4px; text-align: center; border-right: 1px solid #e2e8f0;"><b>10</b></div>
+    <div style="flex: 0 0 16%; padding: 8px; border-right: 1px solid #e2e8f0;"><b>Amazon SNS</b></div>
+    <div style="flex: 0 0 34%; padding: 8px; border-right: 1px solid #e2e8f0;">100 Email & Push Notifications gửi cảnh báo sự cố từ CloudWatch Alarms</div>
+    <div style="flex: 0 0 30%; padding: 8px; border-right: 1px solid #e2e8f0; word-break: break-word;">$0.50 / 100k Notifications</div>
+    <div style="flex: 0 0 15%; padding: 8px; text-align: right; font-weight: bold;">$0.01</div>
+  </div>
+
+  <!-- ROW 11 -->
+  <div style="display: flex; border-bottom: 1px solid #e2e8f0;">
+    <div style="flex: 0 0 5%; padding: 8px 4px; text-align: center; border-right: 1px solid #e2e8f0;"><b>11</b></div>
+    <div style="flex: 0 0 16%; padding: 8px; border-right: 1px solid #e2e8f0;"><b>AWS IAM</b></div>
+    <div style="flex: 0 0 34%; padding: 8px; border-right: 1px solid #e2e8f0;">Toàn bộ IAM Execution Roles, Resource Policies, Access Keys</div>
+    <div style="flex: 0 0 30%; padding: 8px; border-right: 1px solid #e2e8f0; word-break: break-word;">Miễn phí dịch vụ</div>
+    <div style="flex: 0 0 15%; padding: 8px; text-align: right; font-weight: bold;">$0.00</div>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="display: flex; background-color: #f8fafc; font-weight: 700;">
+    <div style="flex: 0 0 85%; padding: 10px; border-right: 1px solid #e2e8f0; text-align: left;">TỔNG CỘNG CHI PHÍ DỰ KIẾN / THÁNG:</div>
+    <div style="flex: 0 0 15%; padding: 10px 8px; text-align: right; color: #0284c7;">~$22.94 USD</div>
+  </div>
+</div>
+
+> 💡 *Lưu ý về Gói AWS Free Tier:* Trong 12 tháng đầu tiên triển khai, nhờ tận dụng gói **AWS Free Tier** (CloudFront 1TB Data Out miễn phí, 1M Lambda Requests/tháng, 1M API Gateway Requests/tháng, 25GB DynamoDB storage, 5GB S3 storage, 5GB CloudWatch Logs), chi phí vận hành thực tế được tối ưu hóa chỉ còn **~$7.50 USD/tháng** (chủ yếu là phí cố định của AWS WAF Web ACL).
+
 
 ---
 

@@ -7,11 +7,11 @@ pre: " <b> 3. </b> "
 includeInReport: false
 ---
 
-### [Blog 1 - AMAZON BEDROCK VÀ NOVA PRO: PHÂN TÍCH SỰ CỐ VẬN HÀNH BẰNG AI ĐA PHƯƠNG THỨC](3.1-Blog1/)
-Bài viết giới thiệu cách kết hợp Amazon Bedrock và Amazon Nova Pro để xây dựng hệ thống phân tích sự cố tự động, xử lý đồng thời dữ liệu văn bản (log, metric, config) và dữ liệu hình ảnh (sơ đồ kiến trúc), giúp rút ngắn đáng kể thời gian xử lý sự cố (MTTR).
+### [Blog 1 - NÂNG CAO TRẢI NGHIỆM TEST LOCAL CHO ỨNG DỤNG SERVERLESS VỚI LOCALSTACK](3.1-Blog1/)
+Bài viết giới thiệu LocalStack và tích hợp với AWS Toolkit cho VS Code, giúp lập trình viên test và debug ứng dụng serverless (Lambda, SQS, DynamoDB, EventBridge) hoàn toàn trên local mà không cần deploy lên cloud. Bài viết đề cập đến setup tự động, quy trình debug, và chiến lược test phân lớp (unit test → integration test với LocalStack → validation cuối trên cloud thật).
 
-### [Blog 2 - XÂY DỰNG END-TO-END AGENTIC SRE VỚI AWS DEVOPS AGENT](3.2-Blog2/)
-Bài viết hướng dẫn xây dựng giải pháp SRE tự động toàn diện với AWS DevOps Agent, tích hợp đa nguồn (CloudWatch, Splunk, GitHub, Slack), hỗ trợ môi trường multi-cloud/hybrid và tự động tạo agent-ready spec cho coding agent để vá lỗi.
+### [Blog 2 - TỐI ƯU HIỆU NĂNG STORAGE CHO AMAZON EKS TRÊN AWS OUTPOSTS](3.2-Blog2/)
+Bài viết cung cấp hướng dẫn toàn diện về lựa chọn và tối ưu storage cho EKS on Outposts. So sánh 3 loại storage (EBS, EFS, S3 on Outposts), phân tích đặc tính hiệu năng và ràng buộc của từng loại, kèm theo khuyến nghị thực tế để chọn đúng storage dựa trên yêu cầu workload, chỉ số giám sát và best practices bảo mật.
 
-### [Blog 3 - TỐI ƯU CHI PHÍ EC2 VỚI AWS COMPUTE OPTIMIZER RIGHT SIZING](3.3-Blog3/)
-Bài viết phân tích các phương pháp tối ưu chi phí hạ tầng EC2 thông qua AWS Compute Optimizer, đề xuất 5 best practices gồm bật Cost Optimization Hub, bổ sung Memory Metrics, tùy chỉnh preference, đánh giá Graviton và xây dựng quy trình rightsizing bài bản.
+### [Blog 3 - TRIỂN KHAI PERSISTENT STORAGE CHO AWS FARGATE VỚI AMAZON EBS](3.3-Blog3/)
+Bài viết khám phá cách tích hợp trực tiếp volume Amazon EBS vào task Fargate để giải quyết bài toán persistent block storage cho container serverless. Bao gồm thiết kế kiến trúc, điểm quan trọng về tính zone-bound của EBS, và giải pháp event-driven quản lý vòng đời volume khi task bị thay thế sử dụng CloudWatch Events, Lambda và DynamoDB.

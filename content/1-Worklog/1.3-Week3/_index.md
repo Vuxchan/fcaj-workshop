@@ -16,23 +16,23 @@ reportHeadings:
 reportType: worklog
 ---
 
-### Week 3 Objectives:
+**Period:** 22/06/2026 – 28/06/2026
+**Theme:** Deploy the frontend to S3 and configure CloudFront CDN
 
-* Understand Amazon Virtual Private Cloud (VPC) core networking concepts.
-* Learn CIDR block planning, Public vs Private Subnets, Internet Gateway, NAT Gateway, Route Tables, and Network Security (Security Groups & Bastion Host).
+## Weekly Objectives
+- Deploy the frontend to S3 and configure CloudFront CDN.
+- Continue building CodExecute according to the designed AWS serverless architecture.
+- Prioritize Infrastructure as Code, least-privilege security and reproducible environments.
 
-### Tasks to be carried out this week:
-| Day | Task | Start Date | Completion Date | Reference Material |
-| --- | --- | --- | --- | --- |
-| 2 | - Learn VPC fundamentals: IPv4 CIDR Blocks (`10.0.0.0/16`), Subnetting (Public/Private Subnets across multi-AZ) | 06/29/2026 | 06/29/2026 | <https://docs.aws.amazon.com/vpc/latest/userguide/configure-your-vpc.html> |
-| 3 | - Learn Internet Gateway (IGW) and Route Tables (Local routing & Default `0.0.0.0/0` internet route) | 06/30/2026 | 06/30/2026 | <https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html> |
-| 4 | - **Practice:** <br>&emsp; + Create a Custom VPC <br>&emsp; + Provision 2 Public Subnets & 2 Private Subnets <br>&emsp; + Attach Internet Gateway and configure Public Route Table | 07/01/2026 | 07/01/2026 | <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-subnets-routing.html> |
-| 5 | - **Practice:** <br>&emsp; + Provision NAT Gateway in Public Subnet <br>&emsp; + Configure Private Route Table to route outbound traffic via NAT Gateway | 07/02/2026 | 07/02/2026 | <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html> |
-| 6 | - **Practice:** <br>&emsp; + Launch Bastion Host in Public Subnet <br>&emsp; + Configure stateful Security Groups and SSH into EC2 instance in Private Subnet | 07/03/2026 | 07/03/2026 | <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html> |
+## Daily Plan
 
+| Day | Task |
+|---|---|
+| Monday (22/06) | Build the frontend for production and identify the static assets that must be uploaded to S3. |
+| Tuesday (23/06) | Configure S3 as the frontend origin and use Origin Access Control (OAC) to prevent direct public bucket access. |
+| Wednesday (24/06) | Create the CloudFront distribution with HTTPS, caching and a default root object. |
+| Thursday (25/06) | Attach AWS WAF to CloudFront for a basic protection layer on the public endpoint. |
+| Friday (26/06) | Configure SPA routing/fallback so routes such as `/login`, `/problems` and `/submissions` work correctly after refresh. |
 
-### Week 3 Achievements:
-
-* Designed and built a multi-AZ custom VPC architecture with isolated Public and Private Subnets.
-* Configured Internet Gateway and NAT Gateway for controlled inbound/outbound internet routing.
-* Implemented Bastion Host jump server and Security Groups for secure remote management of private workloads.
+## Expected Outcomes
+- The frontend is served through CloudFront, the S3 bucket is not directly public, and SPA routing works correctly.

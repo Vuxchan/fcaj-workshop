@@ -16,23 +16,23 @@ reportHeadings:
 reportType: worklog
 ---
 
-### Week 7 Objectives:
+**Period:** 20/07/2026 – 26/07/2026
+**Theme:** Monitoring, alerting, optimization and system testing
 
-* Consolidate all learned AWS core services into an end-to-end 3-Tier Production Web Architecture on AWS.
-* Conduct security auditing, infrastructure load testing, final report compilation, and internship capstone evaluation.
+## Weekly Objectives
+- Monitoring, alerting, optimization and system testing.
+- Continue building CodExecute according to the designed AWS serverless architecture.
+- Prioritize Infrastructure as Code, least-privilege security and reproducible environments.
 
-### Tasks to be carried out this week:
-| Day | Task | Start Date | Completion Date | Reference Material |
-| --- | --- | --- | --- | --- |
-| 2 | - Design 3-Tier Web Architecture diagram (ALB + EC2 ASG in Private Subnets + RDS Multi-AZ + S3) | 07/27/2026 | 07/27/2026 | <https://aws.amazon.com/architecture/well-architected/> |
-| 3 | - **Practice:** <br>&emsp; + Provision end-to-end 3-Tier infrastructure automatically using CloudFormation/Terraform IaC scripts <br>&emsp; + Deploy sample web app connecting Web Tier to DB Tier | 07/28/2026 | 07/28/2026 | <https://github.com/aws-samples/aws-refarch-wordpress> |
-| 4 | - **Practice:** <br>&emsp; + Perform security audit (Security Groups, IAM roles, public bucket blocks) <br>&emsp; + Conduct load testing and verify multi-AZ failover resilience | 07/29/2026 | 07/29/2026 | <https://docs.aws.amazon.com/security/> |
-| 5 | - Compile complete internship report documentation, architectural diagrams, and weekly worklogs | 07/30/2026 | 07/30/2026 |  |
-| 6 | - Present final capstone project to FCAJ mentors, finalize self-evaluation, and complete the 7-week internship program | 07/31/2026 | 07/31/2026 |  |
+## Daily Plan
 
+| Ngày | Công việc chính |
+|---|---|
+| Monday (20/07) | Set up CloudWatch Logs for the API Handler and Code Executor with a consistent format including submission/job IDs. |
+| Tuesday (21/07) | Create CloudWatch metrics/alarms for Lambda errors, duration, throttles, SQS backlog and other key indicators. |
+| Wednesday (22/07) | Set up an SNS topic and Lambda/SNS notifications for required alerts. |
+| Thursday (23/07) | Run an appropriate Dev-level load test and observe submission processing time. |
+| Friday (24/07) | Review costs and resources that may generate unexpected charges; avoid leaving unnecessary NAT Gateway/resources running. |
 
-### Week 7 Achievements:
-
-* Successfully designed and deployed a production-grade, highly available, and secure 3-Tier Web Architecture on AWS.
-* Verified automated failover, load balancing, and infrastructure repeatability via IaC scripts.
-* Successfully completed all 7 weeks of the FCAJ internship program, finalized technical report documentation, and received capstone evaluation.
+## Expected Outcomes
+- The system has basic logging, monitoring and alerting, and security/cost risks have been reviewed.

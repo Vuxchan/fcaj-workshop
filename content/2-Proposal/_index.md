@@ -17,7 +17,7 @@ Built 100% on a **Pure Serverless Cloud-Native AWS** architecture, CodExecute le
 
 <div align="center" style="margin: 24px 0;">
 
-<img src="/images/5-Workshop/5.1-Workshop-overview/project_overview.png" alt="CodExecute Online Judge Platform Interface Overview" style="width: 95%; max-width: 1100px; border-radius: 8px; box-shadow: 0 6px 20px rgba(0,0,0,0.15);">
+<img src="/images/2-Proposal/demo.png" alt="CodExecute Online Judge Platform Interface Overview" style="width: 95%; max-width: 1100px; border-radius: 8px; box-shadow: 0 6px 20px rgba(0,0,0,0.15);">
 
 <p style="font-size: 1.05rem; font-weight: 600; margin-top: 10px; color: #475569;">
 <i>CodExecute Platform Overview: Automated Online Judge &amp; Developer Social Platform</i>
@@ -193,21 +193,126 @@ The project is executed over a **7-week duration** (from **June 15, 2026** to **
 
 ### 1. Monthly Budget Estimation
 
-Estimates are calculated based on an average workload of **100,000 code submissions/month** and **500,000 API requests/month**.
+Estimates are calculated based on an average workload of **100,000 code submissions/month** and **500,000 API requests/month** across all **11 core AWS services**:
 
-| AWS Service | Expected Monthly Utilization | Unit Price Reference (ap-southeast-1) | Estimated Monthly Cost (USD) |
-| :--- | :--- | :--- | :---: |
-| **AWS Lambda** | 500,000 API Requests + 100,000 Worker executions (512MB RAM, 800ms avg) | $0.20 / 1M Requests + Compute time | **$3.80** |
-| **Amazon API Gateway** | 500,000 HTTP API calls | $1.00 / 1M Requests | **$0.50** |
-| **Amazon SQS** | 200,000 SQS Requests (SendMessage + ReceiveMessage) | $0.40 / 1M Requests | **$0.08** |
-| **Amazon DynamoDB** | 1,000,000 Read/Write Units (On-Demand) + 5GB Storage | $0.25 / 1M WCU, $0.05 / 1M RCU | **$3.20** |
-| **Amazon S3** | 15GB Storage (Testcases + User Media + Web Assets) + 100k GET/PUT | $0.023 / GB | **$0.65** |
-| **Amazon CloudFront** | 50GB Data Transfer Out + 500k HTTPS Requests | $0.09 / GB | **$4.50** |
-| **Amazon CloudWatch** | 3GB Ingestion Logs + 5 Custom Metrics + 3 Alarms | $0.57 / GB Logs | **$2.70** |
-| **AWS IAM** | All IAM Users, Roles, and Policies | Free | **$0.00** |
-| **TOTAL ESTIMATED MONTHLY COST:** | | | **~$15.43 USD / month** |
+<div style="width: 100%; border: 1px solid #e2e8f0; border-radius: 6px; overflow: hidden; margin: 20px 0; font-size: 13.5px; line-height: 1.4;">
+  <!-- HEADER -->
+  <div style="display: flex; background-color: #f8fafc; font-weight: 600; border-bottom: 2px solid #e2e8f0; color: #0f172a;">
+    <div style="flex: 0 0 5%; padding: 10px 4px; text-align: center; border-right: 1px solid #e2e8f0;">NO.</div>
+    <div style="flex: 0 0 16%; padding: 10px 8px; border-right: 1px solid #e2e8f0;">AWS SERVICE</div>
+    <div style="flex: 0 0 34%; padding: 10px 8px; border-right: 1px solid #e2e8f0;">ESTIMATED USAGE / MONTH</div>
+    <div style="flex: 0 0 30%; padding: 10px 8px; border-right: 1px solid #e2e8f0;">REFERENCE PRICING (AP-SOUTHEAST-1)</div>
+    <div style="flex: 0 0 15%; padding: 10px 8px; text-align: right;">MONTHLY COST (USD)</div>
+  </div>
 
-> 💡 *Note:* Under the **AWS Free Tier** during the first 12 months, actual out-of-pocket costs will remain **< $3.00 USD/month**.
+  <!-- ROW 1 -->
+  <div style="display: flex; border-bottom: 1px solid #e2e8f0;">
+    <div style="flex: 0 0 5%; padding: 8px 4px; text-align: center; border-right: 1px solid #e2e8f0;"><b>1</b></div>
+    <div style="flex: 0 0 16%; padding: 8px; border-right: 1px solid #e2e8f0;"><b>AWS Lambda</b></div>
+    <div style="flex: 0 0 34%; padding: 8px; border-right: 1px solid #e2e8f0;">500,000 API Requests + 100,000 Worker Sandbox executions (Memory: 512MB, Avg duration: 800ms)</div>
+    <div style="flex: 0 0 30%; padding: 8px; border-right: 1px solid #e2e8f0; word-break: break-word;">$0.20 / 1M Requests + $0.0000000083 / GB-s</div>
+    <div style="flex: 0 0 15%; padding: 8px; text-align: right; font-weight: bold;">$3.80</div>
+  </div>
+
+  <!-- ROW 2 -->
+  <div style="display: flex; border-bottom: 1px solid #e2e8f0;">
+    <div style="flex: 0 0 5%; padding: 8px 4px; text-align: center; border-right: 1px solid #e2e8f0;"><b>2</b></div>
+    <div style="flex: 0 0 16%; padding: 8px; border-right: 1px solid #e2e8f0;"><b>Amazon API Gateway</b></div>
+    <div style="flex: 0 0 34%; padding: 8px; border-right: 1px solid #e2e8f0;">500,000 HTTP API calls</div>
+    <div style="flex: 0 0 30%; padding: 8px; border-right: 1px solid #e2e8f0; word-break: break-word;">$1.00 / 1M Requests</div>
+    <div style="flex: 0 0 15%; padding: 8px; text-align: right; font-weight: bold;">$0.50</div>
+  </div>
+
+  <!-- ROW 3 -->
+  <div style="display: flex; border-bottom: 1px solid #e2e8f0;">
+    <div style="flex: 0 0 5%; padding: 8px 4px; text-align: center; border-right: 1px solid #e2e8f0;"><b>3</b></div>
+    <div style="flex: 0 0 16%; padding: 8px; border-right: 1px solid #e2e8f0;"><b>Amazon SQS</b></div>
+    <div style="flex: 0 0 34%; padding: 8px; border-right: 1px solid #e2e8f0;">200,000 SQS Requests (SendMessage + ReceiveMessage) + Dead-Letter Queue (DLQ)</div>
+    <div style="flex: 0 0 30%; padding: 8px; border-right: 1px solid #e2e8f0; word-break: break-word;">$0.40 / 1M Requests</div>
+    <div style="flex: 0 0 15%; padding: 8px; text-align: right; font-weight: bold;">$0.08</div>
+  </div>
+
+  <!-- ROW 4 -->
+  <div style="display: flex; border-bottom: 1px solid #e2e8f0;">
+    <div style="flex: 0 0 5%; padding: 8px 4px; text-align: center; border-right: 1px solid #e2e8f0;"><b>4</b></div>
+    <div style="flex: 0 0 16%; padding: 8px; border-right: 1px solid #e2e8f0;"><b>Amazon DynamoDB</b></div>
+    <div style="flex: 0 0 34%; padding: 8px; border-right: 1px solid #e2e8f0;">1,000,000 Read/Write Units (On-Demand Mode) + 5GB Data Storage</div>
+    <div style="flex: 0 0 30%; padding: 8px; border-right: 1px solid #e2e8f0; word-break: break-word;">$0.25 / 1M WCU, $0.05 / 1M RCU</div>
+    <div style="flex: 0 0 15%; padding: 8px; text-align: right; font-weight: bold;">$3.20</div>
+  </div>
+
+  <!-- ROW 5 -->
+  <div style="display: flex; border-bottom: 1px solid #e2e8f0;">
+    <div style="flex: 0 0 5%; padding: 8px 4px; text-align: center; border-right: 1px solid #e2e8f0;"><b>5</b></div>
+    <div style="flex: 0 0 16%; padding: 8px; border-right: 1px solid #e2e8f0;"><b>Amazon S3</b></div>
+    <div style="flex: 0 0 34%; padding: 8px; border-right: 1px solid #e2e8f0;">15GB Storage (3 Buckets: Static Web, Testcases, User Avatars) + 100k GET/PUT Requests</div>
+    <div style="flex: 0 0 30%; padding: 8px; border-right: 1px solid #e2e8f0; word-break: break-word;">$0.023 / GB</div>
+    <div style="flex: 0 0 15%; padding: 8px; text-align: right; font-weight: bold;">$0.65</div>
+  </div>
+
+  <!-- ROW 6 -->
+  <div style="display: flex; border-bottom: 1px solid #e2e8f0;">
+    <div style="flex: 0 0 5%; padding: 8px 4px; text-align: center; border-right: 1px solid #e2e8f0;"><b>6</b></div>
+    <div style="flex: 0 0 16%; padding: 8px; border-right: 1px solid #e2e8f0;"><b>Amazon CloudFront</b></div>
+    <div style="flex: 0 0 34%; padding: 8px; border-right: 1px solid #e2e8f0;">50GB Data Transfer Out + 500k HTTPS Requests</div>
+    <div style="flex: 0 0 30%; padding: 8px; border-right: 1px solid #e2e8f0; word-break: break-word;">$0.09 / GB</div>
+    <div style="flex: 0 0 15%; padding: 8px; text-align: right; font-weight: bold;">$4.50</div>
+  </div>
+
+  <!-- ROW 7 -->
+  <div style="display: flex; border-bottom: 1px solid #e2e8f0;">
+    <div style="flex: 0 0 5%; padding: 8px 4px; text-align: center; border-right: 1px solid #e2e8f0;"><b>7</b></div>
+    <div style="flex: 0 0 16%; padding: 8px; border-right: 1px solid #e2e8f0;"><b>AWS WAF</b></div>
+    <div style="flex: 0 0 34%; padding: 8px; border-right: 1px solid #e2e8f0;">1 Web ACL + 2 Managed Rule Groups + 500k Inspected Requests</div>
+    <div style="flex: 0 0 30%; padding: 8px; border-right: 1px solid #e2e8f0; word-break: break-word;">$5.00 / Web ACL + $1.00 / Rule Group + $0.60 / 1M Requests</div>
+    <div style="flex: 0 0 15%; padding: 8px; text-align: right; font-weight: bold;">$7.30</div>
+  </div>
+
+  <!-- ROW 8 -->
+  <div style="display: flex; border-bottom: 1px solid #e2e8f0;">
+    <div style="flex: 0 0 5%; padding: 8px 4px; text-align: center; border-right: 1px solid #e2e8f0;"><b>8</b></div>
+    <div style="flex: 0 0 16%; padding: 8px; border-right: 1px solid #e2e8f0;"><b>AWS ECR</b></div>
+    <div style="flex: 0 0 34%; padding: 8px; border-right: 1px solid #e2e8f0;">2 Container Repositories (Lambda API Handler & Code Executor Images, ~2GB Storage)</div>
+    <div style="flex: 0 0 30%; padding: 8px; border-right: 1px solid #e2e8f0; word-break: break-word;">$0.10 / GB / month</div>
+    <div style="flex: 0 0 15%; padding: 8px; text-align: right; font-weight: bold;">$0.20</div>
+  </div>
+
+  <!-- ROW 9 -->
+  <div style="display: flex; border-bottom: 1px solid #e2e8f0;">
+    <div style="flex: 0 0 5%; padding: 8px 4px; text-align: center; border-right: 1px solid #e2e8f0;"><b>9</b></div>
+    <div style="flex: 0 0 16%; padding: 8px; border-right: 1px solid #e2e8f0;"><b>Amazon CloudWatch</b></div>
+    <div style="flex: 0 0 34%; padding: 8px; border-right: 1px solid #e2e8f0;">3GB Ingestion Logs + 5 Custom Metrics + 3 Alarms</div>
+    <div style="flex: 0 0 30%; padding: 8px; border-right: 1px solid #e2e8f0; word-break: break-word;">$0.57 / GB Logs</div>
+    <div style="flex: 0 0 15%; padding: 8px; text-align: right; font-weight: bold;">$2.70</div>
+  </div>
+
+  <!-- ROW 10 -->
+  <div style="display: flex; border-bottom: 1px solid #e2e8f0;">
+    <div style="flex: 0 0 5%; padding: 8px 4px; text-align: center; border-right: 1px solid #e2e8f0;"><b>10</b></div>
+    <div style="flex: 0 0 16%; padding: 8px; border-right: 1px solid #e2e8f0;"><b>Amazon SNS</b></div>
+    <div style="flex: 0 0 34%; padding: 8px; border-right: 1px solid #e2e8f0;">100 Email & Push Notifications for alerts triggered by CloudWatch Alarms</div>
+    <div style="flex: 0 0 30%; padding: 8px; border-right: 1px solid #e2e8f0; word-break: break-word;">$0.50 / 100k Notifications</div>
+    <div style="flex: 0 0 15%; padding: 8px; text-align: right; font-weight: bold;">$0.01</div>
+  </div>
+
+  <!-- ROW 11 -->
+  <div style="display: flex; border-bottom: 1px solid #e2e8f0;">
+    <div style="flex: 0 0 5%; padding: 8px 4px; text-align: center; border-right: 1px solid #e2e8f0;"><b>11</b></div>
+    <div style="flex: 0 0 16%; padding: 8px; border-right: 1px solid #e2e8f0;"><b>AWS IAM</b></div>
+    <div style="flex: 0 0 34%; padding: 8px; border-right: 1px solid #e2e8f0;">All IAM Execution Roles, Resource Policies, Access Keys</div>
+    <div style="flex: 0 0 30%; padding: 8px; border-right: 1px solid #e2e8f0; word-break: break-word;">Free Tier / No Charge</div>
+    <div style="flex: 0 0 15%; padding: 8px; text-align: right; font-weight: bold;">$0.00</div>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="display: flex; background-color: #f8fafc; font-weight: 700;">
+    <div style="flex: 0 0 85%; padding: 10px; border-right: 1px solid #e2e8f0; text-align: left;">TOTAL ESTIMATED COST / MONTH:</div>
+    <div style="flex: 0 0 15%; padding: 10px 8px; text-align: right; color: #0284c7;">~$22.94 USD</div>
+  </div>
+</div>
+
+> 💡 *Note on AWS Free Tier:* Under the **AWS Free Tier** during the first 12 months (including 1TB CloudFront Data Out, 1M Lambda Requests, 1M API Gateway Requests, 25GB DynamoDB storage, 5GB S3 storage, 5GB CloudWatch Logs), actual out-of-pocket costs are optimized to **~$7.50 USD/month** (primarily AWS WAF Web ACL fixed costs).
+
 
 ---
 

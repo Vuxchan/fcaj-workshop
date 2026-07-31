@@ -16,24 +16,23 @@ reportHeadings:
 reportType: worklog
 ---
 
-### Week 1 Objectives:
+**Period:** 08/06/2026 – 14/06/2026
+**Theme:** Project kickoff and AWS / IaC environment preparation
 
-* Connect and get acquainted with members of First Cloud AI Journey (FCAJ).
-* Understand basic AWS cloud concepts, AWS Management Console, and AWS CLI.
+## Weekly Objectives
+- Project kickoff and AWS / IaC environment preparation.
+- Continue building CodExecute according to the designed AWS serverless architecture.
+- Prioritize Infrastructure as Code, least-privilege security and reproducible environments.
 
-### Tasks to be carried out this week:
-| Day | Task | Start Date | Completion Date | Reference Material |
-| --- | --- | --- | --- | --- |
-| 2 | - Meet FCAJ team & mentor <br> - Read internship unit rules and workspace setup guidelines | 06/15/2026 | 06/15/2026 | <https://cloudjourney.awsstudygroup.com/> |
-| 3 | - Overview of AWS Cloud Services <br>&emsp; + Compute, Storage, Networking, Database fundamentals | 06/16/2026 | 06/16/2026 | <https://aws.amazon.com/what-is-aws/> |
-| 4 | - Setup AWS Free Tier account <br> - Install and configure AWS CLI (Access Key, Secret Key, Default Region) | 06/17/2026 | 06/17/2026 | <https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html> |
-| 5 | - Learn EC2 basics: Instance Types, AMIs, EBS volumes, Elastic IPs, and SSH access methods | 06/18/2026 | 06/18/2026 | <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html> |
-| 6 | - **Practice:** <br>&emsp; + Launch EC2 instance <br>&emsp; + SSH remote connection <br>&emsp; + Attach and format additional EBS volume | 06/19/2026 | 06/19/2026 | <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-attaching-volume.html> |
+## Daily Plan
 
+| Day | Task |
+|---|---|
+| Monday (08/06) | Agree on the scope and goals of the CodExecute project, review the overall architecture: CloudFront/WAF, S3, API Gateway, Lambda, ECR, SQS, DynamoDB, testcase and avatar buckets. |
+| Tuesday (09/06) | Set up the AWS account, AWS CLI, `ap-southeast-1` region, IAM and AWS Budgets/cost alerts. |
+| Wednesday (10/06) | Initialize the repository and source-code structure for the frontend, backend, Lambda worker and Terraform. |
+| Thursday (11/06) | Define the initial Terraform resource structure and naming/tagging conventions for the Dev environment. |
+| Friday (12/06) | Design the initial DynamoDB data model for Users, Problems, Submissions and related entities. |
 
-### Week 1 Achievements:
-
-* Understood foundational AWS core service groups (Compute, Storage, Networking, Database).
-* Successfully registered and secured AWS Free Tier account.
-* Installed and configured AWS CLI on local machine.
-* Successfully launched an EC2 instance, attached an EBS volume, and connected via SSH.
+## Expected Outcomes
+- A working development environment, CodExecute architecture diagram, and initial IaC/data-model design.

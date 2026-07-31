@@ -6,47 +6,49 @@ chapter: false
 pre: " <b> 3.2. </b> "
 ---
 
-# XÂY DỰNG END-TO-END AGENTIC SRE VỚI AWS DEVOPS AGENT
+# Tối Ưu Hiệu Năng Storage Cho Amazon EKS Trên AWS Outposts
 
-*Với các hệ thống hiện đại gồm serverless function, microservice và kiến trúc hướng sự kiện, việc phản ứng sự cố ngày càng phức tạp: kỹ sư phải tự tương quan dữ liệu từ nhiều công cụ giám sát khác nhau trong khi chạy đua với SLA. AWS DevOps Agent hướng đến việc thay đổi hoàn toàn cách vận hành này — hoạt động như một tác nhân AI tự động, luôn túc trực, điều tra sự cố ngay khi xảy ra và hỗ trợ cả môi trường multi-cloud lẫn hybrid, không chỉ riêng AWS.*
+Với những ai đang triển khai hybrid cloud và có nhu cầu chạy Kubernetes ngay tại on-premises, thì Amazon EKS on Outposts chính là giải pháp mang trải nghiệm managed Kubernetes quen thuộc của AWS về tận datacenter của mình. Nhưng đi kèm với đó là bài toán không hề đơn giản: chọn loại storage nào cho phù hợp, vì mỗi loại lại có đặc tính hiệu năng và ràng buộc khác nhau. Bài viết này của AWS đi sâu vào các lựa chọn storage cho EKS on Outposts và cách tối ưu chúng.
 
-### 1. Kiến trúc triển khai
-Giải pháp được tổ chức trên ba tài khoản AWS tách biệt theo vai trò:
-* **Tài khoản ứng dụng demo:** Lưu trữ hạ tầng production, tích hợp CI/CD qua CodePipeline, sử dụng CloudWatch, EventBridge và Lambda webhook handler để phát hiện bất thường và chuyển tiếp sự cố.
-* **Tài khoản Splunk:** Đảm nhận tổng hợp và phân tích log tập trung, kết nối riêng tư với tài khoản ứng dụng thông qua VPC peering.
-* **Tài khoản AWS DevOps Agent:** Chứa engine điều tra tự động, tiếp nhận webhook sự cố, tương quan dữ liệu từ CloudWatch, Splunk và GitHub, sau đó gửi cập nhật điều tra theo thời gian thực về Slack.
+## Trước tiên, EKS on Outposts có 2 kiểu triển khai
 
-### 2. Luồng xử lý sự cố
-**Luồng tự động:**  
-`CloudWatch Alarm → EventBridge → Lambda → DevOps Agent Webhook → Điều tra đa nguồn (Splunk, GitHub, CloudWatch) → Root Cause + Mitigation Plan → Slack`
+**Extended cluster** thì control plane vẫn nằm trên AWS Region, còn worker node chạy trên Outposts --- cần kết nối mạng ổn định về Region qua service link. **Local cluster** thì đưa luôn cả control plane xuống Outposts, giúp cluster hoạt động độc lập hơn, ít phụ thuộc kết nối về Region, và giảm latency cho các thao tác quản lý cluster.
 
-Khi một alarm CloudWatch kích hoạt, EventBridge gọi Lambda để gửi payload sự cố đến webhook của DevOps Agent. Agent lập tức truy vấn log qua Splunk MCP, lấy lịch sử triển khai từ GitHub, rồi đối chiếu các chỉ số CloudWatch với sự kiện deploy để dựng lại bức tranh tổng thể của hệ thống (application topology). Từ đó, agent phân tích mối quan hệ thời gian giữa các lần deploy và sự cố vận hành, xác định nguyên nhân gốc rễ, và sinh ra mitigation plan chi tiết kèm bước khắc phục, tiêu chí thành công và quy trình rollback — tất cả được đăng lên Slack để kỹ sư trực ca "thức dậy với nguyên nhân đã xác định, thay vì một sự cố còn đang diễn ra".
+## Vậy có những lựa chọn storage nào cho extended cluster?
 
-### 3. Các thành phần cấu hình chính
-* **Agent Space:** Định nghĩa phạm vi công cụ và hạ tầng mà agent được truy cập, tạo qua Console hoặc AWS CLI.
-* **Tích hợp Splunk:** Bật Splunk MCP Server, cấu hình token xác thực và sử dụng Better Webhooks để gửi cảnh báo theo đúng định dạng schema của DevOps Agent.
-* **Tích hợp Slack:** Cho phép agent giao tiếp trực tiếp trong kênh làm việc của đội SRE.
-* **Tích hợp GitHub:** Kết nối qua OAuth (quyền đọc) giúp agent đối chiếu thay đổi mã nguồn với sự cố vận hành.
-* **DevOps Agent Skills:** Cho phép định nghĩa bộ quy tắc điều tra riêng (ví dụ: Dynatrace cho alarm, Splunk cho log, CloudWatch cho serverless).
+### Amazon EBS
 
-### 4. Từ chẩn đoán đến khắc phục
-Sau khi xác định nguyên nhân gốc rễ, agent sinh mitigation plan theo 4 giai đoạn: **Prepare**, **Pre-Validate**, **Apply** và **Post-Validate**. Đặc biệt, với các fix ở cấp độ code, agent tạo ra "agent-ready spec" — một bộ hướng dẫn có cấu trúc để bàn giao trực tiếp cho coding agent (như Kiro) triển khai thay đổi vào codebase, khép kín hoàn toàn vòng lặp từ chẩn đoán đến vá lỗi.
+Là lựa chọn cho khối lượng công việc cần latency thấp, IOPS/throughput cao. Khi chạy trên Outposts, volume EBS được lưu ngay tại phần cứng local, nên hiệu năng vượt trội so với storage qua mạng, và không phụ thuộc kết nối ra ngoài. Điểm cần lưu ý: volume EBS bị "khóa" vào một rack và AZ cụ thể (rủi ro single point of failure), nên nhớ backup định kỳ bằng snapshot về Region, và theo dõi dung lượng vì capacity trên Outposts là hữu hạn.
 
-### 5. Kết luận
-Nhờ sự kết hợp của Agent Space, tích hợp đa nguồn và bàn giao agent-ready spec cho coding agent, quy trình SRE chuyển đổi hoàn toàn từ chữa cháy bị động sang xử lý tự động chủ động, rút ngắn MTTR từ hàng giờ xuống còn vài phút.
+### Amazon EFS
+
+Phù hợp khi cần shared file system cho nhiều pod cùng truy cập --- ví dụ content management hay xử lý phân tán. Tuy nhiên khác với EBS, EFS không phải service chạy local trên Outposts, mà file system vẫn nằm ở Region, các worker node trên Outposts chỉ mount vào qua service link. Điều này đồng nghĩa sẽ có thêm latency mạng, throughput bị giới hạn bởi băng thông service link, phụ thuộc liên tục vào kết nối Region, và phát sinh thêm chi phí data transfer.
+
+### Amazon S3 on Outposts
+
+Cho phép lưu object storage ngay tại chỗ, dùng chung API với S3 thông thường, phù hợp cho các nhu cầu cần tuân thủ lưu trữ dữ liệu tại chỗ (data residency) như log, audit trail, hay dữ liệu y tế nhạy cảm. Một lưu ý kỹ thuật: nên dùng Access Point ARN thay vì bucket ARN khi tích hợp với EKS.
+
+## Vậy nên chọn cái nào?
+
+Về cơ bản: **EBS** cho khối lượng công việc cần latency thấp, throughput cao dạng block storage; **EFS** khi cần shared file system tuân thủ chuẩn POSIX; và **S3** khi cần object storage có khả năng mở rộng và tương thích API rộng rãi. Ngoài việc chọn đúng loại, còn cần chú ý sizing volume hợp lý, theo dõi usage thường xuyên, cấu hình CPU/memory request chính xác, và tận dụng auto scaling để cân bằng hiệu năng với chi phí.
+
+## Về giám sát và bảo mật
+
+Mỗi loại storage có bộ metric riêng cần theo dõi qua CloudWatch:
+
+- **EBS**: IOPS, throughput, latency, burst balance
+- **EFS**: I/O tổng, metadata operations, burst credit
+- **S3**: request/error rate, latency, hiệu quả multipart upload
+
+Về bảo mật, nên mã hóa dữ liệu ở cả 3 loại storage (dùng KMS cho EBS, encryption at rest/in transit cho EFS, server/client-side encryption cho S3), áp dụng IAM least privilege kết hợp Kubernetes RBAC để kiểm soát quyền truy cập ở mức pod.
+
+## Tóm lại
+
+EKS on Outposts mở ra khả năng xây dựng ứng dụng hybrid với nhiều lựa chọn storage khác nhau, tùy theo yêu cầu về hiệu năng, tuân thủ và data residency. Việc chọn đúng loại storage cho từng workload, kết hợp tận dụng hạ tầng local của Outposts, sẽ giúp giảm latency, giảm phụ thuộc mạng, và duy trì tính nhất quán giữa môi trường cloud và on-premises.
 
 ---
 
-### Hình ảnh & Minh họa
-<div align="center">
+**Nguồn:** [AWS Compute Blog - Optimizing storage performance for Amazon EKS on AWS Outposts](https://aws.amazon.com/blogs/compute/optimizing-storage-performance-for-amazon-eks-on-aws-outposts/)
 
-![Solution Architecture](/images/3-BlogsPosted/3.2-Blog2/solution_architecture.png)
-
-<p style="font-size: 1.15rem; font-weight: 600; margin-top: 8px;">
-<i>Figure 1: Solution Architecture</i>
-</p>
-
-</div>
-
-### Link bài viết & Tham khảo
-* **Link bài viết gốc (AWS Blog):** [https://aws.amazon.com/blogs/devops/building-an-end-to-end-agentic-sre-using-aws-devops-agent/](https://aws.amazon.com/blogs/devops/building-an-end-to-end-agentic-sre-using-aws-devops-agent/)
+**Minh chứng:** <img src="/images/3-BlogsPosted/3.2-Blog2/blog2.png" 
+     style="width: 70%; max-width: 600px; height: auto; border-radius: 8px; box-shadow: 0 6px 20px rgba(0,0,0,0.15); display: block; margin: 0 auto;">

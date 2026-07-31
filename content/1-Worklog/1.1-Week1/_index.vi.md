@@ -11,24 +11,23 @@ reportTableColumns:
 reportType: worklog
 ---
 
-### Mục tiêu tuần 1:
+**Thời gian:** 08/06/2026 – 14/06/2026
+**Chủ đề:** Khởi động dự án và chuẩn bị môi trường AWS / IaC
 
-* Kết nối, làm quen với các thành viên và Mentor trong chương trình First Cloud AI Journey (FCAJ).
-* Hiểu tổng quan điện toán đám mây AWS, cách sử dụng AWS Management Console và AWS CLI.
+## Mục tiêu tuần
+- Khởi động dự án và chuẩn bị môi trường AWS / IaC.
+- Tiếp tục xây dựng CodExecute theo kiến trúc AWS serverless đã thiết kế.
+- Ưu tiên Infrastructure as Code, bảo mật least privilege và khả năng tái tạo môi trường.
 
-### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu |
-| --- | --- | --- | --- | --- |
-| 2 | - Gặp mặt thành viên FCAJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập | 15/06/2026 | 15/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
-| 3 | - Tìm hiểu tổng quan AWS và các nhóm dịch vụ chính <br>&emsp; + Compute, Storage, Networking, Database | 16/06/2026 | 16/06/2026 | <https://aws.amazon.com/what-is-aws/> |
-| 4 | - Tạo tài khoản AWS Free Tier <br> - Cài đặt và cấu hình AWS CLI (Access Key, Secret Key, Region mặc định) | 17/06/2026 | 17/06/2026 | <https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html> |
-| 5 | - Tìm hiểu EC2 cơ bản: Instance Types, AMI, EBS, Elastic IP và các phương thức SSH | 18/06/2026 | 18/06/2026 | <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html> |
-| 6 | - **Thực hành:** <br>&emsp; + Tạo EC2 Instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn và định dạng thêm ổ cứng EBS | 19/06/2026 | 19/06/2026 | <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-attaching-volume.html> |
+## Kế hoạch theo ngày
 
+| Ngày | Công việc chính |
+|---|---|
+| Thứ 2 (08/06) | Thống nhất phạm vi và mục tiêu của dự án CodExecute, rà soát kiến trúc tổng thể: CloudFront/WAF, S3, API Gateway, Lambda, ECR, SQS, DynamoDB và các bucket testcase/avatar. |
+| Thứ 3 (09/06) | Thiết lập AWS account, AWS CLI, region `ap-southeast-1`, IAM và AWS Budgets/cảnh báo chi phí. |
+| Thứ 4 (10/06) | Khởi tạo repository và cấu trúc source code cho frontend, backend, Lambda worker và Terraform. |
+| Thứ 5 (11/06) | Thiết kế sơ bộ các tài nguyên Terraform và quy ước đặt tên/tag cho môi trường Dev. |
+| Thứ 6 (12/06) | Thiết kế dữ liệu ban đầu cho Users, Problems, Submissions và các thực thể cần thiết trong DynamoDB. |
 
-### Kết quả đạt được tuần 1:
-
-* Hiểu tổng quan hạ tầng AWS và các nhóm dịch vụ điện toán đám mây cốt lõi.
-* Đã tạo và cấu hình tài khoản AWS Free Tier an toàn.
-* Cài đặt thành công AWS CLI và kết nối với tài khoản AWS cá nhân.
-* Khởi tạo thành công máy chủ EC2, định dạng ổ đĩa EBS và kết nối SSH từ máy cục bộ.
+## Kết quả dự kiến
+- Hoàn thiện môi trường phát triển, sơ đồ kiến trúc CodExecute và bản thiết kế IaC/data model ban đầu.

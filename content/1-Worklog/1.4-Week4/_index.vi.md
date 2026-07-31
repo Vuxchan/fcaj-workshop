@@ -11,23 +11,23 @@ reportTableColumns:
 reportType: worklog
 ---
 
-### Mục tiêu tuần 4:
+**Thời gian:** 29/06/2026 – 05/07/2026
+**Chủ đề:** API Gateway, Lambda API Handler và xác thực
 
-* Tìm hiểu các dịch vụ lưu trữ AWS: Đối tượng (Amazon S3), Khối (Amazon EBS) và Tệp mạng (Amazon EFS).
-* Thực hành tạo S3 Bucket, Versioning, host website tĩnh, tạo EBS Snapshot và mount EFS chia sẻ file giữa nhiều máy chủ.
+## Mục tiêu tuần
+- API Gateway, Lambda API Handler và xác thực.
+- Tiếp tục xây dựng CodExecute theo kiến trúc AWS serverless đã thiết kế.
+- Ưu tiên Infrastructure as Code, bảo mật least privilege và khả năng tái tạo môi trường.
 
-### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu |
-| --- | --- | --- | --- | --- |
-| 2 | - Tìm hiểu Amazon S3: Storage Classes, Bucket Policy, Versioning và tính năng Static Website Hosting | 06/07/2026 | 06/07/2026 | <https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html> |
-| 3 | - Tìm hiểu loại ổ đĩa EBS (gp3, io2), kỹ thuật Snapshot và dịch vụ tệp mạng Amazon EFS | 07/07/2026 | 07/07/2026 | <https://docs.aws.amazon.com/efs/latest/ug/what-is-efs.html> |
-| 4 | - **Thực hành:** <br>&emsp; + Tạo S3 Bucket, cấu hình Versioning & Lifecycle Rules <br>&emsp; + Host website tĩnh trên S3 và phân quyền Bucket Policy | 08/07/2026 | 08/07/2026 | <https://docs.aws.amazon.com/AmazonS3/latest/userguide/HostingWebsiteOnS3Setup.html> |
-| 5 | - **Thực hành:** <br>&emsp; + Tạo EBS Snapshot <br>&emsp; + Nâng dung lượng EBS Volume trực tuyến và resize file system Linux | 09/07/2026 | 09/07/2026 | <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-expansion.html> |
-| 6 | - **Thực hành:** <br>&emsp; + Tạo hệ thống tệp Amazon EFS <br>&emsp; + Mount EFS vào 2 máy chủ EC2 đồng thời qua giao thức NFS để chia sẻ dữ liệu | 10/07/2026 | 10/07/2026 | <https://docs.aws.amazon.com/efs/latest/ug/mounting-fs.html> |
+## Kế hoạch theo ngày
 
+| Ngày | Công việc chính |
+|---|---|
+| Thứ 2 (29/06) | Chuẩn hóa backend API và xác định các endpoint chính cho users, problems và submissions. |
+| Thứ 3 (30/06) | Đóng gói API Handler Lambda và cấu hình execution role bằng IAM. |
+| Thứ 4 (01/07) | Tạo API Gateway REST API và kết nối các route với Lambda API Handler. |
+| Thứ 5 (02/07) | Cấu hình CloudFront multi-origin routing: frontend mặc định qua S3 và `/api/*` chuyển tới API Gateway. |
+| Thứ 6 (03/07) | Tích hợp/chuẩn bị luồng OAuth Google và GitHub; xác định callback và cách lưu thông tin người dùng. |
 
-### Kết quả đạt được tuần 4:
-
-* Thành thạo thao tác quản lý dữ liệu S3, tối ưu chi phí lưu trữ và triển khai web tĩnh trên S3.
-* Nắm vững kỹ thuật sao lưu EBS Snapshot và tăng kích thước ổ cứng trực tuyến không gián đoạn dịch vụ.
-* Cấu hình thành công ổ đĩa mạng EFS chia sẻ file giữa nhiều EC2 instances.
+## Kết quả dự kiến
+- Có API serverless hoạt động qua CloudFront/API Gateway và có nền tảng xác thực người dùng.

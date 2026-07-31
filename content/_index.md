@@ -7,11 +7,11 @@ chapter: false
 
 # Internship Report
 ### Student Information:
-&emsp; **Full Name:** Nguyen Phu Vinh
+&emsp; **Full Name:** Lu Chan Vu
 
-&emsp; **Phone Number:** 0834934524 
+&emsp; **Phone Number:** 0796396093 
 
-&emsp; **Email:** vinh.nguyenphu@hcmut.edu.vn
+&emsp; **Email:** vu.lu83127@hcmut.edu.vn
 
 &emsp; **University:** Ho Chi Minh City University of Technology
 

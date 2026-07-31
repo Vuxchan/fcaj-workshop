@@ -16,23 +16,23 @@ reportHeadings:
 reportType: worklog
 ---
 
-### Week 4 Objectives:
+**Period:** 29/06/2026 – 05/07/2026
+**Theme:** API Gateway, Lambda API Handler and authentication
 
-* Learn AWS Cloud Storage services: Object Storage (Amazon S3), Block Storage (Amazon EBS), and File Storage (Amazon EFS).
-* Practice S3 bucket management, versioning, static website hosting, EBS snapshotting, and EFS shared file mounting.
+## Weekly Objectives
+- API Gateway, Lambda API Handler and authentication.
+- Continue building CodExecute according to the designed AWS serverless architecture.
+- Prioritize Infrastructure as Code, least-privilege security and reproducible environments.
 
-### Tasks to be carried out this week:
-| Day | Task | Start Date | Completion Date | Reference Material |
-| --- | --- | --- | --- | --- |
-| 2 | - Learn Amazon S3 fundamentals: Storage Classes, Bucket Policies, Versioning, and Static Website Hosting | 07/06/2026 | 07/06/2026 | <https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html> |
-| 3 | - Learn Amazon EBS Volume Types (gp3, io2), Snapshots, and Amazon EFS (Elastic File System) NFS storage | 07/07/2026 | 07/07/2026 | <https://docs.aws.amazon.com/efs/latest/ug/what-is-efs.html> |
-| 4 | - **Practice:** <br>&emsp; + Create S3 Bucket, configure Versioning & Lifecycle Rules <br>&emsp; + Deploy static website on S3 with public Bucket Policy | 07/08/2026 | 07/08/2026 | <https://docs.aws.amazon.com/AmazonS3/latest/userguide/HostingWebsiteOnS3Setup.html> |
-| 5 | - **Practice:** <br>&emsp; + Take EBS Volume Snapshot <br>&emsp; + Expand EBS volume size online and resize Linux ext4 filesystem | 07/09/2026 | 07/09/2026 | <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-expansion.html> |
-| 6 | - **Practice:** <br>&emsp; + Create Amazon EFS File System <br>&emsp; + Mount EFS on 2 EC2 instances concurrently via NFS for shared data access | 07/10/2026 | 07/10/2026 | <https://docs.aws.amazon.com/efs/latest/ug/mounting-fs.html> |
+## Daily Plan
 
+| Day | Task |
+|---|---|
+| Monday (29/06) | Standardize the backend API and define the main endpoints for users, problems and submissions. |
+| Tuesday (30/06) | Package the API Handler Lambda and configure its execution role with IAM. |
+| Wednesday (01/07) | Create an API Gateway REST API and connect the routes to the Lambda API Handler. |
+| Thursday (02/07) | Configure CloudFront multi-origin routing: S3 for the frontend by default and `/api/*` to API Gateway. |
+| Friday (03/07) | Integrate/prepare Google and GitHub OAuth flows, including callbacks and user data handling. |
 
-### Week 4 Achievements:
-
-* Mastered S3 object storage management, automated archiving policies, and static website hosting.
-* Learned online EBS volume resizing and snapshot restoration.
-* Successfully configured Amazon EFS for multi-instance shared file system storage.
+## Expected Outcomes
+- A working serverless API is available through CloudFront/API Gateway with the foundation for user authentication.

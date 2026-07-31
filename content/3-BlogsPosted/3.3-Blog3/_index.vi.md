@@ -6,50 +6,45 @@ chapter: false
 pre: " <b> 3.3. </b> "
 ---
 
-# TỐI ƯU CHI PHÍ EC2 VỚI AWS COMPUTE OPTIMIZER RIGHT SIZING
+# Triển Khai Persistent Storage Cho AWS Fargate Với Amazon EBS
 
-*Rightsizing — điều chỉnh instance type và kích thước sao cho khớp với nhu cầu tài nguyên thực tế — là một trong những cách hiệu quả nhất để cải thiện ROI cho khoản đầu tư EC2. Nhưng thực hiện thủ công trên hàng trăm, hàng nghìn instance vừa tốn thời gian vừa dễ sai sót. AWS Compute Optimizer giải quyết bài toán này bằng cách phân tích cấu hình và mức sử dụng tài nguyên để đưa ra khuyến nghị rightsizing dựa trên dữ liệu.*
+Chào mọi người, ai đã dùng Fargate chắc đều mê cái sự "khỏi lo quản lý server" của nó, nhưng khi cần chạy những ứng dụng đòi hỏi lưu trữ dữ liệu bền vững --- như WordPress giữ file upload, ứng dụng retail cần catalog sản phẩm, hay pipeline xử lý dữ liệu --- thì bản chất ephemeral (tạm thời) của container lại là một rào cản lớn. Bài viết này hướng dẫn cách tích hợp Amazon EBS trực tiếp vào Fargate task để giải quyết bài toán block storage này.
 
-### 1. Bài toán vận hành
-Phần lớn tổ chức không có cái nhìn rõ ràng về tỷ lệ hiệu năng-chi phí tối ưu cho instance của mình, dẫn đến hai thái cực:
-* **Over-provisioning:** Gây lãng phí chi phí không cần thiết.
-* **Under-provisioning:** Gây rủi ro suy giảm hiệu năng ứng dụng.
+## Kiến trúc tổng quan
 
-AWS Compute Optimizer phân tích lên đến 93 ngày dữ liệu sử dụng từ CloudWatch và tự động phân loại instance thành 4 nhóm: **Over-provisioned** (có thể downsize), **Under-provisioned** (cần upsize), **Optimized** (đã phù hợp) và **Idle** (nên terminate hoặc gộp lại).
+Giải pháp triển khai theo mô hình multi-tier, kết hợp serverless container với block storage trải trên nhiều Availability Zone để đảm bảo tính sẵn sàng cao. Mỗi task sẽ có một volume EBS riêng (loại io2 hoặc gp3), được mã hóa và cho hiệu năng ổn định, đi kèm security group kiểm soát traffic và CloudWatch log để debug.
 
-### 2. Các chỉ số được phân tích
-Compute Optimizer đánh giá dựa trên:
-* CPU utilization
-* Memory utilization (khi được bật CloudWatch Agent)
-* Network I/O
-* Disk I/O & EBS throughput/IOPS
-* GPU utilization (nếu có)
+## Lưu ý quan trọng: EBS là dịch vụ theo zone
 
-Với mỗi trường hợp, hệ thống đề xuất tối đa 3 lựa chọn thay thế, xếp hạng theo mức tiết kiệm ước tính, rủi ro hiệu năng và mức độ nỗ lực di chuyển (migration effort) từ *Very low* đến *High*.
+Đây là điểm mấu chốt cần hiểu trước khi triển khai: một volume EBS chỉ tồn tại trong một AZ duy nhất và chỉ attach được vào task nằm cùng zone đó. Vì vậy mô hình này phù hợp nhất với các ứng dụng zone-isolated như môi trường dev/test, batch job xử lý dữ liệu cục bộ, hay ứng dụng phục vụ nội dung theo khu vực. Nếu cần dữ liệu khả dụng xuyên nhiều AZ, nên cân nhắc các giải pháp Multi-AZ chuyên dụng (như DRBD), dùng Amazon EFS cho shared storage, hoặc thiết kế ứng dụng stateless kết hợp external data store như RDS/DynamoDB.
 
-### 3. 5 Best Practice đáng chú ý
-1. **Bật Cost Optimization Hub:** Tự động chuyển sang chế độ `AfterDiscounts`, tính đến các cam kết Savings Plans hoặc Reserved Instances hiện có để ước tính chi phí tiết kiệm chính xác thực tế.
-2. **Bật Memory Metrics:** Bổ sung thu thập RAM qua CloudWatch Agent hoặc tích hợp bên thứ ba (Datadog, Dynatrace, Instana, New Relic) giúp khuyến nghị chính xác cho workload nặng về bộ nhớ.
-3. **Tùy chỉnh Preference theo chiến lược riêng:** Điều chỉnh ngưỡng CPU utilization (P90/P95/P99.5), headroom cho CPU/memory, lookback period (14/32/93 ngày) ở cấp tổ chức, tài khoản hoặc khu vực.
-4. **Đánh giá kỹ khuyến nghị Graviton:** Chuyển sang chip Graviton (ARM64) giúp cải thiện tới 40% tỷ lệ giá/hiệu năng, nhưng cần test khả năng tương thích kiến trúc và dependency trên staging trước khi áp dụng cho production.
-5. **Xây dựng quy trình Rightsizing bài bản:** Thiết lập chu kỳ review định kỳ, ưu tiên instance tiết kiệm cao - rủi ro thấp, xác nhận với chủ sở hữu ứng dụng và theo dõi kết quả qua Cost Explorer (có thể tự động hóa qua Step Functions, EventBridge, Lambda).
+## Về mặt triển khai hạ tầng
 
-### 4. Kết luận
-AWS Compute Optimizer cung cấp nền tảng dữ liệu vững chắc để ra quyết định rightsizing một cách khoa học. Việc kết hợp đầy đủ chỉ số, tùy chỉnh preference và áp dụng quy trình review có hệ thống sẽ giúp doanh nghiệp tối ưu chi phí hạ tầng EC2 đáng kể mà vẫn đảm bảo hiệu năng.
+Bài viết dùng AWS CDK để dựng toàn bộ stack: VPC multi-AZ, ECS cluster bật Container Insights, Fargate task definition có gắn cấu hình volume EBS, container mount volume vào đường dẫn cụ thể (ví dụ /data), cùng với Application Load Balancer có HTTPS listener và health check. Phần ứng dụng minh họa là một Flask app đơn giản cho phép upload/list file vào block storage --- dùng để demo, không phải chuẩn production.
+
+## Bài toán khó nhất: xử lý khi task bị thay thế
+
+Đây là phần thú vị nhất của bài viết. Task Fargate có thể bị terminate và thay thế bất cứ lúc nào --- do update service, bảo trì hạ tầng, Spot interruption, auto-scaling, hay health check fail. Khi đó, volume EBS gắn với task cũ sẽ bị "mồ côi" (orphaned), còn task mới lại cần truy cập đúng dữ liệu đó.
+
+Giải pháp được đề xuất là quản lý vòng đời volume theo hướng event-driven: khi có sự kiện ECS (update, scale, interrupt), CloudWatch Events sẽ kích hoạt một Lambda function để tạo snapshot từ volume cũ, ghi lại reference vào DynamoDB, rồi restore snapshot đó cho volume mới gắn vào task thay thế. Để tránh vòng lặp vô hạn (Lambda tạo task mới → lại sinh ra event mới → lại gọi Lambda), hệ thống cần có cơ chế chống lặp: gắn tag đánh dấu (managed-by: ebs-lifecycle-lambda) lên task được Lambda tạo ra, kết hợp kiểm tra idempotency qua DynamoDB để đảm bảo mỗi cặp volume/task chỉ được xử lý đúng một lần.
+
+Cần lưu ý, cách tiếp cận này phù hợp nhất với các service dạng single-task (DesiredCount=1) hoặc có thể tách nhỏ thành nhiều service single-task riêng lẻ, hơn là mô hình multi-replica truyền thống.
+
+## Một lưu ý về snapshot
+
+Với hệ thống phân tán dùng nhiều volume, snapshot thủ công (ad-hoc) không tự động đảm bảo tính nhất quán giữa các volume với nhau --- cần điều phối thủ công để đảm bảo toàn vẹn dữ liệu. Ngoài ra, việc restore snapshot vốn là thao tác "best effort" với thời gian không cố định, nên có thể cân nhắc dùng tính năng provisioned volume hydration rate để tăng tốc quá trình restore.
+
+## Chi phí
+
+Với cấu hình 2 task chạy liên tục tại us-east-1, chi phí ước tính khoảng $37/tháng, trong đó phần lớn đến từ compute Fargate ($35.55) còn EBS chỉ chiếm phần rất nhỏ ($1.60).
+
+## Tóm lại
+
+Tích hợp EBS trực tiếp vào Fargate mở ra khả năng chạy các ứng dụng cần block storage bền vững mà vẫn giữ được sự đơn giản vốn có của serverless container. Điểm mấu chốt cần đầu tư kỹ là cơ chế quản lý vòng đời volume khi task bị thay thế --- vì đây chính là phần quyết định ứng dụng có mất dữ liệu hay không trong các sự kiện vận hành bình thường như deploy hay auto-scaling.
 
 ---
 
-### Hình ảnh & Minh họa
-<div align="center">
+**Nguồn:** [AWS Storage Blog - Attaching block storage with AWS Fargate and Amazon EBS volumes](https://aws.amazon.com/blogs/storage/attaching-block-storage-with-aws-fargate-and-amazon-ebs-volumes/)
 
-![EC2 Rightsizing](/images/3-BlogsPosted/3.3-Blog3/right-sizing.png)
-
-<p style="font-size: 1.15rem; font-weight: 600; margin-top: 8px;">
-<i>Hình 1: EC2 Rightsizing</i></br>
-<i>Nguồn: <a target="_blank" href="https://blog.easecloud.io/cost-optimization/right-size-ec2-and-eks/">https://blog.easecloud.io/cost-optimization/right-size-ec2-and-eks/</a></i>
-</p>
-
-</div>
-
-### Link bài viết & Tham khảo
-* **Link bài viết gốc (AWS Blog):** [https://aws.amazon.com/blogs/compute/optimize-ec2-costs-with-aws-compute-optimizer-right-sizing/](https://aws.amazon.com/blogs/compute/optimize-ec2-costs-with-aws-compute-optimizer-right-sizing/)
+**Minh chứng:** <img src="/images/3-BlogsPosted/3.3-Blog3/blog3.png" 
+     style="width: 70%; max-width: 600px; height: auto; border-radius: 8px; box-shadow: 0 6px 20px rgba(0,0,0,0.15); display: block; margin: 0 auto;">

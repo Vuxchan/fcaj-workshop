@@ -7,11 +7,11 @@ pre: " <b> 3. </b> "
 includeInReport: false
 ---
 
-### [Blog 1 - AMAZON BEDROCK & NOVA PRO: MULTIMODAL AI OPERATIONAL INCIDENT ANALYSIS](3.1-Blog1/)
-This blog introduces how to combine Amazon Bedrock and Amazon Nova Pro to build an automated incident analysis system that processes both textual data (logs, metrics, configs) and visual data (architecture diagrams), significantly reducing Mean Time to Resolution (MTTR).
+### [Blog 1 - ENHANCING LOCAL TESTING FOR SERVERLESS APPLICATIONS WITH LOCALSTACK](3.1-Blog1/)
+This blog introduces LocalStack and its integration with AWS Toolkit for VS Code, enabling developers to test and debug serverless applications (Lambda, SQS, DynamoDB, EventBridge) entirely on local without deploying to the cloud. The article covers automated setup, debugging workflows, and a layered testing strategy (unit tests → integration tests on LocalStack → final validation on real cloud).
 
-### [Blog 2 - BUILDING AN END-TO-END AGENTIC SRE WITH AWS DEVOPS AGENT](3.2-Blog2/)
-This blog guides the implementation of a end-to-end automated SRE solution using AWS DevOps Agent, integrating multi-source data (CloudWatch, Splunk, GitHub, Slack), supporting multi-cloud/hybrid environments, and generating agent-ready specs for coding agents to resolve issues.
+### [Blog 2 - OPTIMIZING STORAGE PERFORMANCE FOR AMAZON EKS ON AWS OUTPOSTS](3.2-Blog2/)
+This blog provides a comprehensive guide to selecting and optimizing storage options for EKS on Outposts. It compares three storage types (EBS, EFS, S3 on Outposts), analyzes their performance characteristics and constraints, and offers practical recommendations for choosing the right storage based on workload requirements, monitoring metrics, and security best practices.
 
-### [Blog 3 - OPTIMIZING EC2 COSTS WITH AWS COMPUTE OPTIMIZER RIGHT SIZING](3.3-Blog3/)
-This blog analyzes methods for optimizing EC2 infrastructure costs through AWS Compute Optimizer, detailing 5 best practices including enabling Cost Optimization Hub, adding Memory Metrics, customizing preferences, evaluating Graviton, and establishing a structured rightsizing workflow.
+### [Blog 3 - DEPLOYING PERSISTENT STORAGE FOR AWS FARGATE WITH AMAZON EBS](3.3-Blog3/)
+This blog explores how to integrate Amazon EBS volumes directly into Fargate tasks to address the challenge of persistent block storage for serverless containers. It covers architecture design, the critical zone-bound nature of EBS, and an event-driven solution for managing volume lifecycles during task replacement using CloudWatch Events, Lambda, and DynamoDB.

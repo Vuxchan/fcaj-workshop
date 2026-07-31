@@ -11,23 +11,23 @@ reportTableColumns:
 reportType: worklog
 ---
 
-### Mục tiêu tuần 2:
+**Thời gian:** 15/06/2026 – 21/06/2026
+**Chủ đề:** Xây dựng nền tảng lưu trữ, database và IAM bằng Terraform
 
-* Nắm vững các khái niệm cốt lõi của AWS IAM: User, Group, Role và Policy.
-* Thực hành các quy tắc bảo mật AWS: Quyền tối thiểu (Least Privilege), xác thực 2 lớp (MFA) và vai trò dịch vụ.
+## Mục tiêu tuần
+- Xây dựng nền tảng lưu trữ, database và IAM bằng Terraform.
+- Tiếp tục xây dựng CodExecute theo kiến trúc AWS serverless đã thiết kế.
+- Ưu tiên Infrastructure as Code, bảo mật least privilege và khả năng tái tạo môi trường.
 
-### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu |
-| --- | --- | --- | --- | --- |
-| 2 | - Tìm hiểu tổng quan IAM: IAM User, IAM Group, Managed Policy và Inline Policy | 22/06/2026 | 22/06/2026 | <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users.html> |
-| 3 | - Tìm hiểu IAM Role & Trust Relationship (EC2 Service Role, truy cập cross-account) | 23/06/2026 | 23/06/2026 | <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html> |
-| 4 | - **Thực hành:** <br>&emsp; + Tạo IAM User, Group <br>&emsp; + Gán Policy tùy chỉnh bằng JSON <br>&emsp; + Cấu hình chính sách bắt buộc bật MFA | 24/06/2026 | 24/06/2026 | <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html> |
-| 5 | - **Thực hành:** <br>&emsp; + Tạo IAM Role cho EC2 truy cập S3 <br>&emsp; + Gắn IAM Role vào EC2 instance <br>&emsp; + Kiểm tra truy cập S3 từ EC2 không cần Hardcoded Access Key | 25/06/2026 | 25/06/2026 | <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html> |
-| 6 | - Tìm hiểu AWS Security Token Service (STS) và IAM Access Analyzer | 26/06/2026 | 26/06/2026 | <https://docs.aws.amazon.com/STS/latest/APIReference/Welcome.html> <br> <https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html> |
+## Kế hoạch theo ngày
 
+| Ngày | Công việc chính |
+|---|---|
+| Thứ 2 (15/06) | Tạo các S3 bucket cho frontend static files, testcases và user avatars bằng Terraform. |
+| Thứ 3 (16/06) | Cấu hình Block Public Access, encryption, versioning/lifecycle phù hợp và bucket policy theo nguyên tắc least privilege. |
+| Thứ 4 (17/06) | Tạo DynamoDB cho dữ liệu người dùng, bài toán và submission; xác định Partition Key, Sort Key và GSI cần thiết. |
+| Thứ 5 (18/06) | Chọn On-Demand/Pay-per-request cho môi trường Dev và kiểm tra khả năng truy vấn theo các use case chính. |
+| Thứ 6 (19/06) | Tạo IAM roles/policies riêng cho Lambda API Handler và Lambda Code Executor. |
 
-### Kết quả đạt được tuần 2:
-
-* Hiểu rõ cấu trúc JSON của một IAM Policy (Effect, Action, Resource, Condition).
-* Tạo và gắn thành công IAM Role cho EC2 instance để truy cập an toàn tài nguyên S3 mà không cần lưu credentials cố định.
-* Áp dụng nguyên tắc quyền tối thiểu và cấu hình chính sách bắt buộc xác thực 2 yếu tố (MFA).
+## Kết quả dự kiến
+- Có hạ tầng storage/database/IAM có thể tái tạo bằng Terraform và được kiểm tra theo nguyên tắc least privilege.

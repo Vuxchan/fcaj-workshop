@@ -11,23 +11,23 @@ reportTableColumns:
 reportType: worklog
 ---
 
-### Mục tiêu tuần 3:
+**Thời gian:** 22/06/2026 – 28/06/2026
+**Chủ đề:** Triển khai Frontend trên S3 và CDN CloudFront
 
-* Hiểu mạng ảo Amazon VPC (Virtual Private Cloud) và các thành phần hạ tầng mạng cốt lõi.
-* Nắm vững kỹ thuật phân chia CIDR, Public/Private Subnet, Internet Gateway, NAT Gateway, Route Table và bảo mật với Security Group & Bastion Host.
+## Mục tiêu tuần
+- Triển khai Frontend trên S3 và CDN CloudFront.
+- Tiếp tục xây dựng CodExecute theo kiến trúc AWS serverless đã thiết kế.
+- Ưu tiên Infrastructure as Code, bảo mật least privilege và khả năng tái tạo môi trường.
 
-### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu |
-| --- | --- | --- | --- | --- |
-| 2 | - Tìm hiểu cơ bản về VPC: IPv4 CIDR Block (`10.0.0.0/16`), quy hoạch chia Subnet (Public/Private Subnet đa vùng AZ) | 29/06/2026 | 29/06/2026 | <https://docs.aws.amazon.com/vpc/latest/userguide/configure-your-vpc.html> |
-| 3 | - Tìm hiểu Internet Gateway (IGW) và Route Table (Định tuyến Local & Default `0.0.0.0/0`) | 30/06/2026 | 30/06/2026 | <https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html> |
-| 4 | - **Thực hành:** <br>&emsp; + Khởi tạo Custom VPC <br>&emsp; + Phân chia 2 Public Subnet & 2 Private Subnet <br>&emsp; + Đính kèm Internet Gateway và cấu hình Public Route Table | 01/07/2026 | 01/07/2026 | <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-subnets-routing.html> |
-| 5 | - **Thực hành:** <br>&emsp; + Tạo NAT Gateway ở Public Subnet <br>&emsp; + Cấu hình Private Route Table trỏ traffic chiều ra qua NAT Gateway | 02/07/2026 | 02/07/2026 | <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html> |
-| 6 | - **Thực hành:** <br>&emsp; + Tạo Bastion Host ở Public Subnet <br>&emsp; + Thiết lập Security Groups và kết nối SSH an toàn tới máy chủ EC2 ở Private Subnet | 03/07/2026 | 03/07/2026 | <https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html> |
+## Kế hoạch theo ngày
 
+| Ngày | Công việc chính |
+|---|---|
+| Thứ 2 (22/06) | Build frontend production và xác định các static assets cần đưa lên S3. |
+| Thứ 3 (23/06) | Cấu hình S3 làm origin cho frontend và sử dụng Origin Access Control (OAC) để hạn chế truy cập trực tiếp. |
+| Thứ 4 (24/06) | Tạo CloudFront distribution cho frontend, cấu hình HTTPS, caching và default root object. |
+| Thứ 5 (25/06) | Cấu hình AWS WAF ở CloudFront để có lớp bảo vệ cơ bản cho public endpoint. |
+| Thứ 6 (26/06) | Thiết kế SPA routing/fallback để các route như `/login`, `/problems` và `/submissions` hoạt động đúng khi refresh. |
 
-### Kết quả đạt được tuần 3:
-
-* Thiết kế và xây dựng thành công hạ tầng Custom VPC đa vùng sẵn sàng (Multi-AZ) cô lập môi trường Public và Private.
-* Cấu hình thành công Internet Gateway và NAT Gateway điều phối lưu lượng mạng chiều vào và chiều ra an toàn.
-* Triển khai mô hình Bastion Host kết hợp Security Groups để quản trị các máy chủ nội bộ.
+## Kết quả dự kiến
+- Frontend được phục vụ qua CloudFront, S3 không public trực tiếp và SPA routing hoạt động ổn định.

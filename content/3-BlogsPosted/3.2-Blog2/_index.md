@@ -6,47 +6,49 @@ chapter: false
 pre: " <b> 3.2. </b> "
 ---
 
-# BUILDING AN END-TO-END AGENTIC SRE WITH AWS DEVOPS AGENT
+# Optimizing Storage Performance for Amazon EKS on AWS Outposts
 
-*With modern systems consisting of serverless functions, microservices, and event-driven architectures, incident response is becoming increasingly complex: engineers must manually correlate data across multiple monitoring tools while racing against SLA timers. AWS DevOps Agent aims to revolutionize this operational paradigm — acting as an autonomous, always-on AI agent that investigates incidents as they occur and supports multi-cloud and hybrid environments.*
+For those deploying hybrid cloud solutions and needing Kubernetes running on-premises, Amazon EKS on Outposts brings the familiar AWS managed Kubernetes experience directly to your datacenter. But this comes with a critical challenge: choosing the right storage option, as each type has different performance characteristics and constraints. This AWS article dives deep into storage options for EKS on Outposts and how to optimize them.
 
-### 1. Implementation Architecture
-The solution is organized across three separate AWS accounts segregated by responsibility:
-* **Demo Application Account:** Hosts production infrastructure, integrates CI/CD via CodePipeline, and uses CloudWatch, EventBridge, and a Lambda webhook handler for anomaly detection and incident forwarding.
-* **Splunk Account:** Manages centralized log aggregation and analytics, connected privately to the application account via VPC peering.
-* **AWS DevOps Agent Account:** Houses the automated investigation engine, receives incident webhooks, correlates data from CloudWatch, Splunk, and GitHub, and posts real-time investigation updates to Slack.
+## First, EKS on Outposts Has 2 Deployment Types
 
-### 2. Incident Handling Workflow
-**Automated Workflow:**  
-`CloudWatch Alarm → EventBridge → Lambda → DevOps Agent Webhook → Multi-source Investigation (Splunk, GitHub, CloudWatch) → Root Cause + Mitigation Plan → Slack`
+**Extended cluster** keeps the control plane in the AWS Region while worker nodes run on Outposts — requiring stable network connectivity to the Region via service link. **Local cluster** places the entire control plane on Outposts, making the cluster more independent, less dependent on Regional connectivity, and reducing latency for cluster management operations.
 
-When a CloudWatch alarm triggers, EventBridge calls Lambda to send the incident payload to DevOps Agent's webhook. The Agent immediately queries logs via Splunk MCP, fetches deployment history from GitHub, and correlates CloudWatch metrics with deploy events to reconstruct the application topology. From there, the agent analyzes temporal relationships between deployments and operational failures, determines the root cause, and generates a detailed mitigation plan complete with remediation steps, success criteria, and rollback procedures — all posted to Slack so engineers wake up to identified root causes rather than ongoing mysteries.
+## What Storage Options Are Available for Extended Clusters?
 
-### 3. Key Configuration Components
-* **Agent Space:** Defines the tools and infrastructure scope accessible to the agent, configured via Console or AWS CLI.
-* **Splunk Integration:** Enables Splunk MCP Server, configures auth tokens, and uses Better Webhooks to send alerts adhering to DevOps Agent schema.
-* **Slack Integration:** Enables direct communication within the SRE team's working channel.
-* **GitHub Integration:** Connects via OAuth (read access) allowing the agent to correlate source code changes with incidents.
-* **DevOps Agent Skills:** Defines custom investigation rules (e.g., Dynatrace for alarms, Splunk for logs, CloudWatch for serverless).
+### Amazon EBS
 
-### 4. From Diagnosis to Remediation
-After identifying root causes, the agent generates a 4-phase mitigation plan: **Prepare**, **Pre-Validate**, **Apply**, and **Post-Validate**. For code-level fixes, the agent produces an "agent-ready spec" — a structured instruction set handed off directly to a coding agent (like Kiro) to implement changes in the codebase, fully closing the loop from diagnosis to fix without manual translation.
+This is the choice for workloads requiring low latency and high IOPS/throughput. When running on Outposts, EBS volumes are stored on local hardware, delivering superior performance compared to network-based storage, with no dependency on external connectivity. Key consideration: EBS volumes are "locked" to a specific rack and AZ (creating a single point of failure risk), so remember to back up regularly with snapshots to the Region, and monitor capacity since Outposts capacity is finite.
 
-### 5. Conclusion
-By leveraging Agent Space, multi-source integrations, and agent-ready spec handoffs, SRE workflows transform from reactive firefighting to proactive automation, reducing MTTR from hours to minutes.
+### Amazon EFS
+
+Suitable when you need a shared file system accessible by multiple pods — for example, content management or distributed processing. However, unlike EBS, EFS is not a local service on Outposts. The file system remains in the Region, and worker nodes on Outposts mount it via the service link. This means additional network latency, throughput limited by service link bandwidth, continuous dependency on Regional connectivity, and additional data transfer costs.
+
+### Amazon S3 on Outposts
+
+This enables local object storage, using the same API as standard S3, making it suitable for data residency requirements such as logs, audit trails, or sensitive healthcare data. A technical note: use Access Point ARN instead of bucket ARN when integrating with EKS.
+
+## Which One Should You Choose?
+
+In essence: **EBS** for workloads requiring low-latency, high-throughput block storage; **EFS** when you need POSIX-compliant shared file systems; and **S3** when you need scalable object storage with broad API compatibility. Beyond choosing the right type, pay attention to proper volume sizing, regular usage monitoring, accurate CPU/memory request configuration, and leveraging auto-scaling to balance performance with cost.
+
+## Monitoring and Security
+
+Each storage type has specific metrics to monitor via CloudWatch:
+
+- **EBS**: IOPS, throughput, latency, burst balance
+- **EFS**: Total I/O, metadata operations, burst credit
+- **S3**: Request/error rate, latency, multipart upload efficiency
+
+For security, encrypt data across all three storage types (use KMS for EBS, encryption at rest/in transit for EFS, server/client-side encryption for S3), apply IAM least privilege combined with Kubernetes RBAC for pod-level access control.
+
+## Summary
+
+EKS on Outposts enables hybrid application development with diverse storage options, tailored to performance, compliance, and data residency requirements. Choosing the right storage for each workload, combined with leveraging Outposts' local infrastructure, helps reduce latency, minimize network dependency, and maintain consistency between cloud and on-premises environments.
 
 ---
 
-### Images & Diagrams
-<div align="center">
+**Source:** [AWS Compute Blog - Optimizing storage performance for Amazon EKS on AWS Outposts](https://aws.amazon.com/blogs/compute/optimizing-storage-performance-for-amazon-eks-on-aws-outposts/)
 
-![Solution Architecture](/images/3-BlogsPosted/3.2-Blog2/solution_architecture.png)
-
-<p style="font-size: 1.15rem; font-weight: 600; margin-top: 8px;">
-<i>Figure 1: Solution Architecture</i>
-</p>
-
-</div>
-
-### Links & References
-* **Original AWS Blog Article:** [https://aws.amazon.com/blogs/devops/building-an-end-to-end-agentic-sre-using-aws-devops-agent/](https://aws.amazon.com/blogs/devops/building-an-end-to-end-agentic-sre-using-aws-devops-agent/)
+**Proof:** <img src="/images/3-BlogsPosted/3.2-Blog2/blog2.png" 
+     style="width: 70%; max-width: 600px; height: auto; border-radius: 8px; box-shadow: 0 6px 20px rgba(0,0,0,0.15); display: block; margin: 0 auto;">

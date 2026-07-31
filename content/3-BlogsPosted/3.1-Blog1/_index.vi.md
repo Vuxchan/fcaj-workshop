@@ -7,44 +7,43 @@ pre: " <b> 3.1. </b> "
 includeInReport: false
 ---
 
-# AMAZON BEDROCK & NOVA PRO: PHÂN TÍCH SỰ CỐ VẬN HÀNH BẰNG AI ĐA PHƯƠNG THỨC
+# Nâng Cao Trải Nghiệm Test Local Cho Ứng Dụng Serverless Với LocalStack
 
-*Khi một ứng dụng cloud-native gặp sự cố, đội ngũ vận hành thường phải rà soát hàng loạt nguồn dữ liệu quan sát (observability) khác nhau trong áp lực khôi phục dịch vụ càng nhanh càng tốt. Bài viết giới thiệu cách kết hợp Amazon Bedrock và Amazon Nova Pro để xây dựng hệ thống phân tích sự cố tự động, có khả năng xử lý đồng thời cả dữ liệu văn bản lẫn hình ảnh.*
+Chào mọi người, đối với những ai thường hay làm việc với các dịch vụ serverless như Lambda, SQS, EventBridge hay DynamoDB, chắc hẳn không ít lần gặp cảnh phải deploy lên cloud chỉ để test thử một thay đổi nhỏ, rồi lại phải nhảy qua nhảy lại giữa IDE, CLI và các công cụ emulator --- vừa mất thời gian, vừa dễ phát sinh lỗi cấu hình không đồng nhất giữa local và cloud. Thì LocalStack chính là giải pháp giúp giải quyết bài toán này, và mới đây AWS đã tích hợp trực tiếp LocalStack vào AWS Toolkit for VS Code để việc test và debug serverless trở nên mượt mà hơn hẳn.
 
-### 1. Bài toán vận hành
-Các công cụ giám sát truyền thống chỉ dừng lại ở việc cảnh báo khi sự cố xảy ra, còn việc phân tích và tương quan dữ liệu phức tạp vẫn phải dựa vào con người. Quá trình này vốn tốn nhiều thời gian và dễ sai sót, khiến thời gian downtime kéo dài và ảnh hưởng đến trải nghiệm khách hàng. Bài toán đặt ra là làm sao tự động hóa được bước phân tích này mà không đòi hỏi đội ngũ vận hành phải có chuyên môn sâu về machine learning hay data science.
+## Vậy LocalStack giúp được gì?
 
-### 2. Cơ chế hoạt động
-**Luồng xử lý:**  
-`Nguồn dữ liệu quan sát (CloudWatch, Config, X-Ray, sơ đồ kiến trúc) → Thu thập & lưu trữ (Amazon S3) → Phân tích đa phương thức (Amazon Bedrock + Nova Pro) → Insight & đề xuất khắc phục`
+Về cơ bản, đây là một cloud service emulator cho phép mô phỏng lại các dịch vụ AWS ngay trên máy local để mình dev và test mà không cần deploy thật. Sau khi tích hợp vào VS Code, trải nghiệm được cải thiện ở 4 điểm chính:
 
-Hệ thống vận hành theo bốn giai đoạn chính:
-* **Thu thập dữ liệu:** Dữ liệu được thu thập và tương quan từ nhiều nguồn hạ tầng khác nhau: chỉ số từ Amazon CloudWatch, lịch sử thay đổi cấu hình từ AWS Config, và các dấu vết request (traces) từ AWS X-Ray. Khi sự cố xảy ra, script thu thập dữ liệu sẽ chụp lại toàn bộ thông tin liên quan trong khoảng thời gian xảy ra outage và lưu vào Amazon S3.
-* **Phân tích đa phương thức:** Script gọi đến Amazon Bedrock với model Amazon Nova Pro — mô hình có khả năng xử lý đa phương thức (multimodal), tức đọc hiểu được cả dữ liệu văn bản (log, metric) lẫn dữ liệu hình ảnh (sơ đồ kiến trúc hệ thống) trong cùng một lần suy luận. Nhờ vậy, mô hình không chỉ phân tích số liệu thô mà còn "nhìn" được cấu trúc hệ thống để hiểu bối cảnh sự cố sâu hơn.
-* **Đề xuất khắc phục:** Kết quả đầu ra là một bộ insight toàn diện: danh sách các nguyên nhân khả nghi được xếp hạng theo xác suất, các bước xử lý sự cố cụ thể, và nội dung thông báo gợi ý để gửi đến khách hàng — giúp đội vận hành nhanh chóng áp dụng bản sửa lỗi và rút ngắn đáng kể Mean Time to Resolution (MTTR).
+- Kết nối và quản lý resource local ngay trong VS Code, chung giao diện với resource cloud, khỏi phải mở thêm tool khác.
 
-### 3. Quy trình triển khai thực nghiệm
-Để minh họa cụ thể, bài viết sử dụng PetShop làm ví dụ:
-1. Thiết lập Amazon S3 bucket để lưu dữ liệu quan sát và sơ đồ kiến trúc ứng dụng.
-2. Giả lập sự cố bằng cách thay đổi rule của security group trên load balancer để chặn traffic HTTP.
-3. Chạy script thu thập dữ liệu để lấy chỉ số CloudWatch, thay đổi cấu hình từ AWS Config và trace từ X-Ray, tải toàn bộ lên S3.
-4. Chạy script phân tích gọi Amazon Bedrock với Nova Pro để xử lý dữ liệu đa phương thức và xuất ra khuyến nghị khắc phục.
+- Test được cả các tương tác giữa Lambda với SQS, DynamoDB, EventBridge... ngay trên local.
 
-### 4. Kết luận
-Việc kết hợp các dịch vụ observability của AWS với generative AI mở ra một hướng tiếp cận mới cho công tác phản ứng sự cố: tự động hóa bước phân tích dữ liệu đa chiều vốn tốn nhiều thời gian nhất, đồng thời nâng cao chất lượng giao tiếp với khách hàng trong quá trình xử lý sự cố. Đây không chỉ là giải pháp cho các thách thức vận hành hiện tại, mà còn có khả năng mở rộng để đáp ứng độ phức tạp ngày càng tăng của hạ tầng cloud hiện đại.
+- Debug chỉ với một click, không cần config port thủ công hay sửa code như trước.
+
+- Toàn bộ quy trình deploy - test - debug đều nằm gọn trong IDE, không phải context-switch qua lại nữa.
+
+## Setup thì sao, có phức tạp không?
+
+Cái hay là quá trình setup gần như tự động hoàn toàn. Cài extension xong, nó tự detect xem máy đã config LocalStack chưa, nếu chưa thì có wizard hướng dẫn luôn. Wizard này lo cả phần xác thực (mở browser để login) lẫn tự tạo AWS CLI profile riêng cho LocalStack (update vào ~/.aws/config và ~/.aws/credentials), nên mình không phải tự tay chỉnh endpoint hay credential gì cả. Sau khi setup xong một lần, config này lưu lại luôn cho những lần dùng VS Code sau, không phải làm lại.
+
+## Demo thực tế
+
+Bài viết minh họa bằng một hệ thống xử lý đơn hàng event-driven: request từ API Gateway → đẩy vào SQS → Lambda xử lý → publish qua SNS để gửi email thông báo. Toàn bộ luồng này có thể deploy, debug (set breakpoint, step qua từng dòng như debug bình thường), và validate end-to-end ngay trên LocalStack mà không cần đụng đến tài khoản AWS thật.
+
+## Một vài lưu ý khi áp dụng
+
+Về chiến lược test, nên đi theo hướng phân lớp: bắt đầu bằng unit test cho logic thuần túy, sau đó integration test với LocalStack để check tương tác giữa các service, rồi mới lên cloud thật để validate những thứ LocalStack không mô phỏng chính xác được --- như IAM permission, VPC networking, hay load test hiệu năng thực tế.
+
+Về bảo mật, nhớ cô lập môi trường local (bind LocalStack vào localhost, giới hạn qua Docker network), dùng credential giả (kiểu test/test) thay vì credential AWS thật, và dùng data giả lập thay vì data production.
+
+## Tóm lại
+
+LocalStack + AWS Toolkit giúp rút ngắn đáng kể vòng lặp code-test-debug cho serverless, giảm hẳn việc phải chờ deploy cloud mới biết code có chạy đúng không. Nhưng cũng cần nhớ rõ: local test nhanh và tiết kiệm, còn những thứ liên quan đến hạ tầng thật (IAM, VPC, load test) thì vẫn phải lên cloud để validate lần cuối trước khi release.
 
 ---
 
-### Hình ảnh & Minh họa
-<div align="center">
+**Nguồn:** [AWS Compute Blog - Enhance the local testing experience for serverless applications with LocalStack](https://aws.amazon.com/blogs/compute/enhance-the-local-testing-experience-for-serverless-applications-with-localstack/)
 
-![Sơ đồ kiến trúc xử lý sự cố đa phương thức bằng Amazon Bedrock](/images/3-BlogsPosted/3.1-Blog1/solution_architecture.jpg)
-
-<p style="font-size: 1.15rem; font-weight: 600; margin-top: 8px;">
-<i>Hình 1: Sơ đồ mô tả quy trình xử lý sự cố đa phương thức bằng Amazon Bedrock</i>
-</p>
-
-</div>
-
-### Link bài viết & Tham khảo
-* **Link bài viết gốc (AWS Blog):** [https://aws.amazon.com/blogs/mt/using-amazon-bedrock-and-amazon-nova-for-ai-powered-incident-response/](https://aws.amazon.com/blogs/mt/using-amazon-bedrock-and-amazon-nova-for-ai-powered-incident-response/)
+**Minh chứng:** <img src="/images/3-BlogsPosted/3.1-Blog1/blog1.png" 
+     style="width: 70%; max-width: 600px; height: auto; border-radius: 8px; box-shadow: 0 6px 20px rgba(0,0,0,0.15); display: block; margin: 0 auto;">

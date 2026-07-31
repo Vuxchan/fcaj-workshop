@@ -7,11 +7,11 @@ chapter: false
 
 # Báo cáo thực tập
 ### Thông tin sinh viên:
-&emsp; **Họ và tên:** Nguyễn Phú Vinh
+&emsp; **Họ và tên:** Lư Chấn Vũ
 
-&emsp; **Số điện thoại:** 0834934524
+&emsp; **Số điện thoại:** 0796396093
 
-&emsp; **Email:** vinh.nguyenphu@hcmut.edu.vn
+&emsp; **Email:** vu.lu83127@hcmut.edu.vn
 
 &emsp; **Trường:** Trường Đại học Bách khoa - ĐHQG TP.HCM
 

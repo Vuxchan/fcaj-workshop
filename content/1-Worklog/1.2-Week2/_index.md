@@ -16,23 +16,24 @@ reportHeadings:
 reportType: worklog
 ---
 
-### Week 2 Objectives:
+**Period:** 15/06/2026 – 21/06/2026
+**Theme:** Build storage, database and IAM foundations with Terraform
 
-* Understand AWS IAM core concepts: Users, Groups, Roles, and Policies.
-* Learn AWS security best practices: Least privilege, MFA, and temporary credentials.
+## Weekly Objectives
+- Build storage, database and IAM foundations with Terraform.
+- Continue building CodExecute according to the designed AWS serverless architecture.
+- Prioritize Infrastructure as Code, least-privilege security and reproducible environments.
 
-### Tasks to be carried out this week:
-| Day | Task | Start Date | Completion Date | Reference Material |
-| --- | --- | --- | --- | --- |
-| 2 | - Learn IAM fundamentals: IAM Users, Groups, and Managed Policies vs Inline Policies | 06/22/2026 | 06/22/2026 | <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users.html> |
-| 3 | - Learn IAM Roles & Trust Relationships (EC2 Service Roles, Cross-account access) | 06/23/2026 | 06/23/2026 | <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html> |
-| 4 | - **Practice:** <br>&emsp; + Create IAM Users and Groups <br>&emsp; + Attach Custom JSON Policies <br>&emsp; + Enforce MFA policy for admin users | 06/24/2026 | 06/24/2026 | <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html> |
-| 5 | - **Practice:** <br>&emsp; + Create IAM Role for EC2 with S3 ReadAccess <br>&emsp; + Attach role to EC2 instance <br>&emsp; + Verify S3 access without hardcoded keys | 06/25/2026 | 06/25/2026 | <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html> |
-| 6 | - Learn about AWS Security Token Service (STS) and IAM Access Analyzer | 06/26/2026 | 06/26/2026 | <https://docs.aws.amazon.com/STS/latest/APIReference/Welcome.html> <br> <https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html> |
+## Daily Plan
 
+| Day | Task |
+|---|---|
+| Monday (15/06) | Create S3 buckets for frontend static files, testcases and user avatars with Terraform. |
+| Tuesday (16/06) | Configure Block Public Access, encryption, suitable versioning/lifecycle rules, and least-privilege bucket policies. |
+| Wednesday (17/06) | Create DynamoDB resources for users, problems and submissions; define the required partition keys, sort keys and GSIs. |
+| Thursday (18/06) | Use On-Demand/Pay-per-request capacity for the Dev environment and validate the main query patterns. |
+| Friday (19/06) | Create separate IAM roles/policies for the Lambda API Handler and Lambda Code Executor. |
 
-### Week 2 Achievements:
+## Expected Outcomes
+- A reproducible storage/database/IAM foundation managed by Terraform and reviewed for least privilege.
 
-* Understood the structure of IAM Policies (Effect, Action, Resource, Condition).
-* Successfully created and configured IAM Roles for EC2 instances to securely access S3 buckets without storing long-term credentials.
-* Applied least-privilege principles and configured Multi-Factor Authentication (MFA) enforcement.
