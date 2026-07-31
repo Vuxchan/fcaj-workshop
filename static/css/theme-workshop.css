@@ -238,11 +238,21 @@ a:hover {
   width: 100% !important;
 }
 
+#sidebar ul.topics > li.parent,
+#sidebar ul.topics > li.active {
+  background: transparent !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  width: 100% !important;
+}
+
 #sidebar ul.topics li a {
   color: #94A3B8 !important;
   font-weight: 500 !important;
   font-size: 14px !important;
-  padding: 8px 10px !important;
+  padding: 9px 12px !important;
   border-radius: 8px !important;
   display: flex !important;
   align-items: flex-start !important;
@@ -270,7 +280,7 @@ a:hover {
 }
 
 #sidebar ul li.active > a {
-  background: rgba(56, 189, 248, 0.12) !important;
+  background: rgba(56, 189, 248, 0.16) !important;
   color: #38BDF8 !important;
   font-weight: 600 !important;
   border-left: none !important;
@@ -437,10 +447,10 @@ a.nav.nav-prev:hover, a.nav.nav-next:hover,
    TABLES STYLING WITH HORIZONTAL OVERFLOW CONTAINMENT
    ========================================================================== */
 table {
-  width: 100%;
+  width: 100% !important;
   max-width: 100% !important;
-  display: block !important;
-  overflow-x: auto !important;
+  display: table !important;
+  table-layout: fixed !important;
   border-collapse: separate !important;
   border-spacing: 0 !important;
   margin: 2rem 0 !important;
@@ -458,7 +468,9 @@ th {
   letter-spacing: 0.04em !important;
   padding: 12px 14px !important;
   border-bottom: 2px solid #E2E8F0 !important;
-  white-space: nowrap !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
 }
 
 td {
@@ -466,13 +478,111 @@ td {
   font-size: 15px !important;
   border-bottom: 1px solid #F1F5F9 !important;
   color: #334155 !important;
+  white-space: normal !important;
+  word-break: break-word !important;
 }
 
-/* Prevent line wrapping for date & day columns in worklog tables */
-td:nth-child(1),
-td:nth-child(3),
-td:nth-child(4) {
+/* ==========================================================================
+   SYNCHRONIZED COLUMN PROPORTIONS (WORKLOG, PROPOSAL, & WORKSHOP TABLES)
+   ========================================================================== */
+
+/* 5-Column Worklog Tables (Synchronized across all 7 weeks) */
+table tr > th:first-child:nth-last-child(5),
+table tr > td:first-child:nth-last-child(5) {
+  width: 6% !important;
+  text-align: center !important;
+}
+
+table tr > th:nth-child(2):nth-last-child(4),
+table tr > td:nth-child(2):nth-last-child(4) {
+  width: 40% !important;
+  word-break: break-word !important;
+}
+
+table tr > th:nth-child(3):nth-last-child(3),
+table tr > td:nth-child(3):nth-last-child(3) {
+  width: 12% !important;
   white-space: nowrap !important;
+}
+
+table tr > th:nth-child(4):nth-last-child(2),
+table tr > td:nth-child(4):nth-last-child(2) {
+  width: 12% !important;
+  white-space: nowrap !important;
+}
+
+table tr > th:nth-child(5):nth-last-child(1),
+table tr > td:nth-child(5):nth-last-child(1) {
+  width: 30% !important;
+  word-break: break-all !important;
+  overflow-wrap: anywhere !important;
+}
+
+/* 2-Column Tables (Proposal Comparison) */
+table tr > th:first-child:nth-last-child(2),
+table tr > td:first-child:nth-last-child(2),
+table tr > th:nth-child(2):nth-last-child(1),
+table tr > td:nth-child(2):nth-last-child(1) {
+  width: 50% !important;
+  word-break: break-word !important;
+}
+
+/* 4-Column Tables (Roadmap & Budget) */
+table tr > th:first-child:nth-last-child(4),
+table tr > td:first-child:nth-last-child(4) {
+  width: 15% !important;
+}
+table tr > th:nth-child(2):nth-last-child(3),
+table tr > td:nth-child(2):nth-last-child(3) {
+  width: 25% !important;
+}
+table tr > th:nth-child(3):nth-last-child(2),
+table tr > td:nth-child(3):nth-last-child(2) {
+  width: 38% !important;
+}
+table tr > th:nth-child(4):nth-last-child(1),
+table tr > td:nth-child(4):nth-last-child(1) {
+  width: 22% !important;
+}
+
+/* Self-Evaluation / Self-Assessment Table (Compact Width & Balanced Columns) */
+body[data-url*="self-evaluation"] table,
+body[data-url*="6-self-evaluation"] table {
+  max-width: 900px !important;
+  margin: 2rem auto !important;
+}
+
+body[data-url*="self-evaluation"] table tr > th:first-child:nth-last-child(4),
+body[data-url*="self-evaluation"] table tr > td:first-child:nth-last-child(4),
+body[data-url*="6-self-evaluation"] table tr > th:first-child:nth-last-child(4),
+body[data-url*="6-self-evaluation"] table tr > td:first-child:nth-last-child(4) {
+  width: 6% !important;
+  text-align: center !important;
+}
+
+body[data-url*="self-evaluation"] table tr > th:nth-child(2):nth-last-child(3),
+body[data-url*="self-evaluation"] table tr > td:nth-child(2):nth-last-child(3),
+body[data-url*="6-self-evaluation"] table tr > th:nth-child(2):nth-last-child(3),
+body[data-url*="6-self-evaluation"] table tr > td:nth-child(2):nth-last-child(3) {
+  width: 28% !important;
+  word-break: break-word !important;
+}
+
+body[data-url*="self-evaluation"] table tr > th:nth-child(3):nth-last-child(2),
+body[data-url*="self-evaluation"] table tr > td:nth-child(3):nth-last-child(2),
+body[data-url*="6-self-evaluation"] table tr > th:nth-child(3):nth-last-child(2),
+body[data-url*="6-self-evaluation"] table tr > td:nth-child(3):nth-last-child(2) {
+  width: 52% !important;
+  word-break: break-word !important;
+}
+
+body[data-url*="self-evaluation"] table tr > th:nth-child(4):nth-last-child(1),
+body[data-url*="self-evaluation"] table tr > td:nth-child(4):nth-last-child(1),
+body[data-url*="6-self-evaluation"] table tr > th:nth-child(4):nth-last-child(1),
+body[data-url*="6-self-evaluation"] table tr > td:nth-child(4):nth-last-child(1) {
+  width: 13% !important;
+  text-align: center !important;
+  font-weight: 600 !important;
 }
 
 tr:last-child td {
@@ -491,11 +601,16 @@ tr:hover {
 #body-inner p,
 #body-inner li,
 #body-inner td,
-#body-inner th,
 #body-inner blockquote,
 #body-inner div {
   overflow-wrap: break-word !important;
   word-break: break-word !important;
+}
+
+#body-inner th {
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+  white-space: normal !important;
 }
 
 code {
