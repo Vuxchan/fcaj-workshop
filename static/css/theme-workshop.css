@@ -487,35 +487,91 @@ td {
    ========================================================================== */
 
 /* 5-Column Worklog Tables (Synchronized across all 7 weeks) */
-table tr > th:first-child:nth-last-child(5),
-table tr > td:first-child:nth-last-child(5) {
+body[data-url*="worklog"] table tr > th:first-child:nth-last-child(5),
+body[data-url*="worklog"] table tr > td:first-child:nth-last-child(5),
+body[data-url*="1-worklog"] table tr > th:first-child:nth-last-child(5),
+body[data-url*="1-worklog"] table tr > td:first-child:nth-last-child(5) {
   width: 6% !important;
   text-align: center !important;
 }
 
-table tr > th:nth-child(2):nth-last-child(4),
-table tr > td:nth-child(2):nth-last-child(4) {
+body[data-url*="worklog"] table tr > th:nth-child(2):nth-last-child(4),
+body[data-url*="worklog"] table tr > td:nth-child(2):nth-last-child(4),
+body[data-url*="1-worklog"] table tr > th:nth-child(2):nth-last-child(4),
+body[data-url*="1-worklog"] table tr > td:nth-child(2):nth-last-child(4) {
   width: 40% !important;
   word-break: break-word !important;
 }
 
-table tr > th:nth-child(3):nth-last-child(3),
-table tr > td:nth-child(3):nth-last-child(3) {
+body[data-url*="worklog"] table tr > th:nth-child(3):nth-last-child(3),
+body[data-url*="worklog"] table tr > td:nth-child(3):nth-last-child(3),
+body[data-url*="1-worklog"] table tr > th:nth-child(3):nth-last-child(3),
+body[data-url*="1-worklog"] table tr > td:nth-child(3):nth-last-child(3) {
   width: 12% !important;
   white-space: nowrap !important;
 }
 
-table tr > th:nth-child(4):nth-last-child(2),
-table tr > td:nth-child(4):nth-last-child(2) {
+body[data-url*="worklog"] table tr > th:nth-child(4):nth-last-child(2),
+body[data-url*="worklog"] table tr > td:nth-child(4):nth-last-child(2),
+body[data-url*="1-worklog"] table tr > th:nth-child(4):nth-last-child(2),
+body[data-url*="1-worklog"] table tr > td:nth-child(4):nth-last-child(2) {
   width: 12% !important;
   white-space: nowrap !important;
 }
 
-table tr > th:nth-child(5):nth-last-child(1),
-table tr > td:nth-child(5):nth-last-child(1) {
+body[data-url*="worklog"] table tr > th:nth-child(5):nth-last-child(1),
+body[data-url*="worklog"] table tr > td:nth-child(5):nth-last-child(1),
+body[data-url*="1-worklog"] table tr > th:nth-child(5):nth-last-child(1),
+body[data-url*="1-worklog"] table tr > td:nth-child(5):nth-last-child(1) {
   width: 30% !important;
   word-break: break-all !important;
   overflow-wrap: anywhere !important;
+}
+
+/* 5-Column Proposal Tables (Section 10 Risk Assessment) */
+body[data-url*="proposal"] table tr > th:first-child:nth-last-child(5),
+body[data-url*="proposal"] table tr > td:first-child:nth-last-child(5),
+body[data-url*="2-proposal"] table tr > th:first-child:nth-last-child(5),
+body[data-url*="2-proposal"] table tr > td:first-child:nth-last-child(5) {
+  width: 5% !important;
+  text-align: center !important;
+}
+
+body[data-url*="proposal"] table tr > th:nth-child(2):nth-last-child(4),
+body[data-url*="proposal"] table tr > td:nth-child(2):nth-last-child(4),
+body[data-url*="2-proposal"] table tr > th:nth-child(2):nth-last-child(4),
+body[data-url*="2-proposal"] table tr > td:nth-child(2):nth-last-child(4) {
+  width: 15% !important;
+  word-break: break-word !important;
+  font-weight: 600 !important;
+}
+
+body[data-url*="proposal"] table tr > th:nth-child(3):nth-last-child(3),
+body[data-url*="proposal"] table tr > td:nth-child(3):nth-last-child(3),
+body[data-url*="2-proposal"] table tr > th:nth-child(3):nth-last-child(3),
+body[data-url*="2-proposal"] table tr > td:nth-child(3):nth-last-child(3) {
+  width: 35% !important;
+  white-space: normal !important;
+  word-break: break-word !important;
+}
+
+body[data-url*="proposal"] table tr > th:nth-child(4):nth-last-child(2),
+body[data-url*="proposal"] table tr > td:nth-child(4):nth-last-child(2),
+body[data-url*="2-proposal"] table tr > th:nth-child(4):nth-last-child(2),
+body[data-url*="2-proposal"] table tr > td:nth-child(4):nth-last-child(2) {
+  width: 10% !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  font-weight: 700 !important;
+}
+
+body[data-url*="proposal"] table tr > th:nth-child(5):nth-last-child(1),
+body[data-url*="proposal"] table tr > td:nth-child(5):nth-last-child(1),
+body[data-url*="2-proposal"] table tr > th:nth-child(5):nth-last-child(1),
+body[data-url*="2-proposal"] table tr > td:nth-child(5):nth-last-child(1) {
+  width: 35% !important;
+  white-space: normal !important;
+  word-break: break-word !important;
 }
 
 /* 2-Column Tables (Proposal Comparison) */
