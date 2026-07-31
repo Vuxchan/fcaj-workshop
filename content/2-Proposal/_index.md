@@ -17,7 +17,7 @@ Built 100% on a **Pure Serverless Cloud-Native AWS** architecture, CodExecute le
 
 <div align="center" style="margin: 24px 0;">
 
-<img src="/images/2-Proposal/project_overview.png" alt="CodExecute Online Judge Platform Interface Overview" style="width: 95%; max-width: 1100px; border-radius: 8px; box-shadow: 0 6px 20px rgba(0,0,0,0.15);">
+<img src="/images/5-Workshop/5.1-Workshop-overview/project_overview.png" alt="CodExecute Online Judge Platform Interface Overview" style="width: 95%; max-width: 1100px; border-radius: 8px; box-shadow: 0 6px 20px rgba(0,0,0,0.15);">
 
 <p style="font-size: 1.05rem; font-weight: 600; margin-top: 10px; color: #475569;">
 <i>CodExecute Platform Overview: Automated Online Judge &amp; Developer Social Platform</i>
