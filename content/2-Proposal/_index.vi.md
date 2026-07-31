@@ -89,7 +89,7 @@ Kiến trúc của **CodExecute** tuân thủ 5 trụ cột của **AWS Well-Arc
 5. **Cost Optimization (Tối ưu chi phí):** Áp dụng triệt để kiến trúc Pure Serverless Event-Driven (Lambda Pay-As-You-Go).
 
 ### Sơ đồ kiến trúc của dự án
-![Sơ đồ kiến trúc CodExecute](/images/architect-codexecute.png)
+![Sơ đồ kiến trúc CodExecute](/images/architect-codexecute.drawio.png)
 
 ### Phân Tích Phân Lớp Kiến Trúc (Architecture Layers)
 Dựa trên sơ đồ kiến trúc tổng quan chuẩn AWS, hệ thống CodExecute được thiết kế phân thành 6 lớp chức năng hoạt động tại AWS Region `ap-southeast-1`:
